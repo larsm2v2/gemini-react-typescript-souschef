@@ -1,0 +1,195 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 600vh;
+    background-color: #282c34;
+    color: #777;
+    display: flex;
+    justify-content: center;
+  }
+  
+  p {
+    font-weight: 200;
+    font-size: 14px;
+  }
+  
+  .search-result {
+    min-width: 50%;
+    min-height: 25%;
+    margin-top: 10px;
+    overflow: scroll;
+  }
+  
+  .surprise {
+    background-color: #b2b6aa;
+    color: #000;
+    border-radius: 5px;
+    font-weight: 600;
+    font-weight: bold;
+    padding: 4px 12px;
+    margin: 0 0 2px 5px;
+    border: none;
+  }
+  
+  .input-container-last {
+    width: 100%;
+    display: flex;
+    border: solid 0.5px #cacaca;
+    box-sizing: border-box;
+    border-radius: 6px;
+    box-shadow: rgba(0,0,82,0.15) 0 2px 4px;
+    overflow: hidden
+  }
+  
+  .input-container-last input{
+    border: none;
+    padding: 13px 14px;
+    box-sizing: border-box;
+    font-size: 15px;
+    outline: none;
+    width: 90%;
+    font-weight: 200;
+  }
+  
+  .input-container-last input::placeholder{
+    border: none;
+    color: #cacaca;
+    font-weight: 200;
+  }
+  
+  .input-container-last button{
+    min-width: 10%;
+    border: none;
+    border-left: 1px solid #cacaca;
+    background-color: #fff;
+    color: #777;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .input-container-last button:active{
+    background-color: #cacaca;
+  }
+  
+  .input-container {
+    width: 100%;
+    display: flex;
+    border: solid 0.5px #cacaca;
+    box-sizing: border-box;
+    border-radius: 6px;
+    box-shadow: rgba(0,0,82,0.15) 0 2px 4px;
+    overflow: hidden;
+    height: auto;
+    font-size: auto;
+  }
+  
+  .input-container input{
+    border: none;
+    padding: 13px 14px;
+    box-sizing: border-box;
+    font-size: 15px;
+    outline: none;
+    width: 100%;
+    font-weight: 200;
+  }
+  
+  .input-container input::placeholder{
+    border: none;
+    color: #cacaca;
+    font-weight: 200;
+  }
+  
+  .input-container button{
+    min-width: 0%;
+    border: none;
+    border-left: 1px solid #cacaca;
+    background-color: #fff;
+    color: #777;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .input-container button:active{
+    background-color: #cacaca;
+  }
+
+  .answer {
+    padding: 13px 14px;
+    border: solid 0.5px #cacaca;
+    min-width: 50%;
+    min-height: 15%;
+    background-color: #fff;
+    margin: 5px;
+    font-size: 15px;
+    font-weight: 200;
+    border-radius: 6px;
+  }
+
+.souschef-prompt {
+    font-family: sans-serif;
+    width: 80vw;
+    height: auto;
+    margin: 0vw 5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.typewriterpro {
+  font-size: clamp(1rem, 3vw, + 1rem, 4rem);
+  position: relative;
+  font-family:"Source Sans Pro"
+
+}
+
+.typewriterpro::before,
+.typewriterpro::after {
+  background: none;
+  content:'';
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.typewriterpro::before {
+  background: teal;
+  animation: typewriterproptype 10s ease forwards;
+
+}
+
+@keyframes typewriterprotype {
+  to { 
+    left: 100%;
+  }
+}
+
+.typewriter {
+  font-family:"Source Sans Pro";
+  width: 26.5em;
+  min-height: auto;
+  animation: typing 6s steps(100, end),blink-caret 1s step-end infinite;
+  overflow: hidden;
+  border-right: .15em solid #555;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .1em; /* Adjust as needed */
+  font-size: auto;
+
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #555; }
+}
