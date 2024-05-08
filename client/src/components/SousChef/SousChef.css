@@ -168,9 +168,9 @@ body {
 
 .typewriter {
   font-family:"Source Sans Pro";
-  width: 26.5em;
+  width: 56em;
   min-height: auto;
-  animation: typing 6s steps(100, end),blink-caret 1s step-end infinite;
+  animation: typing 9s steps(130, end),blink-caret 1s step-end infinite;
   overflow: hidden;
   border-right: .15em solid #555;
   white-space: nowrap;
@@ -185,7 +185,7 @@ body {
     width: 0;
   }
   to {
-    width: 100%;
+    width: 56em;
   }
 }
 

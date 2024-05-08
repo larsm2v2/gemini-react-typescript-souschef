@@ -15,7 +15,7 @@ app.post("/gemini", async (req, res) => {
   const chat = model.startChat({
     history: req.body.history,
     generationConfig: {
-      maxOutputTokens: 100,
+      /* maxOutputTokens: 100, */
     },
   });
   const msg = req.body.message;

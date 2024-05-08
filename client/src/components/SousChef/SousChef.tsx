@@ -79,7 +79,7 @@ const SousChef = () => {
     return (
         <div className="souschef-prompt">
           <h1>mySousChef</h1>
-          <p className="typewriter">Hi, I'm here to sous-chef you...ask me about a recipe</p>
+          <p className="typewriter">Hi, I'm here to sous-chef you...tell me about a recipe that you'd like to find or a grocery list you'd like to create</p>
             <button
               className="surprise"
               onClick={surprise}
@@ -91,6 +91,7 @@ const SousChef = () => {
             <input
               value={value}
               placeholder="Show me a recipe for arroz con pollo...?"
+              //Add "Continue your prompt"
               onChange={(e) => {
                 setValue(e.target.value);
               }}

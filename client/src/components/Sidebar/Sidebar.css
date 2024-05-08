@@ -1,0 +1,45 @@
+.sidebar {
+ min-height: 100vh;
+ display: inline-flex;
+ flex-direction: column;
+ justify-content: space-between;
+ background-color: #282c34;
+ border:gold;
+ padding: 25px 15px;
+}
+
+.sidebar img {
+width: 20px;
+color:black;
+
+}
+
+.top {
+
+}
+.sidebar .menu {
+    display: block;
+    margin-left: 10px;
+    cursor: pointer;
+
+}
+.sidebar .new-chat{
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    background-color: #282c34;
+}
+.recent{
+
+}
+.recent-title{
+
+}
+.bottom{
+
+}
+.bottom-item recent-entry {
+
+}
