@@ -1,38 +1,33 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import SousChef from "./components/SousChef/SousChef";
-import OCR from "./components/OCR/OCR";
-import Recipes from "./components/Recipes/Recipes";
-import ShoppingList from './components/ShoppingList/ShoppingList';
 import Sidebar from "./components/Sidebar/Sidebar";
-
-/* const navbarRef = null;
-const souschefRef = useRef(null);
-const shoppinglistRef = useRef(null);
-const recipesRef = useRef(null);
-const ocrRef = useRef(null); */
+import "./components/Sidebar/Sidebar.css"
+import SousChef from "./components/SousChef/SousChef";
+import ShoppingList from './components/ShoppingList/ShoppingList';
+import Recipes from "./components/Recipes/Recipes";
+import OCR from "./components/OCR/OCR";
 
 function App() {
-
+  const [sidebarToggled, setSidebarToggled] = useState(false)
   return (
     <Fragment>
-      <div>
+      <div className={`${sidebarToggled ? 'sidebar' :'sidebar-hidden'}`}>
         <Sidebar/>
       </div>
-      <nav className="nav">
-        <Navbar/>
+      <nav className="nav-items">
+        <Navbar sidebarToggled={sidebarToggled} setSidebarToggled={setSidebarToggled}/>
       </nav>
-      <div id= "souschef" >
+      <div className="App-souchef" id= "souschef" >
         <SousChef/>
       </div>
-      <div id="shoppinglist">
+      <div className="App-shoppinglist" id="shoppinglist">
         <ShoppingList/>
       </div>
-      <div id="recipes">
+      <div className="App-recipes" id="recipes">
         <Recipes/>
       </div>
-      <div id="ocr">
+      <div className="App-ocr" id="ocr">
         <OCR/>
       </div>
     </Fragment>

@@ -20,7 +20,6 @@ const OCR = () => {
   }
  
   const handleClick = () => {
-    
     const canvas = canvasRef.current;
     if (!canvas) {
       console.error('Canvas is not defined');
@@ -71,7 +70,6 @@ const OCR = () => {
  
   return (
     <div className="OCR-container">
-      <main className="OCR-main">
       <h1>myImport</h1>
         <h3>Actual image uploaded</h3>
         <img 
@@ -86,7 +84,6 @@ const OCR = () => {
         </div>
         <input type="file" onChange={handleChange} />
         <button onClick={handleClick} style={{height:50}}>Convert to text</button>
-      </main>
     </div>
   );
 }

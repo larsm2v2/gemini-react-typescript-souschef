@@ -1,6 +1,7 @@
 .recipes-container {
     font-family: sans-serif;
-    width: 80vw;
+    width: 100%;
+    padding: 0 10rem 0 1rem;
     height: auto;
     margin: 0vw 5vw;
     display: flex;

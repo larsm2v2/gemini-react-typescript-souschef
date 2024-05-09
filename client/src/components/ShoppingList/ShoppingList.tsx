@@ -7,12 +7,18 @@ const ShoppingList = () => {
       <h1>
         myShoppingList
       </h1>
-      <div className='grid'>
+      <div className='flex-container'>
         <div className='leftside'>
           <h2>Editable List</h2>
+{/*           <div>
+            List1
+          </div> */}
         </div>
         <div className='rightside'>
           <h2>Transferable List</h2>
+{/*           <div>
+            List2
+          </div> */}
         </div>
       </div>
 
