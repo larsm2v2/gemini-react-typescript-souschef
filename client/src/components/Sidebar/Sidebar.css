@@ -1,14 +1,14 @@
 .sidebar {
     width:20%;
-    min-height: 100vh;
-    position: top;
+    /* min-height: 100vh; */
+    position: sticky ;
     top: 7%;
-    left: -20%;
+    left: 20%;
     bottom: 0;
     display: inline-flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: flex-start;
+    align-items: center;
     background-color: rgb(36, 39, 39);
     border:gold;
     padding: 25px 15px;

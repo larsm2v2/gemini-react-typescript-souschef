@@ -1,0 +1,45 @@
+[
+    {
+        "name": "Arroz con Pollo",
+        "unique id": "",
+        "id": "arroz-con-pollo",
+        "cuisine": "Latin",
+        "meal type": "dinner",
+        "dietary restrictions and designations": [],
+        "serving info": { 
+            "prep time": "15 minutes",
+            "cook time": "30 minutes",
+            "total time": "45 minutes",
+            "number of people served": 4 
+            }, 
+        "ingredients": {
+            "dish": [ 
+            { "id": "1", "name": "Chicken", "amount": "1", "unit": "pound"},
+            { "id": "2", "name": "Rice", "amount": "1", "unit": "cup"},
+            { "id": "3", "name": "Onion", "amount": "1", "unit": null },
+            { "id": "4", "name": "Green pepper", "amount": "1", "unit": null },
+            { "id": "5", "name": "Red pepper", "amount": "1", "unit": null },
+            { "id": "6", "name": "Garlic", "amount": "2", "unit": "cloves" },
+            { "id": "7", "name": "Tomato sauce", "amount": "1", "unit": "cup" },
+            { "id": "8", "name": "Chicken broth", "amount": "2 cups", "unit": "cups" },
+            { "id": "9", "name": "Salt", "amount": "to taste", "unit": null },
+            { "id": "10", "name": "Black pepper", "amount": "to taste", "unit": null } ] },
+        "instructions": [ 
+            { "number": 1, "text": "In a large saucepan, brown the chicken over medium heat. Remove the chicken from the pan and set aside." },
+            { "number": 2, "text": "Add the onion, green pepper, and red pepper to the pan and cook until softened. Add the garlic and cook for 1 minute more." },
+            { "number": 3, "text": "Stir in the tomato sauce and chicken broth. Bring to a boil, then reduce heat and simmer for 15 minutes." },
+            { "number": 4, "text": "Return the chicken to the pan and cook for 15 minutes more, or until the chicken is cooked through." },
+            { "number": 5, "text": "Serve the arroz con pollo over rice." } ],
+        "notes": [],
+        "nutrition": {
+            "serving": "1 serving",
+            "calories": "350",
+            "carbohydrates": "50g",
+            "protein": "30g",
+            "fat": "10g",
+            "saturated fat": "5g",
+            "fiber": "5g",
+            "sugar": "10g" } }   
+
+
+]

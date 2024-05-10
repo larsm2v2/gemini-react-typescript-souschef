@@ -79,7 +79,8 @@ const SousChef = () => {
     return (
         <div className="souschef-prompt">
           <h1>mySousChef</h1>
-          <p className="typewriter">Hi, I'm here to sous-chef you...tell me about a recipe that you'd like to find or a grocery list you'd like to create</p>
+          <div className="souschef-prompt-initial">
+          <p className="typewriter">Hi, I'm here to sous-chef you...tell me about a recipe or a grocery list...</p>
             <button
               className="surprise"
               onClick={surprise}
@@ -87,6 +88,7 @@ const SousChef = () => {
             >
               Random Examples...
             </button>
+          </div>        
           <div className="input-container-last">
             <input
               value={value}
@@ -98,6 +100,9 @@ const SousChef = () => {
             />
             {!error && <button onClick={getResponse}>Bon Chance!</button>}
             {error && <button onClick={clear}>Clear</button>}
+          </div>
+          <div className="typewriter2">
+                ...and if you want to be more specific. Try this:
           </div>
           <div className="input-container">
             <input

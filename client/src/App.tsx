@@ -1,8 +1,8 @@
 import React, {Fragment, useState} from 'react';
 import './App.css';
+import "./components/Sidebar/Sidebar.css"
 import Navbar from "./components/Navbar/Navbar";
 import Sidebar from "./components/Sidebar/Sidebar";
-import "./components/Sidebar/Sidebar.css"
 import SousChef from "./components/SousChef/SousChef";
 import ShoppingList from './components/ShoppingList/ShoppingList';
 import Recipes from "./components/Recipes/Recipes";

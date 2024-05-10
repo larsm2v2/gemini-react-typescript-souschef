@@ -2,9 +2,9 @@
     box-sizing: border-box;
 }
 
-body {
+/* body {
     margin: 0;
-}
+} */
 
 div {
 width:100%;
@@ -17,14 +17,12 @@ width:100%;
     width: 100%;
     color:beige;
     /* display: flex; */
-    /* position: fixed; */
     flex-direction: row;
     justify-content: space-between; 
     gap: 2rem;
     padding: 0 2rem 0 2rem;
     position: sticky;
     top: 0;
-
 }
 
 .nav ul {
