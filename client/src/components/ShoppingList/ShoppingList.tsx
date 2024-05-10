@@ -6,15 +6,28 @@ import ShoppingListRecords from "./ShoppingList.json";
 import {ListItem, RecipeModel} from "../Models/Models"
 
 const ShoppingList: React.FC = () => {
-  const [listItem,setListItem] = useState<ListItem>;
+  const [listItem,setListItem] = useState<ListItem>({
+      id: Date.now(),
+      quantity: 0,
+      unit: "",
+      listItem: "",
+      isDone: false,
+      toTransfer: false,
+  });
   const [listItems,setListItems] = useState<ListItem[]>([]);
 
   const handleAdd=(e:React.FormEvent)=> {
     e.preventDefault();
 
     if(listItem) {
-      setListItems((listItems) => [...listItems,{id:Date.now(),quantity:0,unit:"",listItem,isDone:false,toTransfer:false}]);
-      setListItem("");
+      setListItems((listItems) => [...listItems,{ ...listItem}]);
+      setListItem({
+      id: Date.now(),
+      quantity: 0,
+      unit: "",
+      listItem: "",
+      isDone: false,
+      toTransfer: false,});
     }
   };
   console.log(listItem)
