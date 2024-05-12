@@ -6,6 +6,15 @@ const Recipes = () => {
       <h1>
         myRecipes
       </h1>
+      <div className="recipes-box">
+          <div className="recipes-index">
+            Index
+          </div>
+          <div className="recipes-show">
+            Recipe
+          </div>
+      </div>
+
     </div>
   )
 }

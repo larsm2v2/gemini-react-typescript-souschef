@@ -2,13 +2,6 @@
     box-sizing: border-box;
 }
 
-/* body {
-    margin: 0;
-} */
-
-div {
-width:100%;
-}
 .nav a.site-title {
     font:larger;
 }

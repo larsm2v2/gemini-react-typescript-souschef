@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import Tesseract from 'tesseract.js';
 import PreprocessImage from './Preprocess';
+import "../OCR/OCR.css"
+import {} from 
 
 
 
@@ -72,30 +74,39 @@ const OCR = () => {
     <div className="OCR-container">
       <h1>myImport</h1>
       <div className="img-container">
-          <h3>Actual image uploaded</h3>
-          <img
-              className="OCR-image"
-              width={400}
-              height={800}
-              src={image}
-              alt="logo"
-              ref={imageRef} 
-              />
+          <div className="img-upload">
+              <h3>Actual image uploaded</h3>
+              <img
+                  className="OCR-image"
+                  width={400}
+                  height={800}
+                  src={image}
+                  alt="logo"
+                  ref={imageRef} 
+                  />
+          </div>
+          <div className="img-canvas">
           <h3>Canvas</h3>
           <canvas
+              className="OCR-image"
               ref={canvasRef}
-              width={100} 
-              height={200}
+              width={400} 
+              height={800}
             >
           </canvas>
-      </div>
-      <h3>Extracted text</h3>
-          <div className="pin-box">
-            <p>{text}</p>
           </div>
-      <input type="file" onChange={handleChange} />
-      <button onClick={handleClick} style={{height:50}}>Convert to text</button>
-    </div>
+          <div className="img-text">
+            <h3>Extracted text</h3>
+            <div className="pin-box">
+              <p>{text}</p>
+            </div>
+          </div>
+      </div>
+      <div>
+          <input type="file" onChange={handleChange} />
+          <button onClick={handleClick} style={{height:50}}>Convert to text</button>
+      </div>
+      </div>
   );
 }
 

@@ -9,3 +9,26 @@
     align-items: center;
     justify-content: center;
 }
+
+.recipes-box {
+width: 100%;
+height: 50vh;
+flex-direction: row;
+border-radius: 0;
+border-color: rgb(0, 0, 0);
+}
+.recipes-index {
+width: 25%;
+color: rgb(243, 243, 117);
+border-radius: 10%;
+border: blue;
+background-color: blue;
+}
+
+.recipes-show {
+width: 75%;
+color: rgb(245, 182, 99);
+border-radius: 25%;
+border: blue;
+background-color: rgb(51, 226, 197);
+}

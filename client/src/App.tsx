@@ -10,26 +10,48 @@ import OCR from "./components/OCR/OCR";
 
 function App() {
   const [sidebarToggled, setSidebarToggled] = useState(false)
+  // When the user scrolls the page, execute myFunction
+window.onscroll = function() {navbarFixedTop()};
+
+function navbarFixedTop() {
+  const navbar = document.getElementById("App-navbar");
+
+  if (navbar) { // Check if navbar is not null
+    const sticky = navbar.offsetTop as number; // Cast offsetTop to number
+
+    if (window.scrollY >= sticky) {
+      navbar.classList.add("sticky");
+    } else {
+      navbar.classList.remove("sticky");
+    }
+  }
+}
   return (
     <Fragment>
-      <div className={`${sidebarToggled ? 'sidebar' :'sidebar-hidden'}`}>
-        <Sidebar/>
+      <div>
+        <nav className="nav-items" id="App-navbar">
+            <Navbar sidebarToggled={sidebarToggled} setSidebarToggled={setSidebarToggled}/>
+        </nav>
+        <div className-="sidebar-items" id="App-sidebar">
+              <Sidebar/>
+        </div>
+        <div className="App" id="App-main">
+
+            <div className="App-souchef" id= "souschef" >
+              <SousChef/>
+            </div>
+            <div className="App-shoppinglist" id="shoppinglist">
+              <ShoppingList/>
+            </div>
+            <div className="App-recipes" id="recipes">
+              <Recipes/>
+            </div>
+            <div className="App-ocr" id="ocr">
+              <OCR/>
+            </div>
+        </div>
       </div>
-      <nav className="nav-items">
-        <Navbar sidebarToggled={sidebarToggled} setSidebarToggled={setSidebarToggled}/>
-      </nav>
-      <div className="App-souchef" id= "souschef" >
-        <SousChef/>
-      </div>
-      <div className="App-shoppinglist" id="shoppinglist">
-        <ShoppingList/>
-      </div>
-      <div className="App-recipes" id="recipes">
-        <Recipes/>
-      </div>
-      <div className="App-ocr" id="ocr">
-        <OCR/>
-      </div>
+      
     </Fragment>
   );
 }

@@ -1,12 +1,12 @@
 .souschef-prompt {
   font-family: sans-serif;
   width: 100%;
-  padding: 0 10rem 0 1rem;
+  padding: 60px 1rem 0 1rem;
   height: auto;
-  margin: 0vw 5vw;
+  margin: 0vw 1vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   justify-content: center;
   
 }
@@ -21,7 +21,7 @@ flex-direction: row;
   font-family:"Source Sans Pro";
   width: 35.8em;
   min-height: auto;
-  animation: typing 6s steps(150, end),blink-caret 1s step-end infinite;
+  animation: typing 12s steps(150, end),blink-caret 1s step-end infinite;
   overflow: hidden;
   border-right: .15em solid #555;
   white-space: nowrap;
@@ -32,9 +32,9 @@ flex-direction: row;
 
 .typewriter2 {
   font-family:"Source Sans Pro";
-  width: 23.7em;
+  width: 40em;
   min-height: auto;
-  animation: typing2 15s steps(100, end),blink-caret 1s step-end infinite;
+  animation: typing2 12s steps(150, start),blink-caret 1s step-end infinite;
   overflow: hidden;
   border-right: .15em solid #555;
   white-space: nowrap;
@@ -42,43 +42,33 @@ flex-direction: row;
   letter-spacing: .1em; /* Adjust as needed */
   font-size: 14px;
   padding: 1rem 0 1rem;
+  text-align:left;
+  will-change: transform;
 }
 
 
 @keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 36em;
-  }
+  0% {width: 0em;}
+ 50% {width: 36em;}
+100% {width: 36em;}
 }
 
 @keyframes typing2 {
-  0% {width: 0;}
- 40% {width: 0;}
+  0% {width: 0em;}
+ 50% {width: 0em;}
+ 99% {width: 21em;}
 100% {width: 20em;}
 }
 
 @keyframes blink-caret {
   from, to { border-color: transparent }
-  50% { border-color: #555; }
+  50% { border-color: transparent }
 }
 
 .spacer {
   padding: 1rem 0 1rem;
   font-size: 14px;
 }
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    /* height: 600vh; */
-    background-color: #282c34;
-    color: #777;
-    display: flex;
-    justify-content: center;
-  }
   
   p {
     font-weight: 200;
@@ -106,7 +96,7 @@ body {
   
   .input-container-last {
     width: 100%;
-    display: inline-flex;
+    display: flex;
     flex-direction: row;
     border: solid 0.5px #cacaca;
     box-sizing: border-box;
@@ -124,7 +114,7 @@ body {
     box-sizing: border-box;
     font-size: 15px;
     outline: none;
-    min-width: 90%;
+    min-width: 80%;
     font-weight: 200;
   }
   
@@ -132,12 +122,12 @@ body {
     border: none;
     color: #cacaca;
     font-weight: 200;
-    align-self: center;
+    text-align:left;
   }
   
   .input-container-last button{
     height: 100%;
-    min-width: 15%;
+    min-width: 20%;
     border: none;
     border-left: 1px solid #cacaca;
     background-color: #fff;
@@ -147,6 +137,8 @@ body {
     white-space: nowrap;
     overflow: hidden;
     justify-content: center;
+    text-align: center;
+    flex-grow: 1;
     /* text-overflow: ellipsis */
   }
   
@@ -180,6 +172,7 @@ body {
     border: none;
     color: #cacaca;
     font-weight: 200;
+    text-align: left !important;
   }
   
   .input-container button{
@@ -206,5 +199,6 @@ body {
     font-size: 15px;
     font-weight: 200;
     border-radius: 6px;
+    color:#000;
   }
 

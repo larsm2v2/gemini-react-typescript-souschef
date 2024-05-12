@@ -4,10 +4,10 @@ import {assets} from "../../assets/assets"
 
 const Sidebar = () => {
   return (
-    <div>
+    <div className="sidebar">
         <div className="top">
             <div className="new-chat">
-                <img src={assets.plus_icon} alt="" />
+                <img src={assets.plus_icon} alt="Add" />
                 <p>New Chat</p>
             </div>
             <div className="recent">

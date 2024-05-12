@@ -1,40 +1,59 @@
+.Fragment {
+  flex-direction: column;
+  display: flex;
+}
+
 .App {
   width: 100%;
-  padding: 0 10rem 0 1rem;
+  padding: 0 1rem 0 1rem;
   text-align: center;
   background-color: #282c34;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: rgb(218, 218, 109);
+  color: beige;
   text-decoration: none;
 }
 
 .nav-items{
-
   justify-content: center;
   display: flex;
   flex-direction: row;
-  position: sticky;
 }
 
+.sidebar-items{
+  display: flex;
+  height: 100vh;
+}
 .App-souschef{
-  
   justify-content: center;
   display: flex;
+  flex-direction:column;
 }
 .App-shoppinglist {
-  
   justify-content: center;
   display: flex;
+  flex-direction:column;
 }
 .App-recipes{
-  
   justify-content: center;
   display: flex;
+  flex-direction:column;
 }
 .App-ocr{
-  
   justify-content: center;
   display: flex;
+  flex-direction: column;
+}
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .App {
+  padding-top: 60px;
 }

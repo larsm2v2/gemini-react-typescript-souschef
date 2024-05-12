@@ -1,18 +1,23 @@
-import React, { useState ,useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import './InputField.css'
 import { ListItem } from "../Models/Models";
 
 interface Props{
-  listItem: ListItem;
+  listItem: {
+    id: number;
+    quantity: number;
+    unit: string;
+    listItem: string;
+    isDone: Boolean;
+    toTransfer: Boolean;
+  };
   setListItem:React.Dispatch<React.SetStateAction<ListItem>>;
   handleAdd: (e:React.FormEvent) => void;
 }
 const InputField: React.FC<Props> = ({listItem,setListItem, handleAdd}:Props) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const quantity = listItem.quantity
-  const item = listItem.listItem
-  const size = listItem.unit
+
   return (
     <form className='input' onSubmit={(e) => {
       handleAdd(e)
@@ -21,7 +26,7 @@ const InputField: React.FC<Props> = ({listItem,setListItem, handleAdd}:Props) =>
       <input 
       ref={inputRef}
       type='input' 
-      value={quantity}
+      defaultValue="0"
       onChange={(e)=>e.target.value}
       placeholder='How many of this grocery item...'
       className='input__box'
@@ -29,7 +34,7 @@ const InputField: React.FC<Props> = ({listItem,setListItem, handleAdd}:Props) =>
       <input 
       ref={inputRef}
       type='input' 
-      value={size}
+      defaultValue=""
       onChange={(e)=>e.target.value}
       placeholder='What size for this item...'
       className='input__box'
@@ -37,7 +42,7 @@ const InputField: React.FC<Props> = ({listItem,setListItem, handleAdd}:Props) =>
       <input 
       ref={inputRef}
       type='input' 
-      value={item}
+      defaultValue="apples"
       onChange={(e)=>e.target.value}
       placeholder='Add a name for this grocery item...'
       className='input__box'
@@ -50,3 +55,5 @@ const InputField: React.FC<Props> = ({listItem,setListItem, handleAdd}:Props) =>
 }
 
 export default InputField
+
+
