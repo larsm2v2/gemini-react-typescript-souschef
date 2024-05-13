@@ -2,9 +2,6 @@ import React, { useState, useRef } from 'react';
 import Tesseract from 'tesseract.js';
 import PreprocessImage from './Preprocess';
 import "../OCR/OCR.css"
-import {} from 
-
-
 
 const OCR = () => {
   const [image, setImage] = useState("");
@@ -19,7 +16,7 @@ const OCR = () => {
     } else {
       setImage(''); // or any other fallback value you prefer
     }
-  }
+  };
  
   const handleClick = () => {
     const canvas = canvasRef.current;
@@ -68,7 +65,7 @@ const OCR = () => {
       setText(text);
       }
     })
-  }
+  };
  
   return (
     <div className="OCR-container">

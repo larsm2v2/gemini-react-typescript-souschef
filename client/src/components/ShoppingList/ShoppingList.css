@@ -1,22 +1,37 @@
 .shoppinglist-container {
     font-family: sans-serif;
     width: 100%;
-    padding: 0 10rem 0 1rem;
+    padding: 0 1rem 0 1rem;
     min-height: 50vh;
-    margin: 0vw 5vw;
+    margin: 0vw 1vw;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
 }
 
 .flex-container {
     display: flexbox;
     flex-direction: row;
-    text-justify: center;
+    /* text-justify: center; */
     justify-content: center;
     width: 100%;
     padding: 0 1rem 0 1rem;
+}
+
+.edit-box {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: flex-start; */
+}
+
+.transfer-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: start; */
 }
 
 .edit-list {

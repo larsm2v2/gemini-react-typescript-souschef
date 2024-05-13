@@ -83,9 +83,9 @@ fetch('shopping-list.json', {
         myShoppingList
       </h1>
       <div className='flex-container'>
-        <div className='edit-list'>
+        <div className='edit-box'>
           <h2>Editable List</h2>
-          <div>
+          <div className="edit-list">
           <InputField listItem={listItem} setListItem={setListItem} handleAdd={handleAdd}/>
           <EditableList listItems={listItems} setListItems={setListItems}/>
             {
@@ -101,9 +101,9 @@ fetch('shopping-list.json', {
             }
           </div>
         </div>
-        <div className='transfer-list'>
+        <div className='transfer-box'>
           <h2>Transferable List</h2>
-          <div>
+          <div className="transfer-list">
             List2
           </div>
         </div>
