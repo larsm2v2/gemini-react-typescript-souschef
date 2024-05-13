@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import json from "./Recipes.json" with {type: "json"};
-import "./Recipes.css";
-import "../Models/Models";
+import React, { useState, useEffect } from "react"
+//import json from "./Recipes.json" with {type: "json"};
+import "./Recipes.json"
+import "./Recipes.css"
+import "../Models/Models"
 
 const Recipes = () => {
 	const [recipes, setRecipes] = useState([])
@@ -9,14 +10,23 @@ const Recipes = () => {
 
 	useEffect(() => {
 		// Import the Recipes data as an array
- 		import("./Recipes.json").then((data) => setRecipes(data.default))
+		/*  		import("./Recipes.json").then((data) => setRecipes(data.default))
+	}, []) */
+		fetch("./Recipes.json")
+			.then((response) => response.json())
+			.then((data) => {
+				setRecipes(data.default)
+			})
 	}, [])
-
-	const handleRecipeClick = (recipeName) => {
+	const handleRecipeClick = (recipeName: string) => {
 		const selectedRecipe = recipes.find(
 			(recipe) => recipe?.name === recipeName
 		)
-		setSelectedRecipe(selectedRecipe)
+		if (selectedRecipe === null) {
+			return "Selected recipe not found"
+		} else {
+			setSelectedRecipe(selectedRecipe)
+		}
 	}
 
 	return (
@@ -26,15 +36,19 @@ const Recipes = () => {
 				<div className="recipes-index">
 					<h2>Index</h2>
 					<div>
+						{recipes.length > 0 ? (
 							<ul>
-								{recipes && recipes.map((recipe) => (
-									<li key={recipe?.id}>
-										<a href={`/recipes/${recipe?.id}`}>
-											{recipe?.name}
+								{recipes.map((recipe) => (
+									<li key={recipe.id}>
+										<a href={`/recipes/${recipe.id}`}>
+											{recipe.name}
 										</a>
 									</li>
 								))}
 							</ul>
+						) : (
+							<p>No recipes found.</p>
+						)}
 					</div>
 				</div>
 				<div className="recipes-show">
