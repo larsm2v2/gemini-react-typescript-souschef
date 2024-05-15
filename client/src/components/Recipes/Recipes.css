@@ -12,23 +12,31 @@
 
 .recipes-box {
 width: 100%;
-height: 50vh;
+height: auto;
 flex-direction: row;
 border-radius: 0;
 border-color: rgb(0, 0, 0);
 }
 .recipes-index {
-width: 25%;
+width: 30%;
+margin-right: 20px;
 color: rgb(243, 243, 117);
 border-radius: 10%;
 border: blue;
 background-color: blue;
+flex-direction: column;
+align-items: center;
+justify-content: start;
+hover: pointer;
 }
 
 .recipes-show {
-width: 75%;
+width: 70%;
+display: flex;
 color: rgb(245, 182, 99);
 border-radius: 25%;
 border: blue;
 background-color: rgb(51, 226, 197);
+flex-direction: column;
+align-items: center;
 }

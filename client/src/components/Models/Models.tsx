@@ -1,30 +1,35 @@
 export interface RecipeModel {
 	name: string
-	"unique id": number
-	id: string | never
+	"unique id": string
+	id: string
 	cuisine: string
 	"meal type": string
-	"dietary restrictions and designations": []
+	"dietary restrictions and designations": string[] // Changed to string[]
 	"serving info": {
-		"prep time (minutes)": number
-		"cook time (minutes)": number
-		"total time (minutes)": number
+		"prep time": string
+		"cook time": string
+		"total time": string
 		"number of people served": number
 	}
 	ingredients: {
-		dish: [{ id: number; name: string; amount: number; unit: string }]
+		dish: {
+			id: string
+			name: string
+			amount: string
+			unit: string | null
+		}[] // Allows null for unit
 	}
-	instructions: [{ number: number; text: string }]
-	notes: []
+	instructions: { number: number; text: string }[]
+	notes: string[] // Added type for elements of the notes array.
 	nutrition: {
-		serving: number
-		calories: number
-		"carbohydrates (g)": number
-		"protein (g)": number
-		"fat (g)": number
-		"saturated fat (g)": number
-		"fiber (g)": number
-		"sugar (g)": number
+		serving: string
+		calories: string
+		carbohydrates: string
+		protein: string
+		fat: string
+		"saturated fat": string
+		fiber: string
+		sugar: string
 	}
 }
 
