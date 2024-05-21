@@ -109,120 +109,69 @@
 			"total time": "35 min",
 			"number of people served": "4"
 		},
-		"ingredients": [
-			{
-				"dish": {
-					"id": "1",
-					"name": "Rice",
-					"amount": "2",
-					"unit": "cups"
-				}
-			},
-			{
-				"dish": {
+		"ingredients": {
+			"dish": [
+				{ "id": "1", "name": "Rice", "amount": "2", "unit": "cups" },
+				{
 					"id": "2",
 					"name": "Chicken",
 					"amount": "1",
 					"unit": "pound"
-				}
-			},
-			{
-				"dish": {
+				},
+				{
 					"id": "3",
 					"name": "Shrimp",
 					"amount": "1/2",
 					"unit": "pound"
-				}
-			},
-			{
-				"dish": {
-					"id": "4",
-					"name": "Eggs",
-					"amount": "2",
-					"unit": ""
-				}
-			},
-			{
-				"dish": {
-					"id": "5",
-					"name": "Onion",
-					"amount": "1",
-					"unit": ""
-				}
-			},
-			{
-				"dish": {
+				},
+				{ "id": "4", "name": "Eggs", "amount": "2", "unit": "" },
+				{ "id": "5", "name": "Onion", "amount": "1", "unit": "" },
+				{
 					"id": "6",
 					"name": "Red Bell Pepper",
 					"amount": "1",
 					"unit": ""
-				}
-			},
-			{
-				"dish": {
+				},
+				{
 					"id": "7",
 					"name": "Green Bell Pepper",
 					"amount": "1",
 					"unit": ""
-				}
-			},
-			{
-				"dish": {
-					"id": "8",
-					"name": "Carrots",
-					"amount": "1",
-					"unit": ""
-				}
-			},
-			{
-				"dish": {
+				},
+				{ "id": "8", "name": "Carrots", "amount": "1", "unit": "" },
+				{
 					"id": "9",
 					"name": "Garlic",
 					"amount": "2",
 					"unit": "cloves"
-				}
-			},
-			{
-				"dish": {
-					"id": "10",
-					"name": "Ginger",
-					"amount": "1",
-					"unit": "piece"
-				}
-			},
-			{
-				"dish": {
+				},
+				{ "id": "10", "name": "Ginger", "amount": "1", "unit": "inch" },
+				{
 					"id": "11",
 					"name": "Soy Sauce",
 					"amount": "1/4",
 					"unit": "cup"
-				}
-			},
-			{
-				"dish": {
+				},
+				{
 					"id": "12",
 					"name": "Sesame Oil",
 					"amount": "1",
 					"unit": "Tbsp"
-				}
-			},
-			{
-				"dish": {
+				},
+				{
 					"id": "13",
 					"name": "Salt",
 					"amount": "to taste",
 					"unit": ""
-				}
-			},
-			{
-				"dish": {
+				},
+				{
 					"id": "14",
 					"name": "Black Pepper",
 					"amount": "to taste",
 					"unit": ""
 				}
-			}
-		],
+			]
+		},
 		"instructions": [
 			{
 				"number": 1,
