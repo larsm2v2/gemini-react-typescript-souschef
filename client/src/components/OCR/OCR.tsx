@@ -81,7 +81,7 @@ const OCR = () => {
 			<h1>myImport</h1>
 			<div className="img-container">
 				<div className="img-upload">
-					<h3>Actual image uploaded</h3>
+					<h3>Actual Image Uploaded</h3>
 					<img
 						className="OCR-image"
 						width={400}

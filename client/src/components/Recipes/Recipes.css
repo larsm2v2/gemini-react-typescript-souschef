@@ -27,16 +27,19 @@ background-color: blue;
 flex-direction: column;
 align-items: center;
 justify-content: start;
-hover: pointer;
+text-decoration: none;
+}
+.recipes-index ul {
+    list-style-type: none; 
 }
 
 .recipes-show {
 width: 70%;
 display: flex;
+flex-direction: column;
 color: rgb(245, 182, 99);
 border-radius: 25%;
 border: blue;
 background-color: rgb(51, 226, 197);
-flex-direction: column;
 align-items: center;
 }

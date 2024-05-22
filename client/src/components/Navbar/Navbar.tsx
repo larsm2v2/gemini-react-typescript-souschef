@@ -18,9 +18,8 @@ const Navbar: React.FC<Props> = ({
 		navOpenClose(openNav, closeNav)
 	}
 	function openNav() {
-		const sidebarWidth: string = "15%"
+		const sidebarWidth: string = "100%"
 		const sidebar = document.getElementById("App-sidebar")
-		const main = document.getElementById("App-main")
 		if (sidebar) sidebar.style.width = sidebarWidth
 		if (sidebar) sidebar.style.display = "flex"
 		//if (main) main.style.width = "85%";
@@ -29,7 +28,6 @@ const Navbar: React.FC<Props> = ({
 	function closeNav() {
 		const closeWidth: string = "0"
 		const sidebar = document.getElementById("App-sidebar")
-		const main = document.getElementById("App-main")
 		if (sidebar) sidebar.style.width = closeWidth
 		if (sidebar) sidebar.style.padding = "0 0 0 0"
 		if (sidebar) sidebar.style.display = "none"

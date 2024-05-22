@@ -35,16 +35,20 @@ const Recipes = () => {
 					</div>
 				</div>
 				{selectedRecipe && (
-					<div className="recipe-show">
+					<div className="recipes-show">
 						<div>
 							<h2>{selectedRecipe.name}</h2>
 						</div>
 						<div className="recipe-info">
 							<p>Cuisine: {selectedRecipe.cuisine}</p>
+						</div>
+						<div className="recipe-info">
 							<p>Meal Type: {selectedRecipe["meal type"]}</p>
 						</div>
 						<div>
 							<h3>Ingredients:</h3>
+						</div>
+						<div>
 							<ul>
 								{selectedRecipe.ingredients.dish.map(
 									(ingredient) => (
@@ -59,6 +63,8 @@ const Recipes = () => {
 						</div>
 						<div>
 							<h3>Instructions:</h3>
+						</div>
+						<div>
 							<ol>
 								{" "}
 								{selectedRecipe.instructions.map(
