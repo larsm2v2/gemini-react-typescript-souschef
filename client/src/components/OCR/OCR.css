@@ -78,4 +78,13 @@ width: 100%
 .img-text {
   flex-direction: column;
   align-items: start;
+  width: 25%
+}
+
+.rendered_text > p {
+  text-wrap: wrap;
+}
+
+.wrapthistext {
+  text-wrap:wrap;
 }

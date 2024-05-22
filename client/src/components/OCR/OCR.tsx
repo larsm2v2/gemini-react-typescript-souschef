@@ -155,8 +155,8 @@ const OCR = () => {
 				</div>
 				<div className="img-text">
 					<h3>Extracted text</h3>
-					<div className="pin-box">
-						<p>{text}</p>
+					<div className="rendered_text">
+						<p className="wrapthistext">{text}</p>
 					</div>
 				</div>
 			</div>
