@@ -58,9 +58,21 @@ flex-direction: column;
 align-items: start;
 }
 
+.img-upload h3 {
+  text-wrap: wrap;
+}
+
+.img-upload img {
+  width: 100%
+}
+
 .img-canvas {
   flex-direction: column;
   align-items: start;
+}
+
+.img-canvas canvas {
+width: 100%
 }
 
 .img-text {

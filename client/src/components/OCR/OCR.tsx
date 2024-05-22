@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import Tesseract from "tesseract.js"
 import PreprocessImage from "./Preprocess"
 import "../OCR/OCR.css"
@@ -18,7 +18,7 @@ const OCR = () => {
 		}
 	}
 
-	const handleClick = () => {
+	/* 	const handleClick = () => {
 		const canvas = canvasRef.current
 		if (!canvas) {
 			console.error("Canvas is not defined")
@@ -53,7 +53,9 @@ const OCR = () => {
 				console.error(err)
 			})
 			.then((result) => {
-				console.log("I am getting ready to process the text result")
+				console.log(
+					`I am getting ready to process the text result: ${result}`
+				)
 				if (
 					result &&
 					"confidence" in result &&
@@ -72,8 +74,59 @@ const OCR = () => {
 					let text: string = result.text
 
 					setText(text)
+					console.log(text)
 				}
 			})
+	} */
+
+	const handleClick = () => {
+		const canvas = canvasRef.current
+		const img = imageRef.current
+
+		if (canvas && img && image) {
+			const ctx = canvas.getContext("2d")
+
+			if (ctx) {
+				// Load the image onto the canvas first
+				const imageObj = new Image()
+				imageObj.onload = () => {
+					canvas.width = imageObj.width
+					canvas.height = imageObj.height
+					ctx.drawImage(imageObj, 0, 0)
+
+					const processedImageData = PreprocessImage(canvas)
+
+					if (processedImageData) {
+						ctx.putImageData(processedImageData, 0, 0) // Put the processed image back onto the canvas
+						const dataUrl = canvas.toDataURL("image/jpeg")
+
+						// Now you can start the Tesseract recognition process
+						Tesseract.recognize(dataUrl, "eng", {
+							logger: (m) => console.log(m),
+						})
+							.then((result) => {
+								if (result && result.data) {
+									setText(result.data.text)
+									console.log(
+										`Confidence: ${result.data.confidence}`
+									)
+									console.log(result.data.text)
+								} else {
+									console.error(
+										"Unexpected Tesseract result format"
+									)
+								}
+							})
+							.catch((err) => {
+								console.error(err)
+							})
+					} else {
+						console.error("Image preprocessing failed")
+					}
+				}
+				imageObj.src = image // Set the image source for the Image object
+			}
+		}
 	}
 
 	return (
@@ -84,7 +137,7 @@ const OCR = () => {
 					<h3>Actual Image Uploaded</h3>
 					<img
 						className="OCR-image"
-						width={400}
+						width={600}
 						height={800}
 						src={image}
 						alt="logo"
