@@ -1,44 +1,45 @@
 export interface RecipeModel {
-    "name": string,
-    "unique id": number,
-    "id": string,
-    "cuisine": string,
-    "meal type": string,
-    "dietary restrictions and designations": [],
-    "serving info":  { 
-        "prep time (minutes)": number,
-        "cook time (minutes)": number,
-        "total time (minutes)": number,
-        "number of people served": number
-        }, 
-    "ingredients": {
-        "dish": [ 
-        { "id": number,
-        "name": string,
-        "amount": number,
-        "unit": string},
-        ] },
-    "instructions": [ 
-        { "number": number,
-        "text": string },
-        ]
-    "notes": [],
-    "nutrition": {
-        "serving": number,
-        "calories": number,
-        "carbohydrates (g)": number,
-        "protein (g)": number,
-        "fat (g)": number,
-        "saturated fat (g)": number,
-        "fiber (g)": number,
-        "sugar (g)": number } 
-    } 
+	name: string
+	"unique id": string
+	id: string
+	cuisine: string
+	"meal type": string
+	"dietary restrictions and designations": string[] // Changed to string[]
+	"serving info": {
+		"prep time": string
+		"cook time": string
+		"total time": string
+		"number of people served": number
+	}
+	ingredients: {
+		dish: {
+			id: string
+			name: string
+			amount: string
+			unit: string | null
+		}[] // Allows null for unit
+	}
+	instructions: { number: number; text: string }[]
+	notes: string[] // Added type for elements of the notes array.
+	nutrition: {
+		serving: string
+		calories: string
+		carbohydrates: string
+		protein: string
+		fat: string
+		"saturated fat": string
+		fiber: string
+		sugar: string
+	}
+}
 
 export interface ListItem {
-    id: number;
-    quantity: number;
-    unit: string;
-    listItem: string;
-    isDone: Boolean;
-    toTransfer: Boolean;
+	id: number
+	quantity: number
+	unit: string
+	listItem: string
+	isDone: Boolean
+	toTransfer: Boolean
 }
+
+export type id = string | never

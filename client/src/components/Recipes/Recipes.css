@@ -1,9 +1,9 @@
 .recipes-container {
     font-family: sans-serif;
     width: 100%;
-    padding: 0 10rem 0 1rem;
+    padding: 0 1rem 0 1rem;
     height: auto;
-    margin: 0vw 5vw;
+    margin: 0vw 1vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,23 +12,34 @@
 
 .recipes-box {
 width: 100%;
-height: 50vh;
+height: auto;
 flex-direction: row;
 border-radius: 0;
 border-color: rgb(0, 0, 0);
 }
 .recipes-index {
-width: 25%;
+width: 30%;
+margin-right: 20px;
 color: rgb(243, 243, 117);
 border-radius: 10%;
 border: blue;
 background-color: blue;
+flex-direction: column;
+align-items: center;
+justify-content: start;
+text-decoration: none;
+}
+.recipes-index ul {
+    list-style-type: none; 
 }
 
 .recipes-show {
-width: 75%;
+width: 70%;
+display: flex;
+flex-direction: column;
 color: rgb(245, 182, 99);
 border-radius: 25%;
 border: blue;
 background-color: rgb(51, 226, 197);
+align-items: center;
 }

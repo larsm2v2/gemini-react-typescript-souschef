@@ -15,16 +15,28 @@
   text-decoration: none;
 }
 
+.App_with_sidebar {
+flex-direction: row;
+}
 .nav-items{
   justify-content: center;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
+
 .sidebar-items{
-  display: flex;
-  height: 100vh;
+  display: none;
+
 }
+
+.sidebar-items > * {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 30ch;
+}
+
 .App-souschef{
   justify-content: center;
   display: flex;

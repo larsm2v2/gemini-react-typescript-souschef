@@ -1,45 +1,291 @@
 [
-    {
-        "name": "Arroz con Pollo",
-        "unique id": "",
-        "id": "arroz-con-pollo",
-        "cuisine": "Latin",
-        "meal type": "dinner",
-        "dietary restrictions and designations": [],
-        "serving info": { 
-            "prep time": "15 minutes",
-            "cook time": "30 minutes",
-            "total time": "45 minutes",
-            "number of people served": 4 
-            }, 
-        "ingredients": {
-            "dish": [ 
-            { "id": "1", "name": "Chicken", "amount": "1", "unit": "pound"},
-            { "id": "2", "name": "Rice", "amount": "1", "unit": "cup"},
-            { "id": "3", "name": "Onion", "amount": "1", "unit": null },
-            { "id": "4", "name": "Green pepper", "amount": "1", "unit": null },
-            { "id": "5", "name": "Red pepper", "amount": "1", "unit": null },
-            { "id": "6", "name": "Garlic", "amount": "2", "unit": "cloves" },
-            { "id": "7", "name": "Tomato sauce", "amount": "1", "unit": "cup" },
-            { "id": "8", "name": "Chicken broth", "amount": "2 cups", "unit": "cups" },
-            { "id": "9", "name": "Salt", "amount": "to taste", "unit": null },
-            { "id": "10", "name": "Black pepper", "amount": "to taste", "unit": null } ] },
-        "instructions": [ 
-            { "number": 1, "text": "In a large saucepan, brown the chicken over medium heat. Remove the chicken from the pan and set aside." },
-            { "number": 2, "text": "Add the onion, green pepper, and red pepper to the pan and cook until softened. Add the garlic and cook for 1 minute more." },
-            { "number": 3, "text": "Stir in the tomato sauce and chicken broth. Bring to a boil, then reduce heat and simmer for 15 minutes." },
-            { "number": 4, "text": "Return the chicken to the pan and cook for 15 minutes more, or until the chicken is cooked through." },
-            { "number": 5, "text": "Serve the arroz con pollo over rice." } ],
-        "notes": [],
-        "nutrition": {
-            "serving": "1 serving",
-            "calories": "350",
-            "carbohydrates": "50g",
-            "protein": "30g",
-            "fat": "10g",
-            "saturated fat": "5g",
-            "fiber": "5g",
-            "sugar": "10g" } }   
-
-
+	{
+		"name": "Arroz con Pollo",
+		"unique id": "12039284995",
+		"id": "arroz-con-pollo",
+		"cuisine": "Latin",
+		"meal type": "dinner",
+		"dietary restrictions and designations": [],
+		"serving info": {
+			"prep time": "15 minutes",
+			"cook time": "30 minutes",
+			"total time": "45 minutes",
+			"number of people served": 4
+		},
+		"ingredients": {
+			"dish": [
+				{
+					"id": "1",
+					"name": "Chicken",
+					"amount": "1",
+					"unit": "pound"
+				},
+				{ "id": "2", "name": "Rice", "amount": "1", "unit": "cup" },
+				{ "id": "3", "name": "Onion", "amount": "1", "unit": "" },
+				{
+					"id": "4",
+					"name": "Green pepper",
+					"amount": "1",
+					"unit": ""
+				},
+				{ "id": "5", "name": "Red pepper", "amount": "1", "unit": "" },
+				{
+					"id": "6",
+					"name": "Garlic",
+					"amount": "2",
+					"unit": "cloves"
+				},
+				{
+					"id": "7",
+					"name": "Tomato sauce",
+					"amount": "1",
+					"unit": "cup"
+				},
+				{
+					"id": "8",
+					"name": "Chicken broth",
+					"amount": "2 cups",
+					"unit": "cups"
+				},
+				{
+					"id": "9",
+					"name": "Salt",
+					"amount": "to taste",
+					"unit": ""
+				},
+				{
+					"id": "10",
+					"name": "Black pepper",
+					"amount": "to taste",
+					"unit": ""
+				}
+			]
+		},
+		"instructions": [
+			{
+				"number": 1,
+				"text": "In a large saucepan, brown the chicken over medium heat. Remove the chicken from the pan and set aside."
+			},
+			{
+				"number": 2,
+				"text": "Add the onion, green pepper, and red pepper to the pan and cook until softened. Add the garlic and cook for 1 minute more."
+			},
+			{
+				"number": 3,
+				"text": "Stir in the tomato sauce and chicken broth. Bring to a boil, then reduce heat and simmer for 15 minutes."
+			},
+			{
+				"number": 4,
+				"text": "Return the chicken to the pan and cook for 15 minutes more, or until the chicken is cooked through."
+			},
+			{ "number": 5, "text": "Serve the arroz con pollo over rice." }
+		],
+		"notes": [],
+		"nutrition": {
+			"serving": "1 serving",
+			"calories": "350",
+			"carbohydrates": "50g",
+			"protein": "30g",
+			"fat": "10g",
+			"saturated fat": "5g",
+			"fiber": "5g",
+			"sugar": "10g"
+		}
+	},
+	{
+		"name": "Guyanese Fried Rice",
+		"unique id": "1659646487898",
+		"id": "guyanese-fried-rice",
+		"cuisine": "Guyanese",
+		"meal type": "lunch",
+		"dietary restrictions and designations": [
+			"gluten-free",
+			"halal",
+			"kosher"
+		],
+		"serving info": {
+			"prep time": "20 min",
+			"cook time": "15 min",
+			"total time": "35 min",
+			"number of people served": "4"
+		},
+		"ingredients": {
+			"dish": [
+				{ "id": "1", "name": "Rice", "amount": "2", "unit": "cups" },
+				{
+					"id": "2",
+					"name": "Chicken",
+					"amount": "1",
+					"unit": "pound"
+				},
+				{
+					"id": "3",
+					"name": "Shrimp",
+					"amount": "1/2",
+					"unit": "pound"
+				},
+				{ "id": "4", "name": "Eggs", "amount": "2", "unit": "" },
+				{ "id": "5", "name": "Onion", "amount": "1", "unit": "" },
+				{
+					"id": "6",
+					"name": "Red Bell Pepper",
+					"amount": "1",
+					"unit": ""
+				},
+				{
+					"id": "7",
+					"name": "Green Bell Pepper",
+					"amount": "1",
+					"unit": ""
+				},
+				{ "id": "8", "name": "Carrots", "amount": "1", "unit": "" },
+				{
+					"id": "9",
+					"name": "Garlic",
+					"amount": "2",
+					"unit": "cloves"
+				},
+				{ "id": "10", "name": "Ginger", "amount": "1", "unit": "inch" },
+				{
+					"id": "11",
+					"name": "Soy Sauce",
+					"amount": "1/4",
+					"unit": "cup"
+				},
+				{
+					"id": "12",
+					"name": "Sesame Oil",
+					"amount": "1",
+					"unit": "Tbsp"
+				},
+				{
+					"id": "13",
+					"name": "Salt",
+					"amount": "to taste",
+					"unit": ""
+				},
+				{
+					"id": "14",
+					"name": "Black Pepper",
+					"amount": "to taste",
+					"unit": ""
+				}
+			]
+		},
+		"instructions": [
+			{
+				"number": 1,
+				"text": "Cook the rice according to the package directions."
+			},
+			{
+				"number": 2,
+				"text": "While the rice is cooking, cook the chicken and shrimp in a separate pan. Once cooked, set aside."
+			},
+			{
+				"number": 3,
+				"text": "In a large skillet or wok, heat the sesame oil over medium heat. Add the eggs and scramble them. Once cooked, remove from the skillet and set aside."
+			},
+			{
+				"number": 4,
+				"text": "Add the onion, bell peppers, carrots, garlic, and ginger to the skillet. Cook until softened."
+			},
+			{
+				"number": 5,
+				"text": "Add the chicken, shrimp, eggs, rice, soy sauce, and salt and pepper to taste. Cook until the rice is heated through."
+			},
+			{ "number": 6, "text": "Serve immediately." }
+		],
+		"notes": [],
+		"nutrition": {
+			"serving": "1 serving",
+			"calories": "500",
+			"carbohydrates": "50g",
+			"protein": "30g",
+			"fat": "20g",
+			"saturated fat": "5g",
+			"fiber": "5g",
+			"sugar": "10g"
+		}
+	},
+	{
+		"name": "Bruschetta with Tomato and Basil",
+		"unique id": "1668905801785",
+		"id": "bruschetta-with-tomato-and-basil",
+		"cuisine": "Italian",
+		"meal type": "appetizer",
+		"dietary restrictions and designations": [
+			"vegetarian",
+			"quick and easy"
+		],
+		"serving info": {
+			"prep time": "10 mins",
+			"cook time": "5 mins",
+			"total time": "15 mins",
+			"number of people served": 4
+		},
+		"ingredients": {
+			"dish": [
+				{ "id": 1, "name": "baguette", "amount": "1", "unit": "loaf" },
+				{ "id": 2, "name": "tomatoes", "amount": "2", "unit": null },
+				{ "id": 3, "name": "basil", "amount": ".5 cup", "unit": null },
+				{
+					"id": 4,
+					"name": "olive oil",
+					"amount": "2 tbsp",
+					"unit": null
+				},
+				{
+					"id": 5,
+					"name": "garlic",
+					"amount": "2 cloves",
+					"unit": null
+				},
+				{ "id": 6, "name": "salt", "amount": "1 tsp", "unit": null },
+				{ "id": 7, "name": "pepper", "amount": ".5 tsp", "unit": null }
+			]
+		},
+		"instructions": [
+			{
+				"number": 1,
+				"text": "Preheat the oven to 375 degrees F (190 degrees C)."
+			},
+			{
+				"number": 2,
+				"text": "Slice the baguette into 1-inch thick slices."
+			},
+			{
+				"number": 3,
+				"text": "In a medium bowl, combine the tomatoes, basil, olive oil, garlic, salt, and pepper."
+			},
+			{
+				"number": 4,
+				"text": "Spread the tomato mixture evenly over the baguette slices."
+			},
+			{
+				"number": 5,
+				"text": "Bake for 5-7 minutes, or until the bread is golden brown and the tomatoes are softened."
+			},
+			{ "number": 6, "text": "Serve immediately." }
+		],
+		"notes": [],
+		"nutrition": {
+			"serving": "1 serving",
+			"calories": "150",
+			"carbohydrates": "20g",
+			"protein": "5g",
+			"fat": "5g",
+			"saturated fat": "1g",
+			"fiber": "2g",
+			"sugar": "5g"
+		},
+		"grocery list": [
+			"baguette",
+			"tomatoes",
+			"basil",
+			"olive oil",
+			"garlic",
+			"salt",
+			"pepper"
+		]
+	}
 ]
