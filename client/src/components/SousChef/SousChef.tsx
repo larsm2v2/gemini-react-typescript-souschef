@@ -50,12 +50,12 @@ const SousChef = () => {
 		"total time: string" +
 		"number of people served: number}" +
 		"ingredients: {" +
-		"dish: {" +
+		"dish: [" +
 		"id: string" +
 		"name: string" +
 		"amount: string" +
 		"unit: string | null" +
-		"}[]" +
+		"][]" +
 		"}" +
 		"instructions: { number: number; text: string }[]" +
 		"notes: string[]" +

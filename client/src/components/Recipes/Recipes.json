@@ -287,5 +287,206 @@
 			"salt",
 			"pepper"
 		]
+	},
+	{
+		"name": "Aji Chicken with Cilantro Sauce",
+		"unique id": "1677152748079",
+		"id": "aji-chicken-with-cilantro-sauce",
+		"cuisine": "Peruvian",
+		"meal type": "dinner",
+		"dietary restrictions and designations": [],
+		"serving info": {
+			"prep time": "30 minutes",
+			"cook time": "1 hour",
+			"total time": "1 hour 30 minutes",
+			"number of people served": 4
+		},
+		"ingredients": {
+			"dish": [
+				{
+					"id": 1,
+					"name": "Chicken",
+					"amount": "1 (3%- to 4%2-pound)",
+					"unit": null
+				},
+				{ "id": 2, "name": "Sauce", "amount": null, "unit": null }
+			],
+			"sauce": [
+				{
+					"id": "1-a",
+					"name": "garlic cloves",
+					"amount": "6",
+					"unit": null
+				},
+				{
+					"id": "1-b",
+					"name": "soy sauce",
+					"amount": "3 tablespoons",
+					"unit": null
+				},
+				{
+					"id": "1-c",
+					"name": "aji amarillo paste",
+					"amount": "1 tablespoon",
+					"unit": null
+				},
+				{
+					"id": "1-d",
+					"name": "lime juice",
+					"amount": "1 tablespoon",
+					"unit": null
+				},
+				{
+					"id": "1-e",
+					"name": "aji panca paste",
+					"amount": "1 teaspoon",
+					"unit": null
+				},
+				{
+					"id": "1-f",
+					"name": "Dijon mustard",
+					"amount": "1 teaspoon",
+					"unit": null
+				},
+				{
+					"id": "1-g",
+					"name": "ground cumin",
+					"amount": "1 teaspoon",
+					"unit": null
+				},
+				{
+					"id": "1-h",
+					"name": "black pepper",
+					"amount": "1 teaspoon",
+					"unit": null
+				},
+				{
+					"id": "1-i",
+					"name": "fine sea salt",
+					"amount": "5 teaspoon",
+					"unit": null
+				}
+			],
+			"2": [
+				{
+					"id": "2-a",
+					"name": "cilantro leaves and tender stems",
+					"amount": "1 cup",
+					"unit": null
+				},
+				{
+					"id": "2-b",
+					"name": "jalapeños",
+					"amount": "3 to 4",
+					"unit": null
+				},
+				{
+					"id": "2-c",
+					"name": "feta cheese",
+					"amount": "¼ cup",
+					"unit": "ounce"
+				},
+				{
+					"id": "2-d",
+					"name": "garlic clove",
+					"amount": "1",
+					"unit": null
+				},
+				{
+					"id": "2-e",
+					"name": "lime juice",
+					"amount": "1½ tablespoons",
+					"unit": null
+				},
+				{
+					"id": "2-f",
+					"name": "fresh oregano or basil",
+					"amount": "2 teaspoons",
+					"unit": null
+				},
+				{
+					"id": "2-g",
+					"name": "fine sea salt",
+					"amount": "½ teaspoon",
+					"unit": null
+				},
+				{
+					"id": "2-h",
+					"name": "Dijon mustard",
+					"amount": "¼ teaspoon",
+					"unit": null
+				},
+				{
+					"id": "2-i",
+					"name": "aji amarillo paste",
+					"amount": "¼ tablespoon",
+					"unit": null
+				},
+				{
+					"id": "2-j",
+					"name": "honey",
+					"amount": "¼ teaspoon",
+					"unit": null
+				},
+				{
+					"id": "2-k",
+					"name": "ground cumin",
+					"amount": "¼ teaspoon",
+					"unit": null
+				},
+				{
+					"id": "2-l",
+					"name": "extra-virgin olive oil",
+					"amount": "½ cup",
+					"unit": null
+				}
+			]
+		},
+		"instructions": [
+			{
+				"number": 1,
+				"text": "To make the marinade: In a large bowl, whisk together garlic, soy sauce, aji amarillo paste, lime juice, aji panca paste, mustard, cumin, pepper and salt."
+			},
+			{
+				"number": 2,
+				"text": "Add chicken halves, turning to coat them all over with marinade. Cover and refrigerate at least 2 hours and up to 12 hours."
+			},
+			{
+				"number": 3,
+				"text": "Heat the oven to 450 degrees. Remove chicken from marinade and pat dry with paper towels. Arrange skin-side up on a rimmed baking sheet and drizzle with oil."
+			},
+			{
+				"number": 4,
+				"text": "Roast until skin is golden and chicken is cooked through, 35 to 45 minutes (if using chicken parts, remove the breasts after 25 to 35 minutes). Remove from oven and let sit, loosely covered with foil, for 10 minutes before serving."
+			},
+			{
+				"number": 5,
+				"text": "While chicken is roasting, make the sauce. In a blender, blend cilantro, jalapenos, feta, garlic, lime juice, oregano, salt, mustard, aji amarillo paste, honey, and cumin until smooth. With the motor running, slowly drizzle in oil until mixture is emulsified. Taste and adjust the seasonings with salt or lime juice or both."
+			},
+			{
+				"number": 6,
+				"text": "Carve the chicken and serve with the sauce and lime wedges on the side."
+			}
+		],
+		"notes": [],
+		"nutrition": {},
+		"grocery list": [
+			"Chicken",
+			"soy sauce",
+			"aji amarillo paste",
+			"lime juice",
+			"aji panca paste",
+			"Dijon mustard",
+			"ground cumin",
+			"black pepper",
+			"fine sea salt",
+			"cilantro leaves and tender stems",
+			"jalapenos",
+			"feta cheese",
+			"garlic clove",
+			"fresh oregano or basil",
+			"honey",
+			"extra-virgin olive oil"
+		]
 	}
 ]
