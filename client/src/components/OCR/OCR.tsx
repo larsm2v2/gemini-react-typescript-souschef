@@ -5,10 +5,10 @@ import "../OCR/OCR.css"
 
 const OCR = () => {
 	const [images, setImages] = useState<string[]>([])
-	const [text, setText] = useState("")
+	const [extractedText, setExtractedText] = useState("")
+	const [isLoading, setIsLoading] = useState(false)
+	const canvasRefs = useRef<(HTMLCanvasElement | undefined)[]>([])
 	const imageRefs = useRef<(HTMLImageElement | undefined)[]>([])
-	const processedImageDataRef = useRef<(ImageData | null)[]>([])
-	const extractedTextRef = useRef<string[]>([])
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const files = event.target.files
@@ -18,21 +18,25 @@ const OCR = () => {
 			)
 			setImages(urls)
 		} else {
-			setImages([]) // or any other fallback value you prefer
+			setImages([])
 		}
 	}
 
 	useEffect(() => {
-		// Update the 'text' state whenever extractedTextRef changes
-		setText(extractedTextRef.current.join("\n")) // Combine extracted text with newlines
-	}, [extractedTextRef.current])
+		canvasRefs.current = Array.from({ length: images.length })
+		imageRefs.current = Array.from({ length: images.length })
+	}, [images])
 
 	const handleClick = async () => {
-		extractedTextRef.current = Array(images.length).fill("") // Initialize with empty strings
 		if (images.length > 0) {
+			setIsLoading(true)
+			const promises: Promise<string>[] = []
+
 			images.forEach((image, index) => {
 				const canvas = document.createElement("canvas")
 				const ctx = canvas.getContext("2d")
+
+				canvasRefs.current[index] = canvas
 
 				if (ctx) {
 					const imageObj = new Image()
@@ -42,34 +46,44 @@ const OCR = () => {
 						ctx.drawImage(imageObj, 0, 0)
 
 						const processedImageData = PreprocessImage(canvas)
+						ctx.putImageData(processedImageData, 0, 0)
 
-						if (processedImageData) {
-							const dataUrl = canvas.toDataURL("image/jpeg")
+						const dataUrl = canvas.toDataURL("image/jpeg")
 
-							Tesseract.recognize(dataUrl, "eng", {
-								logger: (m) => console.log(m),
-							})
-								.then((result) => {
-									if (result && result.data) {
-										// Update the extracted text for the specific image
-										extractedTextRef.current[index] =
-											result.data.text
-									} else {
-										console.error(
-											"Unexpected Tesseract result format"
-										)
-									}
-								})
-								.catch((err) => {
-									console.error(err)
-								})
-						} else {
-							console.error("Image preprocessing failed")
-						}
+						const promise = Tesseract.recognize(dataUrl, "eng", {
+							logger: (m) => console.log(m),
+						}).then((result) => {
+							if (result && result.data) {
+								const text = result.data.text
+								console.log(
+									`Extracted text for image ${index + 1}:`,
+									text
+								)
+								return text
+							} else {
+								console.error(
+									"Unexpected Tesseract result format"
+								)
+								return ""
+							}
+						})
+
+						promises.push(promise)
 					}
 					imageObj.src = image
 				}
 			})
+
+			try {
+				const extractedTexts = await Promise.all(promises)
+				const allExtractedText = extractedTexts.join("\n")
+				setExtractedText(allExtractedText)
+				console.log("All Extracted Text:", allExtractedText)
+			} catch (err) {
+				console.error(err)
+			} finally {
+				setIsLoading(false)
+			}
 		}
 	}
 
@@ -91,27 +105,26 @@ const OCR = () => {
 							src={image}
 							alt="logo"
 							ref={(el) => {
-								if (el && index !== undefined) {
-									// Type assertion is needed because TypeScript isn't
-									// sure if 'el' is definitely an HTMLCanvasElement
-									imageRefs.current[index] =
-										el as HTMLImageElement
+								if (el) {
+									imageRefs.current![index] = el
 								}
 							}}
 						/>
-						<div className="img-text">
-							<h3>Extracted text</h3>
-							<div className="rendered_text">
-								{extractedTextRef.current[index]}
+						{!isLoading && extractedText && (
+							<div className="img-text">
+								<h3>Extracted text</h3>
+								<div className="rendered_text">
+									{extractedText}
+								</div>
 							</div>
-						</div>
+						)}
 					</div>
 				))}
 			</div>
 			<div>
 				<input type="file" onChange={handleChange} multiple />
 				<button onClick={handleClick} style={{ height: 50 }}>
-					Convert to text
+					{isLoading ? "Processing..." : "Convert to text"}
 				</button>
 			</div>
 		</div>
