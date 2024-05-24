@@ -27,7 +27,7 @@ const OCR = () => {
 		setText(extractedTextRef.current.join("\n")) // Combine extracted text with newlines
 	}, [extractedTextRef.current])
 
-	const handleClick = () => {
+	const handleClick = async () => {
 		extractedTextRef.current = Array(images.length).fill("") // Initialize with empty strings
 		if (images.length > 0) {
 			images.forEach((image, index) => {
