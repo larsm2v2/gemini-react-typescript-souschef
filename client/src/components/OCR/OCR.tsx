@@ -8,6 +8,7 @@ const OCR = () => {
 	const [text, setText] = useState("")
 	const canvasRefs = useRef<(HTMLCanvasElement | undefined)[]>([])
 	const imageRefs = useRef<(HTMLImageElement | undefined)[]>([])
+	const [showCanvases, setShowCanvases] = useState(false)
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const files = event.target.files
@@ -37,8 +38,8 @@ const OCR = () => {
 				const ctx = canvas?.getContext("2d")
 
 				if (ctx && img && canvas) {
-					// Load the image onto the canvas first
 					const imageObj = new Image()
+
 					imageObj.onload = () => {
 						canvas.width = imageObj.width
 						canvas.height = imageObj.height
@@ -47,16 +48,13 @@ const OCR = () => {
 						const processedImageData = PreprocessImage(canvas)
 
 						if (processedImageData) {
-							ctx.putImageData(processedImageData, 0, 0) // Put the processed image back onto the canvas
 							const dataUrl = canvas.toDataURL("image/jpeg")
 
-							// Start Tesseract recognition
 							Tesseract.recognize(dataUrl, "eng", {
 								logger: (m) => console.log(m),
 							})
 								.then((result) => {
 									if (result && result.data) {
-										// Update text state with the extracted text for each image
 										setText(
 											(prevText) =>
 												prevText + result.data.text
@@ -65,6 +63,13 @@ const OCR = () => {
 											`Confidence: ${result.data.confidence}`
 										)
 										console.log(result.data.text)
+
+										// After Tesseract finishes, draw the preprocessed image
+										ctx.putImageData(
+											processedImageData,
+											0,
+											0
+										)
 									} else {
 										console.error(
 											"Unexpected Tesseract result format"
@@ -78,9 +83,10 @@ const OCR = () => {
 							console.error("Image preprocessing failed")
 						}
 					}
-					imageObj.src = img // Set the image source for the Image object
+					imageObj.src = img
 				}
 			})
+			setShowCanvases(true) // Show the canvases after processing
 		}
 	}
 
@@ -106,22 +112,24 @@ const OCR = () => {
 								}
 							}}
 						/>
-						<div className="img-canvas">
-							<h3>Canvas</h3>
-							<canvas
-								className="OCR-image"
-								ref={(el) => {
-									if (el && index !== undefined) {
-										// Type assertion is needed because TypeScript isn't
-										// sure if 'el' is definitely an HTMLCanvasElement
-										canvasRefs.current[index] =
-											el as HTMLCanvasElement
-									}
-								}}
-								width={400}
-								height={800}
-							/>
-						</div>
+						{showCanvases && (
+							<div className="img-canvas">
+								<h3>Canvas</h3>
+								<canvas
+									className="OCR-image"
+									ref={(el) => {
+										if (el && index !== undefined) {
+											// Type assertion is needed because TypeScript isn't
+											// sure if 'el' is definitely an HTMLCanvasElement
+											canvasRefs.current[index] =
+												el as HTMLCanvasElement
+										}
+									}}
+									width={400}
+									height={800}
+								/>
+							</div>
+						)}
 						<div className="img-text">
 							<h3>Extracted text</h3>
 							<div className="rendered_text">
