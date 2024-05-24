@@ -7,8 +7,8 @@ const OCR = () => {
 	const [images, setImages] = useState<string[]>([])
 	const [extractedText, setExtractedText] = useState("")
 	const [isLoading, setIsLoading] = useState(false)
-	const canvasRefs = useRef<(HTMLCanvasElement | undefined)[]>([])
-	const imageRefs = useRef<(HTMLImageElement | undefined)[]>([])
+	const canvasRefs = useRef<(HTMLCanvasElement | null)[]>([])
+	const imageRefs = useRef<(HTMLImageElement | null)[]>([])
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const files = event.target.files
@@ -33,45 +33,56 @@ const OCR = () => {
 			const promises: Promise<string>[] = []
 
 			images.forEach((image, index) => {
-				const canvas = document.createElement("canvas")
-				const ctx = canvas.getContext("2d")
+				const promise = new Promise<string>((resolve, reject) => {
+					const canvas = document.createElement("canvas")
+					const ctx = canvas.getContext("2d")
 
-				canvasRefs.current[index] = canvas
+					canvasRefs.current[index] = canvas
 
-				if (ctx) {
-					const imageObj = new Image()
-					imageObj.onload = () => {
-						canvas.width = imageObj.width
-						canvas.height = imageObj.height
-						ctx.drawImage(imageObj, 0, 0)
+					if (ctx) {
+						const imageObj = new Image()
+						imageObj.onload = () => {
+							canvas.width = imageObj.width
+							canvas.height = imageObj.height
+							ctx.drawImage(imageObj, 0, 0)
 
-						const processedImageData = PreprocessImage(canvas)
-						ctx.putImageData(processedImageData, 0, 0)
+							const processedImageData = PreprocessImage(canvas)
+							ctx.putImageData(processedImageData, 0, 0)
 
-						const dataUrl = canvas.toDataURL("image/jpeg")
+							const dataUrl = canvas.toDataURL("image/jpeg")
 
-						const promise = Tesseract.recognize(dataUrl, "eng", {
-							logger: (m) => console.log(m),
-						}).then((result) => {
-							if (result && result.data) {
-								const text = result.data.text
-								console.log(
-									`Extracted text for image ${index + 1}:`,
-									text
-								)
-								return text
-							} else {
-								console.error(
-									"Unexpected Tesseract result format"
-								)
-								return ""
-							}
-						})
-
-						promises.push(promise)
+							Tesseract.recognize(dataUrl, "eng", {
+								logger: (m) => console.log(m),
+							})
+								.then((result) => {
+									if (result && result.data) {
+										const text = result.data.text
+										console.log(
+											`Extracted text for image ${
+												index + 1
+											}:`,
+											text
+										)
+										resolve(text)
+									} else {
+										console.error(
+											"Unexpected Tesseract result format"
+										)
+										resolve("")
+									}
+								})
+								.catch((err) => {
+									console.error(err)
+									resolve("")
+								})
+						}
+						imageObj.src = image
+					} else {
+						reject("Canvas context is not available")
 					}
-					imageObj.src = image
-				}
+				})
+
+				promises.push(promise)
 			})
 
 			try {
@@ -103,21 +114,9 @@ const OCR = () => {
 							width={600}
 							height={800}
 							src={image}
-							alt="logo"
-							ref={(el) => {
-								if (el) {
-									imageRefs.current![index] = el
-								}
-							}}
+							alt="uploaded"
+							ref={(el) => (imageRefs.current[index] = el)}
 						/>
-						{!isLoading && extractedText && (
-							<div className="img-text">
-								<h3>Extracted text</h3>
-								<div className="rendered_text">
-									{extractedText}
-								</div>
-							</div>
-						)}
 					</div>
 				))}
 			</div>
@@ -126,6 +125,12 @@ const OCR = () => {
 				<button onClick={handleClick} style={{ height: 50 }}>
 					{isLoading ? "Processing..." : "Convert to text"}
 				</button>
+			</div>
+			<div className="img-text">
+				<h3>Extracted text</h3>
+				<div className="rendered_text">
+					<p className="wrapthistext">{extractedText}</p>
+				</div>
 			</div>
 		</div>
 	)
