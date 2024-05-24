@@ -7,6 +7,7 @@ const OCR = () => {
 	const [images, setImages] = useState<string[]>([])
 	const [extractedText, setExtractedText] = useState("")
 	const [isLoading, setIsLoading] = useState(false)
+	const [isLoadingGemini, setIsLoadingGemini] = useState(false)
 	const canvasRefs = useRef<(HTMLCanvasElement | null)[]>([])
 	const imageRefs = useRef<(HTMLImageElement | null)[]>([])
 
@@ -98,17 +99,28 @@ const OCR = () => {
 		}
 	}
 
+	const handleGemini = async () => {
+		console.log("Tell Gemini to convert to json")
+		return "Tell Gemini to convert"
+	}
+
 	return (
 		<div className="OCR-container">
 			<h1>myImport</h1>
+			<div className="img-text">
+				<h3>Extracted Recipe Text</h3>
+				<div className="rendered_text">
+					<p className="wrapthistext">{extractedText}</p>
+				</div>
+			</div>
 			<div className="img-container">
+				<h3>{"Recipe Image(s) Uploaded"}</h3>
 				{images.map((image, index) => (
 					<div
 						className="img-upload"
 						key={index}
 						id={`img-upload-${index}`}
 					>
-						<h3>Actual Image Uploaded</h3>
 						<img
 							className="OCR-image"
 							width={600}
@@ -125,12 +137,9 @@ const OCR = () => {
 				<button onClick={handleClick} style={{ height: 50 }}>
 					{isLoading ? "Processing..." : "Convert to text"}
 				</button>
-			</div>
-			<div className="img-text">
-				<h3>Extracted text</h3>
-				<div className="rendered_text">
-					<p className="wrapthistext">{extractedText}</p>
-				</div>
+				<button onClick={handleGemini} style={{ height: 50 }}>
+					{isLoadingGemini ? "Processing..." : "Convert to json"}
+				</button>
 			</div>
 		</div>
 	)
