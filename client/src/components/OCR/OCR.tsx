@@ -6,9 +6,9 @@ import "../OCR/OCR.css"
 const OCR = () => {
 	const [images, setImages] = useState<string[]>([])
 	const [text, setText] = useState("")
-	const canvasRefs = useRef<(HTMLCanvasElement | undefined)[]>([])
 	const imageRefs = useRef<(HTMLImageElement | undefined)[]>([])
-	const [showCanvases, setShowCanvases] = useState(false)
+	const processedImageDataRef = useRef<(ImageData | null)[]>([])
+	const extractedTextRef = useRef<string[]>([])
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const files = event.target.files
@@ -23,23 +23,19 @@ const OCR = () => {
 	}
 
 	useEffect(() => {
-		// Initialize canvasRefs with an array of the correct length
-		canvasRefs.current = Array.from({ length: images.length })
-		imageRefs.current = Array.from({ length: images.length })
-	}, [images]) // Re-run effect when images change
+		// Update the 'text' state whenever extractedTextRef changes
+		setText(extractedTextRef.current.join("\n")) // Combine extracted text with newlines
+	}, [extractedTextRef.current])
 
 	const handleClick = () => {
-		const canvases = canvasRefs.current
-		const imgs = imageRefs.current
+		extractedTextRef.current = Array(images.length).fill("") // Initialize with empty strings
+		if (images.length > 0) {
+			images.forEach((image, index) => {
+				const canvas = document.createElement("canvas")
+				const ctx = canvas.getContext("2d")
 
-		if (canvases && imgs && images.length) {
-			images.forEach((img, index) => {
-				const canvas = canvases[index]
-				const ctx = canvas?.getContext("2d")
-
-				if (ctx && img && canvas) {
+				if (ctx) {
 					const imageObj = new Image()
-
 					imageObj.onload = () => {
 						canvas.width = imageObj.width
 						canvas.height = imageObj.height
@@ -55,21 +51,9 @@ const OCR = () => {
 							})
 								.then((result) => {
 									if (result && result.data) {
-										setText(
-											(prevText) =>
-												prevText + result.data.text
-										)
-										console.log(
-											`Confidence: ${result.data.confidence}`
-										)
-										console.log(result.data.text)
-
-										// After Tesseract finishes, draw the preprocessed image
-										ctx.putImageData(
-											processedImageData,
-											0,
-											0
-										)
+										// Update the extracted text for the specific image
+										extractedTextRef.current[index] =
+											result.data.text
 									} else {
 										console.error(
 											"Unexpected Tesseract result format"
@@ -83,10 +67,9 @@ const OCR = () => {
 							console.error("Image preprocessing failed")
 						}
 					}
-					imageObj.src = img
+					imageObj.src = image
 				}
 			})
-			setShowCanvases(true) // Show the canvases after processing
 		}
 	}
 
@@ -95,7 +78,11 @@ const OCR = () => {
 			<h1>myImport</h1>
 			<div className="img-container">
 				{images.map((image, index) => (
-					<div className="img-upload" key={index}>
+					<div
+						className="img-upload"
+						key={index}
+						id={`img-upload-${index}`}
+					>
 						<h3>Actual Image Uploaded</h3>
 						<img
 							className="OCR-image"
@@ -112,32 +99,10 @@ const OCR = () => {
 								}
 							}}
 						/>
-						{showCanvases && (
-							<div className="img-canvas">
-								<h3>Canvas</h3>
-								<canvas
-									className="OCR-image"
-									ref={(el) => {
-										if (el && index !== undefined) {
-											// Type assertion is needed because TypeScript isn't
-											// sure if 'el' is definitely an HTMLCanvasElement
-											canvasRefs.current[index] =
-												el as HTMLCanvasElement
-										}
-									}}
-									width={400}
-									height={800}
-								/>
-							</div>
-						)}
 						<div className="img-text">
 							<h3>Extracted text</h3>
 							<div className="rendered_text">
-								{text.split("\n").map((line, lineIndex) => (
-									<p className="wrapthistext" key={lineIndex}>
-										{line}
-									</p>
-								))}
+								{extractedTextRef.current[index]}
 							</div>
 						</div>
 					</div>
