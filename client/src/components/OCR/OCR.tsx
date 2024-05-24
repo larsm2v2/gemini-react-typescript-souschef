@@ -161,7 +161,7 @@ const OCR = () => {
 				</div>
 			</div>
 			<div>
-				<input type="file" onChange={handleChange} />
+				<input type="file" onChange={handleChange} multiple />
 				<button onClick={handleClick} style={{ height: 50 }}>
 					Convert to text
 				</button>
