@@ -18,67 +18,6 @@ const OCR = () => {
 		}
 	}
 
-	/* 	const handleClick = () => {
-		const canvas = canvasRef.current
-		if (!canvas) {
-			console.error("Canvas is not defined")
-			return
-		}
-		const ctx = canvas.getContext("2d")
-		if (!ctx) {
-			console.error("Cannot get 2D rendering context")
-			return
-		}
-		const image = imageRef.current
-		if (!image) {
-			console.error("Image is not defined")
-			return
-		}
-		ctx.drawImage(image, 0, 0)
-		const processedImage = PreprocessImage(canvas)
-		if (!processedImage) {
-			console.error("Processed image is not defined")
-			return
-		}
-		ctx.putImageData(PreprocessImage(canvas), 0, 0)
-		const dataUrl = canvas.toDataURL("image/jpeg")
-
-		Tesseract.recognize(dataUrl, "eng", {
-			logger: (m) => {
-				console.log(m)
-				console.log("I am logging m")
-			},
-		})
-			.catch((err) => {
-				console.error(err)
-			})
-			.then((result) => {
-				console.log(
-					`I am getting ready to process the text result: ${result}`
-				)
-				if (
-					result &&
-					"confidence" in result &&
-					typeof result.confidence === "number"
-				) {
-					// Get Confidence score
-					let confidence: number = result.confidence
-					console.log(`Confidence: " ${confidence}`)
-				}
-				// Get full output
-				if (
-					result &&
-					"text" in result &&
-					typeof result.text === "string"
-				) {
-					let text: string = result.text
-
-					setText(text)
-					console.log(text)
-				}
-			})
-	} */
-
 	const handleClick = () => {
 		const canvas = canvasRef.current
 		const img = imageRef.current
