@@ -21,7 +21,7 @@ const OCR = () => {
 	let preprompt: string =
 		"You are a very skilled sous-chef and cooking teacher." +
 		"You will rewrite the recipe text to json" +
-		"NO FALSE STATEMENTS." +
+		"NO FALSE STATEMENTS!" +
 		"The cuisines must match" +
 		"You will write recipes as json files." +
 		"Use this recipe format for the json:" +

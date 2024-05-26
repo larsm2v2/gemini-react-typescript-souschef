@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import "./ShoppingList.css"
-import EditableList from "../EditableList/EditableList"
-import InputField from "../InputField/InputField"
+import EditableList from "./EditableList/EditableList"
+import InputField from "./InputField/InputField"
 import ShoppingListRecords from "./ShoppingList.json"
 import { ListItem, RecipeModel } from "../Models/Models"
 

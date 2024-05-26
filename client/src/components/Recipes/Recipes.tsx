@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import recipeData from "./Recipes.json"
 import "./Recipes.css"
 import { RecipeModel } from "../Models/Models"
+import RecipeDetails from "./Recipe Details/RecipeDetails"
 
 const Recipes = () => {
 	const [recipes, setRecipes] = useState<RecipeModel[]>(
@@ -34,50 +35,7 @@ const Recipes = () => {
 						</ul>
 					</div>
 				</div>
-				{selectedRecipe && (
-					<div className="recipes-show">
-						<div>
-							<h2>{selectedRecipe.name}</h2>
-						</div>
-						<div className="recipe-info">
-							<p>Cuisine: {selectedRecipe.cuisine}</p>
-						</div>
-						<div className="recipe-info">
-							<p>Meal Type: {selectedRecipe["meal type"]}</p>
-						</div>
-						<div>
-							<h3>Ingredients:</h3>
-						</div>
-						<div>
-							<ul>
-								{selectedRecipe.ingredients.dish.map(
-									(ingredient) => (
-										<li key={ingredient.id}>
-											<p>
-												{`${ingredient.amount} ${ingredient.unit} ${ingredient.name}`}
-											</p>
-										</li>
-									)
-								)}
-							</ul>
-						</div>
-						<div>
-							<h3>Instructions:</h3>
-						</div>
-						<div>
-							<ol>
-								{" "}
-								{selectedRecipe.instructions.map(
-									(instruction) => (
-										<li key={instruction.number}>
-											<p>{instruction.text}</p>
-										</li>
-									)
-								)}
-							</ol>
-						</div>
-					</div>
-				)}
+				{selectedRecipe && <RecipeDetails recipe={selectedRecipe} />}
 			</div>
 		</div>
 	)
