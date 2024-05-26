@@ -1,14 +1,22 @@
-import React from "react"
+import React, { useState } from "react"
 import { RecipeModel } from "../../Models/Models"
 import "../Recipes.css"
 
 // Interface for ingredient groups
 interface IngredientGroup {
 	name: string
-	ingredients: RecipeModel["ingredients"]["dish"] // Assuming all ingredient lists have the same structure as "dish"
+	ingredients: RecipeModel["ingredients"]["dish"] // Assuming consistent ingredient structure
 }
 
-const RecipeDetails: React.FC<{ recipe: RecipeModel }> = ({ recipe }) => {
+interface RecipeDetailsProps {
+	recipe: RecipeModel
+	onSelectedRecipesChange: (recipe: RecipeModel) => void
+}
+
+const RecipeDetails: React.FC<RecipeDetailsProps> = ({
+	recipe,
+	onSelectedRecipesChange,
+}) => {
 	// Helper function to capitalize headings
 	const capitalizeHeading = (str: string) => {
 		return str
@@ -17,14 +25,47 @@ const RecipeDetails: React.FC<{ recipe: RecipeModel }> = ({ recipe }) => {
 			.join(" ")
 	}
 
-	// 1. Organize Ingredients by Subheading
-	const ingredientGroups: IngredientGroup[] = Object.entries(
-		recipe.ingredients
-	).map(([name, ingredients]) => ({ name, ingredients }))
+	// State to manage selected recipe
+	const [isSelected, setIsSelected] = useState(false)
+
+	// Function to toggle selection and update parent component
+	const handleCheckboxChange = () => {
+		setIsSelected(!isSelected)
+		onSelectedRecipesChange(recipe)
+	}
+
+	// 1. Organize Ingredients by Subheading (including "Selected Recipes" if checked)
+	const ingredientGroups: IngredientGroup[] = isSelected
+		? [
+				{
+					name: "Selected Recipes",
+					ingredients: recipe.ingredients.dish,
+				},
+				...Object.entries(recipe.ingredients).map(
+					([name, ingredients]) => ({
+						name,
+						ingredients,
+					})
+				),
+		  ]
+		: Object.entries(recipe.ingredients).map(([name, ingredients]) => ({
+				name,
+				ingredients,
+		  }))
 
 	return (
 		<div className="recipes-container">
 			<h2>{capitalizeHeading(recipe.name)}</h2>
+
+			{/* Checkbox for selecting recipe */}
+			<div>
+				<input
+					type="checkbox"
+					checked={isSelected}
+					onChange={handleCheckboxChange}
+				/>
+				<label>Add to Selected Recipes</label>
+			</div>
 
 			{/* 2. Display Other Details (with capitalized headings) */}
 			<div className="recipe-info">
@@ -32,8 +73,6 @@ const RecipeDetails: React.FC<{ recipe: RecipeModel }> = ({ recipe }) => {
 					<strong>{capitalizeHeading("Cuisine")}:</strong>{" "}
 					{recipe.cuisine}
 				</p>
-			</div>
-			<div>
 				<p>
 					<strong>{capitalizeHeading("Meal Type")}:</strong>{" "}
 					{recipe["meal type"]}
@@ -50,7 +89,7 @@ const RecipeDetails: React.FC<{ recipe: RecipeModel }> = ({ recipe }) => {
 							.filter(
 								(ingredient) =>
 									ingredient.name && ingredient.amount
-							)
+							) // Filter out null values
 							.map((ingredient) => (
 								<li key={ingredient.id}>
 									{`${ingredient.amount} ${
