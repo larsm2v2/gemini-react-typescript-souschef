@@ -13,30 +13,43 @@ const Recipes = () => {
 	)
 	const [searchQuery, setSearchQuery] = useState("")
 	const [showSelected, setShowSelected] = useState(false)
-	const [selectedRecipes, setSelectedRecipes] = useState<RecipeModel[]>([])
+	const [selectedRecipes, setSelectedRecipes] = useState<{
+		[key: string]: boolean
+	}>({})
 
 	// Filtering based on search and showSelected
 	const filteredRecipes = recipes.filter((recipe) => {
-		const matchesSearch = Object.values(recipe).some((value) => {
-			if (typeof value === "string") {
-				return value.toLowerCase().includes(searchQuery.toLowerCase())
+		const searchTerm = searchQuery.toLowerCase()
+		const recipeValues = Object.values(recipe)
+
+		if (showSelected) {
+			return selectedRecipes[recipe.id]
+		}
+
+		for (const value of recipeValues) {
+			if (
+				typeof value === "string" &&
+				value.toLowerCase().includes(searchTerm)
+			) {
+				return true
 			} else if (Array.isArray(value)) {
-				return value.some((item) =>
-					Object.values(item).some((v) => {
-						if (typeof v === "string" || typeof v === "number") {
-							// Check for string or number
-							return v
+				for (const item of value) {
+					for (const propValue of Object.values(item)) {
+						if (
+							(typeof propValue === "string" ||
+								typeof propValue === "number") &&
+							propValue
 								.toString()
 								.toLowerCase()
-								.includes(searchQuery.toLowerCase()) // Convert to string if number
+								.includes(searchTerm)
+						) {
+							return true
 						}
-						return false
-					})
-				)
+					}
+				}
 			}
-			return false
-		})
-		return showSelected ? selectedRecipes.includes(recipe) : matchesSearch
+		}
+		return false
 	})
 
 	// Handling recipe selection
@@ -47,11 +60,10 @@ const Recipes = () => {
 
 	// Handling checkbox changes for selected recipes
 	const handleSelectedRecipesChange = (recipe: RecipeModel) => {
-		setSelectedRecipes((prevSelected) =>
-			prevSelected.includes(recipe)
-				? prevSelected.filter((r) => r !== recipe)
-				: [...prevSelected, recipe]
-		)
+		setSelectedRecipes((prevSelected) => ({
+			...prevSelected,
+			[recipe.id]: !prevSelected[recipe.id], // Toggle selected state for this recipe
+		}))
 	}
 
 	// Load selected recipes from local storage on component mount
@@ -105,6 +117,7 @@ const Recipes = () => {
 					<RecipeDetails
 						recipe={selectedRecipe}
 						onSelectedRecipesChange={handleSelectedRecipesChange}
+						isSelected={selectedRecipes[selectedRecipe.id] || false} // Pass isSelected for the current recipe
 					/>
 				)}
 			</div>

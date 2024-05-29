@@ -11,11 +11,13 @@ interface IngredientGroup {
 interface RecipeDetailsProps {
 	recipe: RecipeModel
 	onSelectedRecipesChange: (recipe: RecipeModel) => void
+	isSelected: boolean
 }
 
 const RecipeDetails: React.FC<RecipeDetailsProps> = ({
 	recipe,
 	onSelectedRecipesChange,
+	isSelected,
 }) => {
 	// Helper function to capitalize headings
 	const capitalizeHeading = (str: string) => {
@@ -25,12 +27,8 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
 			.join(" ")
 	}
 
-	// State to manage selected recipe
-	const [isSelected, setIsSelected] = useState(false)
-
 	// Function to toggle selection and update parent component
 	const handleCheckboxChange = () => {
-		setIsSelected(!isSelected)
 		onSelectedRecipesChange(recipe)
 	}
 
@@ -73,6 +71,8 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
 					<strong>{capitalizeHeading("Cuisine")}:</strong>{" "}
 					{recipe.cuisine}
 				</p>
+			</div>
+			<div>
 				<p>
 					<strong>{capitalizeHeading("Meal Type")}:</strong>{" "}
 					{recipe["meal type"]}
