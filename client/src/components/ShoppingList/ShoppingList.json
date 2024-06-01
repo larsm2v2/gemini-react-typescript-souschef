@@ -1,28 +1,26 @@
 [
-    {
-        "id":1,
-        "quantity": "8",
-        "unit": "",
-        "item": "apples"
-    },
-    {
-        "id":2,
-        "quantity": "1",
-        "unit": "bunch",
-        "item": "cilantro"
-    },
-    {
-        "id":3,
-        "quantity": "4",
-        "unit": "bulbs",
-        "item": "garlic"
-    },
-    {
-        "id":4,
-        "quantity": "3",
-        "unit": "lbs",
-        "item": "chicken"
-    }
-
+	{
+		"id": 1,
+		"quantity": 8,
+		"unit": "",
+		"item": "apples"
+	},
+	{
+		"id": 2,
+		"quantity": 1,
+		"unit": "bunch",
+		"item": "cilantro"
+	},
+	{
+		"id": 3,
+		"quantity": 4,
+		"unit": "bulbs",
+		"item": "garlic"
+	},
+	{
+		"id": 4,
+		"quantity": 3,
+		"unit": "lbs",
+		"item": "chicken"
+	}
 ]
-

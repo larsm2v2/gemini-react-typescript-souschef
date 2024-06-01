@@ -1,10 +1,16 @@
 import React, { useState } from "react"
 import "./SousChef.css"
+import TemporaryRecipeDisplay from "../RecipeDisplay/RecipeDisplay" // Import your RecipeDisplay component
+import { RecipeModel } from "../Models/Models"
+import { surpriseOptions, preprompt } from "../Models/Prompts"
 
 const SousChef = () => {
 	const [value, setValue] = useState("")
 	const [passedValue, setPassedValue] = useState("")
 	const [error, setError] = useState("")
+	const [generatedRecipe, setGeneratedRecipe] = useState<RecipeModel | null>(
+		null
+	)
 	const [chatHistory, setChatHistory] = useState<
 		Array<{ role: string; parts: string[] }>
 	>([])
@@ -14,84 +20,7 @@ const SousChef = () => {
 	const [dietaryRestrictions, setDietaryRestrictions] = useState("")
 	const [otherInfo, setOtherInfo] = useState("")
 	const [specificLarge, setSpecificLarge] = useState("")
-	const surpriseOptions = [
-		"Show me a Latin Caribbean recipe",
-		"Show me an Italian recipe",
-		"Show me a Haitian recipe",
-		"Show me a Greek recipe",
-		"Show me a Welsh recipe",
-		"Show me a Latin Caribbean dinner recipe",
-		"Show me an Italian dinner recipe",
-		"Show me a Haitian dinner recipe",
-		"Show me a Greek dinner recipe",
-		"Show me a Welsh dinner recipe",
-		"Show me a Latin Caribbean dinner recipe",
-		"Show me an Italian dessert recipe",
-		"Show me a Haitian dessert recipe",
-		"Show me a Greek dessert recipe",
-		"Show me a Welsh dessert recipe",
-	]
-	let preprompt: string =
-		"You are a very skilled sous-chef and cooking teacher." +
-		"Still you will only make recipes with knowledge that is known." +
-		"NO FALSE STATEMENTS." +
-		"The cuisines must match" +
-		"You will write recipes as json files." +
-		"Use this recipe format for the json:" +
-		"name: string" +
-		"unique id: string" +
-		"id: string" +
-		"cuisine: string" +
-		"meal type: string" +
-		"dietary restrictions and designations: string[]" +
-		"serving info: {" +
-		"prep time: string" +
-		"cook time: string" +
-		"total time: string" +
-		"number of people served: number}" +
-		"ingredients: {" +
-		"dish: [" +
-		"id: string" +
-		"name: string" +
-		"amount: string" +
-		"unit: string | null" +
-		"][]" +
-		"}" +
-		"instructions: { number: number; text: string }[]" +
-		"notes: string[]" +
-		"nutrition: {" +
-		"serving: string" +
-		"calories: string" +
-		"carbohydrates: string" +
-		"protein: string" +
-		"fat: string" +
-		"saturated fat: string" +
-		"fiber: string" +
-		"sugar: string" +
-		"}" +
-		"You will help adjust and suggest the json details based on other available recipe formats." +
-		"You will format the json for ease of viewing." +
-		"Format the recipe as a json with these twelve main sections: name, unique id, id, cuisine, meal type, dietary restrictions and designations, serving info, ingredients, instructions, notes, nutrition, and grocery list." +
-		"For the name section, use the recipe name." +
-		"For the unique id section, use date.now()." +
-		"For the id section, use the recipe name with dashes instead of spaces." +
-		`For the cuisine section, use the following:${cuisine}.` +
-		"or if empty between the last colon and the period use the culture assosicated e.g. Dominican, Latin, Haitian, Chinese, Indian etc." +
-		"For the meal type, use breakfast, lunch, brunch, dinner, or dessert." +
-		`For the dietary restrictions and designations,  use the following:${dietaryRestrictions}.` +
-		"or if empty between the colon and the period, simply find and use all applicable designations like gluten-free, vegan, mayonnaise-free, mustard-free, etc." +
-		"For the serving info section, make 4 subsections: the prep time, cook time, total time (which is the prep time plus cook time), and number of people served." +
-		"For the ingredient section, make 4 subsections: dish, and 3 variable sections that can be named but have an id (1,2, or 3)." +
-		"This variable section will allow for marinades, sauces, creams or toppings as needed." +
-		`The recipe must include the following:${knownIngredients}. but if empty between the last colon and the period, then continue creating a recipe with any ingredients.` +
-		"For the instruction section, each step will have a number value and text values holding instruction text." +
-		"For the notes section, it will hold one subsection able to hold a paragraph of text to help guide the recipe." +
-		"For the nutrition section, make eight sections: Serving will be set to 1 serving but can be changed to recalculate the other amounts, Calories, Carbohydrates, Protein, Fat, Saturated Fat, Fiber, and Sugar all except serving have units in grams."
-	/* + "For the grocery section, make a basic list of the ingredients and amounts to purchase." +
-		"Separated into quantity, units, item name." +
-		"Convert units to how one would purchase ingredients. Similar to a ceiling function." +
-		"For instance, cilantro is purchased in bunches so use a calculation to find the ceiling amount for each ingredient."
- */
+
 	const surprise = () => {
 		const randomValue =
 			surpriseOptions[Math.floor(Math.random() * surpriseOptions.length)]
@@ -108,15 +37,19 @@ const SousChef = () => {
 		if (value) {
 			setPassedValue(value)
 		}
-		if (specificLarge) {
-			setPassedValue(specificLarge)
-		}
 		try {
 			const options = {
 				method: "POST",
 				body: JSON.stringify({
 					history: chatHistory,
-					message: preprompt + passedValue,
+					message:
+						preprompt(
+							cuisine,
+							dietaryRestrictions,
+							knownIngredients,
+							avoidIngredients,
+							otherInfo
+						) + passedValue,
 				}),
 				headers: {
 					"Content-Type": "application/json",
@@ -128,18 +61,27 @@ const SousChef = () => {
 			)
 			const data = await response.text()
 			console.log(data)
-			setChatHistory((oldChatHistory) => [
-				...oldChatHistory,
-				{
-					role: "user",
-					parts: [value],
-				},
-				{
-					role: "model",
-					parts: [data],
-				},
-			])
-			setValue("")
+			const recipeRegex = /{.*}/s // capture the recipe as a json object
+
+			// find the json object in the response. the regex looks for the characters between and including the curly braces. the s flag allows the dot to match newline characters
+			const cleanedJsonMatch = data.match(recipeRegex)
+			const cleanedJsonString = cleanedJsonMatch
+				? cleanedJsonMatch[0]
+				: "" // Use the match or an empty string if no match is found
+
+			// Check if the string can be parsed
+			let parsedRecipe: RecipeModel | null = null
+			try {
+				parsedRecipe = JSON.parse(cleanedJsonString)
+				console.log("Parsed recipe:", parsedRecipe)
+			} catch (e) {
+				console.error("Error parsing JSON:", e)
+				setError("Invalid recipe format received.")
+				return // Exit the function if parsing fails
+			}
+
+			// Set the generated recipe in state to trigger the display
+			setGeneratedRecipe(parsedRecipe)
 		} catch (error) {
 			console.error(error)
 			setError("Something went wrong! Please try again later.")
@@ -231,13 +173,13 @@ const SousChef = () => {
 				{error && <button onClick={clear}>Clear</button>}
 			</div>
 			<div className="search-result">
-				{chatHistory.map((chatItem, _index) => (
-					<div key={_index}>
-						<p className="answer">
-							{chatItem.role}: {chatItem.parts}
-						</p>
-					</div>
-				))}
+				{/* TemporaryRecipeDisplay for showing generated recipe */}
+				{generatedRecipe && (
+					<TemporaryRecipeDisplay
+						generatedRecipe={generatedRecipe}
+						onTryAgain={getResponse} // Pass the getResponse function to retry
+					/>
+				)}
 			</div>
 		</div>
 	)

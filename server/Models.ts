@@ -6,9 +6,9 @@ export interface RecipeModel {
 	"meal type": string
 	"dietary restrictions and designations": string[] // Changed to string[]
 	"serving info": {
-		"prep time"?: string
-		"cook time"?: string
-		"total time"?: string
+		"prep time"?: string | null
+		"cook time"?: string | null
+		"total time"?: string | null
 		"number of people served"?: number | string // Changed to number | string
 	}
 	ingredients: {

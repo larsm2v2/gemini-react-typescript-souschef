@@ -1,11 +1,18 @@
-import React, { useState } from "react"
+import React from "react"
 import { RecipeModel } from "../../Models/Models"
 import "../Recipes.css"
 
 // Interface for ingredient groups
 interface IngredientGroup {
 	name: string
-	ingredients: RecipeModel["ingredients"]["dish"] // Assuming consistent ingredient structure
+	ingredients: {
+		[subcategory: string]: {
+			id: number
+			quantity: number
+			name: string
+			unit?: string
+		}[]
+	} // Assuming consistent ingredient structure
 }
 
 interface RecipeDetailsProps {
@@ -33,23 +40,37 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
 	}
 
 	// 1. Organize Ingredients by Subheading (including "Selected Recipes" if checked)
-	const ingredientGroups: IngredientGroup[] = isSelected
-		? [
-				{
-					name: "Selected Recipes",
-					ingredients: recipe.ingredients.dish,
-				},
-				...Object.entries(recipe.ingredients).map(
-					([name, ingredients]) => ({
+	const ingredientGroups: IngredientGroup[] = [
+		...(isSelected
+			? [
+					{
+						name: "Selected Recipes",
+						// Wrap the dish ingredients in an object with the key "dish"
+						ingredients: { dish: recipe.ingredients.dish },
+					},
+			  ]
+			: []),
+
+		// For all other subcategories, you need to ensure you're creating IngredientGroup objects
+		...Object.entries(recipe.ingredients).flatMap(([name, ingredients]) => {
+			if (name !== "dish" && Array.isArray(ingredients)) {
+				// Explicitly set unit to undefined if it's null
+				const fixedIngredients = ingredients.map((ing) => ({
+					...ing,
+					unit: ing.unit || undefined,
+				}))
+
+				return [
+					{
 						name,
-						ingredients,
-					})
-				),
-		  ]
-		: Object.entries(recipe.ingredients).map(([name, ingredients]) => ({
-				name,
-				ingredients,
-		  }))
+						ingredients: { [name]: fixedIngredients },
+					},
+				]
+			} else {
+				return []
+			}
+		}),
+	]
 
 	return (
 		<div className="recipes-container">
@@ -85,18 +106,25 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
 				<div key={group.name}>
 					<h3>{capitalizeHeading(group.name)}</h3>
 					<ul>
-						{group.ingredients
-							.filter(
-								(ingredient) =>
-									ingredient.name && ingredient.amount
-							) // Filter out null values
-							.map((ingredient) => (
-								<li key={ingredient.id}>
-									{`${ingredient.amount} ${
-										ingredient.unit ? ingredient.unit : ""
-									} ${ingredient.name}`}
-								</li>
-							))}
+						{/* Access the ingredients array for the specific group */}
+						{Object.values(group.ingredients).flatMap(
+							(ingredientsArray) =>
+								ingredientsArray
+									.filter(
+										(ingredient) =>
+											ingredient.name &&
+											ingredient.quantity
+									)
+									.map((ingredient) => (
+										<li key={ingredient.id}>
+											{`${ingredient.quantity} ${
+												ingredient.unit
+													? ingredient.unit
+													: ""
+											} ${ingredient.name}`}
+										</li>
+									))
+						)}
 					</ul>
 				</div>
 			))}

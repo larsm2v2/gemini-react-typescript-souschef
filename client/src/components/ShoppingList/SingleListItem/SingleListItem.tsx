@@ -1,45 +1,97 @@
-import React from "react"
+import React, { useState } from "react"
 import { ListItem } from "../../Models/Models"
 import { MdEdit, MdDeleteForever, MdDone } from "react-icons/md"
 import "../InputField/InputField.css"
-import EditableList from "../EditableList/EditableList"
 
-type Props = {
+interface SingleListItemProps {
 	listItem: ListItem
-	listItems: ListItem[]
-	setListItems: React.Dispatch<React.SetStateAction<ListItem[]>>
+	onDelete: (id: number) => void
+	onEdit: (id: number, updatedItem: ListItem) => void
 }
-const SingleListItem = ({ listItem, listItems, setListItems }: Props) => {
-	const handleDone = (id: number) => {
-		setListItems(
-			listItems.map((listItem) =>
-				listItem.id === id
-					? { ...listItem, isDone: !listItem.isDone }
-					: listItem
-			)
-		)
+
+const SingleListItem: React.FC<SingleListItemProps> = ({
+	listItem,
+	onDelete,
+	onEdit,
+}) => {
+	const [isEditing, setIsEditing] = useState(false)
+	const [editedItem, setEditedItem] = useState(listItem)
+
+	const handleEditClick = () => {
+		setIsEditing(true)
+	}
+
+	const handleEditSubmit = (e: React.FormEvent) => {
+		e.preventDefault()
+		onEdit(listItem.id, editedItem)
+		setIsEditing(false)
 	}
 
 	return (
-		<form className="listItems__single">
-			{listItem.isDone ? (
-				<s className="listItems__single--text">{listItem.listItem}</s>
+		<form className="input" onSubmit={handleEditSubmit}>
+			{isEditing ? (
+				<>
+					<input
+						className="input__box"
+						type="number"
+						min="0"
+						value={editedItem.quantity}
+						onChange={(e) =>
+							setEditedItem((prev) => ({
+								...prev,
+								quantity: Number(e.target.value),
+							}))
+						}
+					/>
+					<input
+						className="input__box"
+						type="text"
+						value={editedItem.unit}
+						onChange={(e) =>
+							setEditedItem((prev) => ({
+								...prev,
+								unit: e.target.value,
+							}))
+						}
+					/>
+					<input
+						className="input__box"
+						type="text"
+						value={editedItem.listItem}
+						onChange={(e) =>
+							setEditedItem((prev) => ({
+								...prev,
+								listItem: e.target.value,
+							}))
+						}
+					/>
+					<button className="input__submit" type="submit">
+						Go
+					</button>
+				</>
 			) : (
-				<span className="listItems__single--text">
-					{listItem.listItem}
-				</span>
+				<>
+					<span
+						className={`listItems__single--text ${
+							listItem.isDone ? "done" : ""
+						}`}
+					>
+						{listItem.quantity} {listItem.unit} {listItem.listItem}
+					</span>
+					<div>
+						<span className="icon" onClick={handleEditClick}>
+							<MdEdit />
+						</span>
+						<span
+							className="icon"
+							onClick={() => onDelete(listItem.id)}
+						>
+							<MdDeleteForever />
+						</span>
+						{/* Add checkbox for "Done" and "Transfer" */}
+					</div>
+				</>
 			)}
-			<div>
-				<span className="icon">
-					<MdEdit />
-				</span>
-				<span className="icon">
-					<MdDeleteForever />
-				</span>
-				<span className="icon" onClick={() => handleDone(listItem.id)}>
-					<MdDone />
-				</span>
-			</div>
 		</form>
 	)
 }
