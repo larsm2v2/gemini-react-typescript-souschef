@@ -12,25 +12,7 @@ export interface RecipeModel {
 		"number of people served"?: number | string // Changed to number | string
 	}
 	ingredients: {
-		dish: {
-			id: number
-			name: string
-			quantity: number
-			unit?: string
-		}[]
-		sauce?: {
-			id: number
-			name: string
-			quantity: number
-			unit?: string
-		}[]
-		marinade?: {
-			id: number
-			name: string
-			quantity: number
-			unit?: string
-		}[]
-		category4?: {
+		[subcategory: string]: {
 			id: number
 			name: string
 			quantity: number

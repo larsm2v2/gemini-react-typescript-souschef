@@ -20,7 +20,7 @@ const SousChef = () => {
 	const [avoidIngredients, setAvoidIngredients] = useState("")
 	const [dietaryRestrictions, setDietaryRestrictions] = useState("")
 	const [otherInfo, setOtherInfo] = useState("")
-	const [specificLarge, setSpecificLarge] = useState("")
+	const [specificExpanded, setSpecificExpanded] = useState("")
 	const [ocrAddon, setOcrAddon] = useState("")
 
 	const surprise = () => {
@@ -28,17 +28,27 @@ const SousChef = () => {
 			surpriseOptions[Math.floor(Math.random() * surpriseOptions.length)]
 		setValue(randomValue)
 	}
-	console.log(specificLarge)
+	console.log(specificExpanded)
 	const getResponse = async () => {
 		setIsLoading(true) // Set loading state to true
-		setSpecificLarge(`
-      ${cuisine},${ocrAddon},${knownIngredients}, ${avoidIngredients}, ${dietaryRestrictions}, ${otherInfo}`)
-		if (!value && !specificLarge) {
+		const specificExpanded = [
+			cuisine,
+			ocrAddon,
+			knownIngredients,
+			avoidIngredients,
+			dietaryRestrictions,
+			otherInfo,
+		]
+			.filter(Boolean)
+			.join(", ")
+		if (!value && !specificExpanded) {
 			setError("Let's try that again. Please ask a question.")
 			return
 		}
 		if (value) {
 			setPassedValue(value)
+		} else {
+			setPassedValue(specificExpanded)
 		}
 		try {
 			const options = {
@@ -91,7 +101,7 @@ const SousChef = () => {
 			setAvoidIngredients("")
 			setDietaryRestrictions("")
 			setOtherInfo("")
-			setSpecificLarge("")
+			setSpecificExpanded("")
 			setValue("")
 			setOcrAddon("")
 		} catch (error) {

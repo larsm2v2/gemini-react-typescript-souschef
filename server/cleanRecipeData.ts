@@ -1,4 +1,4 @@
-const recipeData = require("../server/Recipes.json")
+import recipeData from "./Recipes.json"
 import { RecipeModel } from "../server/Models.js" // Import your RecipeModel interface
 
 // Function to fix a single recipe
@@ -17,16 +17,21 @@ export function cleanRecipe(recipe: any): RecipeModel {
 					10
 				) || 0,
 		},
-		ingredients: {
-			...recipe.ingredients,
-			dish: recipe.ingredients.dish.map((ingredient: any) => ({
-				...ingredient,
-				id: ingredient.id.toString(),
-				quantity: parseFloat(ingredient.amount) || 0,
-				unit: ingredient.unit || undefined,
-			})),
-			// ... Fix other ingredient categories (sauce, marinade, etc.) similarly
-		},
+		ingredients: Object.keys(recipe.ingredients).reduce((acc, category) => {
+			if (Array.isArray(recipe.ingredients[category])) {
+				acc[category] = recipe.ingredients[category].map(
+					(
+						ingredient: RecipeModel["ingredients"][typeof category][number]
+					) => ({
+						...ingredient,
+						id: ingredient.id || 0,
+						quantity: ingredient.quantity || 0,
+						unit: ingredient.unit || undefined,
+					})
+				)
+			}
+			return acc
+		}, {} as RecipeModel["ingredients"]),
 		"dietary restrictions and designations":
 			recipe["dietary restrictions and designations"] || [], // Set to empty array if not present
 		notes: recipe.notes || [], // Set to empty array if not present

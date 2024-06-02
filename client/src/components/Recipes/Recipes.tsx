@@ -103,9 +103,12 @@ const Recipes: React.FC<RecipesProps> = ({
 	useEffect(() => {
 		const cleanServerRecipes = async () => {
 			try {
-				const response = await fetch("/api/clean-recipes", {
-					method: "POST",
-				})
+				const response = await fetch(
+					"http://localhost:8000/api/clean-recipes",
+					{
+						method: "POST",
+					}
+				)
 				if (!response.ok) {
 					throw new Error("Failed to fix recipe data on server")
 				}

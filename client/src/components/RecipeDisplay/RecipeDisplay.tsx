@@ -24,13 +24,16 @@ const TemporaryRecipeDisplay: React.FC<TemporaryRecipeDisplayProps> = ({
 	// Function to save the recipe (now calls the backend)
 	const handleSaveRecipe = async () => {
 		try {
-			const response = await fetch("/api/clean-recipe", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(generatedRecipe),
-			})
+			const response = await fetch(
+				"http://localhost:8000/api/clean-recipe",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(generatedRecipe),
+				}
+			)
 			if (response.ok) {
 				// ... (add logic to update your state or show a success message)
 				console.log("Recipe saved successfully!")

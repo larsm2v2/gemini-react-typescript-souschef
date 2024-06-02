@@ -20,19 +20,26 @@
 					"quantity": 1,
 					"unit": "pound"
 				},
-				{ "id": 2, "name": "Rice", "quantity": 1, "unit": "cup" },
-				{ "id": 3, "name": "Onion", "quantity": 1, "unit": "" },
+				{
+					"id": 2,
+					"name": "Rice",
+					"quantity": 1,
+					"unit": "cup"
+				},
+				{
+					"id": 3,
+					"name": "Onion",
+					"quantity": 1
+				},
 				{
 					"id": 4,
 					"name": "Green pepper",
-					"quantity": 1,
-					"unit": ""
+					"quantity": 1
 				},
 				{
 					"id": 5,
 					"name": "Red pepper",
-					"quantity": 1,
-					"unit": ""
+					"quantity": 1
 				},
 				{
 					"id": 6,
@@ -55,14 +62,12 @@
 				{
 					"id": 9,
 					"name": "Salt",
-					"quantity": "to taste",
-					"unit": ""
+					"quantity": "to taste"
 				},
 				{
 					"id": 10,
 					"name": "Black pepper",
-					"quantity": "to taste",
-					"unit": ""
+					"quantity": "to taste"
 				}
 			]
 		},
@@ -83,7 +88,10 @@
 				"number": 4,
 				"text": "Return the chicken to the pan and cook for 15 minutes more, or until the chicken is cooked through."
 			},
-			{ "number": 5, "text": "Serve the arroz con pollo over rice." }
+			{
+				"number": 5,
+				"text": "Serve the arroz con pollo over rice."
+			}
 		],
 		"notes": [],
 		"nutrition": {
@@ -112,11 +120,16 @@
 			"prep time": "20 min",
 			"cook time": "15 min",
 			"total time": "35 min",
-			"number of people served": "4"
+			"number of people served": 4
 		},
 		"ingredients": {
 			"dish": [
-				{ "id": 1, "name": "Rice", "quantity": "2", "unit": "cups" },
+				{
+					"id": 1,
+					"name": "Rice",
+					"quantity": "2",
+					"unit": "cups"
+				},
 				{
 					"id": 2,
 					"name": "Chicken",
@@ -129,21 +142,31 @@
 					"quantity": 0.5,
 					"unit": "pound"
 				},
-				{ "id": 4, "name": "Eggs", "quantity": 2, "unit": "" },
-				{ "id": 5, "name": "Onion", "quantity": 1, "unit": "" },
+				{
+					"id": 4,
+					"name": "Eggs",
+					"quantity": 2
+				},
+				{
+					"id": 5,
+					"name": "Onion",
+					"quantity": 1
+				},
 				{
 					"id": 6,
 					"name": "Red Bell Pepper",
-					"quantity": 1,
-					"unit": ""
+					"quantity": 1
 				},
 				{
 					"id": 7,
 					"name": "Green Bell Pepper",
-					"quantity": 1,
-					"unit": ""
+					"quantity": 1
 				},
-				{ "id": 8, "name": "Carrots", "quantity": 1, "unit": "" },
+				{
+					"id": 8,
+					"name": "Carrots",
+					"quantity": 1
+				},
 				{
 					"id": 9,
 					"name": "Garlic",
@@ -171,14 +194,12 @@
 				{
 					"id": 13,
 					"name": "Salt",
-					"quantity": "to taste",
-					"unit": ""
+					"quantity": "to taste"
 				},
 				{
 					"id": 14,
 					"name": "Black Pepper",
-					"quantity": "to taste",
-					"unit": ""
+					"quantity": "to taste"
 				}
 			]
 		},
@@ -203,7 +224,10 @@
 				"number": 5,
 				"text": "Add the chicken, shrimp, eggs, rice, soy sauce, and salt and pepper to taste. Cook until the rice is heated through."
 			},
-			{ "number": 6, "text": "Serve immediately." }
+			{
+				"number": 6,
+				"text": "Serve immediately."
+			}
 		],
 		"notes": [],
 		"nutrition": {
@@ -241,7 +265,11 @@
 					"quantity": 1,
 					"unit": "loaf"
 				},
-				{ "id": 2, "name": "tomatoes", "quantity": "2", "unit": null },
+				{
+					"id": 2,
+					"name": "tomatoes",
+					"quantity": "2"
+				},
 				{
 					"id": 3,
 					"name": "basil",
@@ -260,7 +288,12 @@
 					"quantity": 2,
 					"unit": "cloves"
 				},
-				{ "id": 6, "name": "salt", "quantity": 1, "unit": "tsp" },
+				{
+					"id": 6,
+					"name": "salt",
+					"quantity": 1,
+					"unit": "tsp"
+				},
 				{
 					"id": 7,
 					"name": "pepper",
@@ -290,7 +323,10 @@
 				"number": 5,
 				"text": "Bake for 5-7 minutes, or until the bread is golden brown and the tomatoes are softened."
 			},
-			{ "number": 6, "text": "Serve immediately." }
+			{
+				"number": 6,
+				"text": "Serve immediately."
+			}
 		],
 		"notes": [],
 		"nutrition": {
@@ -321,14 +357,19 @@
 		"meal type": "dinner",
 		"dietary restrictions and designations": [],
 		"serving info": {
-			"prep time": null,
+			"prep time": "",
 			"cook time": "35 to 45 minutes",
-			"total time": null,
+			"total time": "",
 			"number of people served": 4
 		},
 		"ingredients": {
 			"dish": [
-				{ "id": 1, "name": "garlic", "quantity": 6, "unit": "cloves" },
+				{
+					"id": 1,
+					"name": "garlic",
+					"quantity": 6,
+					"unit": "cloves"
+				},
 				{
 					"id": 2,
 					"name": "soy sauce",
@@ -383,7 +424,12 @@
 					"quantity": 5,
 					"unit": "teaspoons"
 				},
-				{ "id": 11, "name": "chicken", "quantity": 3, "unit": "lbs" }
+				{
+					"id": 11,
+					"name": "chicken",
+					"quantity": 3,
+					"unit": "lbs"
+				}
 			],
 			"sauce": [
 				{
@@ -392,14 +438,23 @@
 					"quantity": 1,
 					"unit": "cup"
 				},
-				{ "id": 2, "name": "jalapenos", "quantity": 3, "unit": null },
+				{
+					"id": 2,
+					"name": "jalapenos",
+					"quantity": 3
+				},
 				{
 					"id": 3,
 					"name": "feta cheese",
 					"quantity": 1,
 					"unit": "ounce"
 				},
-				{ "id": 4, "name": "garlic", "quantity": 1, "unit": "clove" },
+				{
+					"id": 4,
+					"name": "garlic",
+					"quantity": 1,
+					"unit": "clove"
+				},
 				{
 					"id": 5,
 					"name": "lime juice",

@@ -57,7 +57,10 @@ export function preprompt(
                 4.  **Avoid Ingredients:** Ensure the recipe does not contain any of these ingredients: \`${avoidIngredients}\` as they are harmful or inappropriate.
                 5.  **Other Info** Ensure that the recipe considers the following: \`${otherInfo}\`.
                 5.  **No False Statements:** Ensure all information is accurate and verifiable.
-                6.  **Format:**  Ensure the JSON output is well-formatted and easy to read.`
+                6.  **Format:**  Ensure the JSON output is well-formatted and easy to read.
+                7.  **Instructions:** Provide clear, concise instructions for each step of the recipe.
+                8.  **DO NOT TRUNCATE THE RECIPE:** ENSURE THAT THE RECIPE IS COMPLETE AND NOT CUT OFF. 
+                No ellipses should be present in the recipe.`
 	}
 	return `
     
@@ -101,6 +104,12 @@ export function preprompt(
   **Additional Instructions:**
   \`${instructions()}\`
 
+  **Formatting Ingredient Quantities:**
+  * Represent all ingredient quantities as numbers.
+  * Use the following formats:
+     - Decimal numbers (e.g., 0.5 for half a cup)
+     - Floating-point numbers (e.g., 0.25 for a quarter cup)
+     - Floating-point numbers with whole numbers (e.g., 1.5 for one and a half cups)
   
   **Example Output (JSON):**
   
