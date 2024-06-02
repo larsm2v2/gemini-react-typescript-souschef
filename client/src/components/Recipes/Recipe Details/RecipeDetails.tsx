@@ -40,37 +40,34 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
 	}
 
 	// 1. Organize Ingredients by Subheading (including "Selected Recipes" if checked)
-	const ingredientGroups: IngredientGroup[] = [
-		...(isSelected
-			? [
-					{
-						name: "Selected Recipes",
-						// Wrap the dish ingredients in an object with the key "dish"
-						ingredients: { dish: recipe.ingredients.dish },
-					},
-			  ]
-			: []),
-
-		// For all other subcategories, you need to ensure you're creating IngredientGroup objects
-		...Object.entries(recipe.ingredients).flatMap(([name, ingredients]) => {
-			if (name !== "dish" && Array.isArray(ingredients)) {
-				// Explicitly set unit to undefined if it's null
-				const fixedIngredients = ingredients.map((ing) => ({
-					...ing,
-					unit: ing.unit || undefined,
-				}))
-
-				return [
-					{
-						name,
-						ingredients: { [name]: fixedIngredients },
-					},
-				]
-			} else {
-				return []
+	// 1. Organize Ingredients by Subheading (including "Selected Recipes" if checked)
+	const ingredientGroups: IngredientGroup[] = Object.entries(
+		recipe.ingredients
+	).map(([name, ingredients]) => {
+		// Handle all ingredient categories consistently (including "dish")
+		if (Array.isArray(ingredients)) {
+			return {
+				name,
+				// Ensure the ingredient objects match the IngredientGroup interface
+				ingredients: {
+					[name]: ingredients,
+				},
 			}
-		}),
-	]
+		} else {
+			return {
+				name: "No Ingredients",
+				ingredients: {},
+			}
+		}
+	})
+
+	if (isSelected) {
+		ingredientGroups.unshift({
+			// Add "Selected Recipes" group to the beginning
+			name: "Selected Recipes",
+			ingredients: { dish: recipe.ingredients.dish },
+		})
+	}
 
 	return (
 		<div className="recipes-container">

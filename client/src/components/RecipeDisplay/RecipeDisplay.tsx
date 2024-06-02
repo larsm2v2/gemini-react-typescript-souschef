@@ -49,24 +49,17 @@ const TemporaryRecipeDisplay: React.FC<TemporaryRecipeDisplayProps> = ({
 	return (
 		<div className="recipes-container">
 			<div className="recipes-box">
-				<div className="recipes-index">
-					<h2>Souschef Recipe</h2>
-					<ul>
-						<li
-							key={generatedRecipe.id}
-							onClick={handleRecipeClick}
-						>
-							{generatedRecipe.name}
-						</li>
-					</ul>
-				</div>
-
 				{selectedRecipe && (
-					<RecipeDetails
-						recipe={selectedRecipe}
-						onSelectedRecipesChange={handleSelectedRecipesChange}
-						isSelected={false}
-					/>
+					<div>
+						<h2>Souschef Recipe</h2>
+						<RecipeDetails
+							recipe={selectedRecipe}
+							onSelectedRecipesChange={
+								handleSelectedRecipesChange
+							}
+							isSelected={false}
+						/>
+					</div>
 				)}
 			</div>
 			<div className="recipe-actions">

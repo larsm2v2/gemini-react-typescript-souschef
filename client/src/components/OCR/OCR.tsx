@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react"
 import Tesseract from "tesseract.js"
 import PreprocessImage from "./Preprocess"
 import "../OCR/OCR.css"
-import { preprompt, ocrAddon } from "../Models/Prompts"
+import { preprompt } from "../Models/Prompts"
 import TemporaryRecipeDisplay from "../RecipeDisplay/RecipeDisplay"
 import { RecipeModel } from "../Models/Models"
 const OCR = () => {
@@ -27,6 +27,7 @@ const OCR = () => {
 	const [avoidIngredients, setAvoidIngredients] = useState("")
 	const [dietaryRestrictions, setDietaryRestrictions] = useState("")
 	const [otherInfo, setOtherInfo] = useState("")
+	const [ocrAddon, setOcrAddon] = useState("")
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const files = event.target.files
@@ -138,10 +139,9 @@ const OCR = () => {
 							dietaryRestrictions,
 							knownIngredients,
 							avoidIngredients,
-							otherInfo
-						) +
-						ocrAddon +
-						passedValue,
+							otherInfo,
+							ocrAddon
+						) + passedValue,
 				}),
 				headers: {
 					"Content-Type": "application/json",

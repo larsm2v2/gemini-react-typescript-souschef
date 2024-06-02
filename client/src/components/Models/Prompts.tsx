@@ -36,9 +36,32 @@ export function preprompt(
 	dietaryRestrictions: string,
 	knownIngredients: string,
 	avoidIngredients: string,
-	otherInfo: string
+	otherInfo: string,
+	ocrAddon: string
 ): string {
-	return `You are a sous-chef specializing in crafting precise, detailed recipes in JSON format.
+	function instructions(): string {
+		return ocrAddon!.length > 0
+			? `This is an OCR addition. It takes priority. You will be given a recipe in text format. 
+                Your task is to convert the text into JSON format. 
+                Remember to separate the name from the unit and amount. 
+                For example, garlic cloves would be separated into
+                { "id": 1, "name": "garlic", "quantity": 1, "unit": "cloves" }
+                Or 1/4 cup cilantro would be separated into
+                {"id": 1, "name": "cilantro", "quantity": 0.25, "unit": "cup" }
+                1 lbs chicken would be separated into
+                { "id": 2, "name": "chicken", "quantity": 1, "unit": "lbs" }`
+			: `  
+                1.  **Cuisine:** Use the following cuisine: \`${cuisine}\`. If not specified, infer the cuisine based on the ingredients or recipe name.
+                2.  **Dietary Restrictions:** Adhere to the following restrictions: \`${dietaryRestrictions}\`. If not specified, list any that apply based on the ingredients.
+                3.  **Known Ingredients:** Include the following ingredients: \`${knownIngredients}\` plus any other suitable ingredients. If none are specified, use any ingredients suitable for the recipe.
+                4.  **Avoid Ingredients:** Ensure the recipe does not contain any of these ingredients: \`${avoidIngredients}\` as they are harmful or inappropriate.
+                5.  **Other Info** Ensure that the recipe considers the following: \`${otherInfo}\`.
+                5.  **No False Statements:** Ensure all information is accurate and verifiable.
+                6.  **Format:**  Ensure the JSON output is well-formatted and easy to read.`
+	}
+	return `
+    
+    You are a sous-chef specializing in crafting precise, detailed recipes in JSON format.
   
   **Recipe Format Requirements (JSON):**
   
@@ -76,14 +99,8 @@ export function preprompt(
       *   **sugar:** number (in grams)
   
   **Additional Instructions:**
-  
-  1.  **Cuisine:** Use the following cuisine: \`${cuisine}\`. If not specified, infer the cuisine based on the ingredients or recipe name.
-  2.  **Dietary Restrictions:** Adhere to the following restrictions: \`${dietaryRestrictions}\`. If not specified, list any that apply based on the ingredients.
-  3.  **Known Ingredients:** Include the following ingredients: \`${knownIngredients}\`. If none are specified, use any ingredients suitable for the recipe.
-  4.  **Avoid Ingredients:** Ensure the recipe does not contain any of these ingredients: \`${avoidIngredients}\` as they are harmful or inappropriate.
-  5.  **Other Info** Ensure that the recipe considers the following: \`${otherInfo}\`.
-  5.  **No False Statements:** Ensure all information is accurate and verifiable.
-  6.  **Format:**  Ensure the JSON output is well-formatted and easy to read.
+  \`${instructions()}\`
+
   
   **Example Output (JSON):**
   
@@ -115,13 +132,3 @@ export function preprompt(
   \`\`\`
   `
 }
-
-export const ocrAddon = `You will be given a recipe in text format. 
-Your task is to convert the text into JSON format. 
-Remember to separate the name from the unit and amount. 
-For example, garlic cloves would be separated into
-{ "id": 1, "name": "garlic", "quantity": 1, "unit": "cloves" }
-Or 1/4 cup cilantro would be separated into
-{"id": 1, "name": "cilantro", "quantity": 0.25, "unit": "cup" }
-1 lbs chicken would be separated into
-{ "id": 2, "name": "chicken", "quantity": 1, "unit": "lbs" }`

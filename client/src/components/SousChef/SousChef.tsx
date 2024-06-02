@@ -8,6 +8,7 @@ const SousChef = () => {
 	const [value, setValue] = useState("")
 	const [passedValue, setPassedValue] = useState("")
 	const [error, setError] = useState("")
+	const [isLoading, setIsLoading] = useState(false)
 	const [generatedRecipe, setGeneratedRecipe] = useState<RecipeModel | null>(
 		null
 	)
@@ -20,16 +21,18 @@ const SousChef = () => {
 	const [dietaryRestrictions, setDietaryRestrictions] = useState("")
 	const [otherInfo, setOtherInfo] = useState("")
 	const [specificLarge, setSpecificLarge] = useState("")
+	const [ocrAddon, setOcrAddon] = useState("")
 
 	const surprise = () => {
 		const randomValue =
 			surpriseOptions[Math.floor(Math.random() * surpriseOptions.length)]
 		setValue(randomValue)
 	}
-
+	console.log(specificLarge)
 	const getResponse = async () => {
+		setIsLoading(true) // Set loading state to true
 		setSpecificLarge(`
-      ${cuisine}${knownIngredients} ${avoidIngredients} ${dietaryRestrictions} ${otherInfo}`)
+      ${cuisine},${ocrAddon},${knownIngredients}, ${avoidIngredients}, ${dietaryRestrictions}, ${otherInfo}`)
 		if (!value && !specificLarge) {
 			setError("Let's try that again. Please ask a question.")
 			return
@@ -48,7 +51,8 @@ const SousChef = () => {
 							dietaryRestrictions,
 							knownIngredients,
 							avoidIngredients,
-							otherInfo
+							otherInfo,
+							ocrAddon || ""
 						) + passedValue,
 				}),
 				headers: {
@@ -82,10 +86,19 @@ const SousChef = () => {
 
 			// Set the generated recipe in state to trigger the display
 			setGeneratedRecipe(parsedRecipe)
+			setCuisine("")
+			setKnownIngredients("")
+			setAvoidIngredients("")
+			setDietaryRestrictions("")
+			setOtherInfo("")
+			setSpecificLarge("")
+			setValue("")
+			setOcrAddon("")
 		} catch (error) {
 			console.error(error)
 			setError("Something went wrong! Please try again later.")
 		}
+		setIsLoading(false)
 	}
 
 	const clear = () => {
@@ -117,7 +130,11 @@ const SousChef = () => {
 						setValue(e.target.value)
 					}}
 				/>
-				{!error && <button onClick={getResponse}>Yes, Chef!</button>}
+				{!error && (
+					<button onClick={getResponse} disabled={isLoading}>
+						{isLoading ? "Processing..." : "Yes, Chef!"}
+					</button>
+				)}
 				{error && <button onClick={clear}>Clear</button>}
 			</div>
 			<p className="typewriter2">
@@ -169,7 +186,11 @@ const SousChef = () => {
 						setOtherInfo(e.target.value)
 					}}
 				/>
-				{!error && <button onClick={getResponse}>Yes, Chef!</button>}
+				{!error && (
+					<button onClick={getResponse} disabled={isLoading}>
+						{isLoading ? "Processing..." : "Yes, Chef!"}
+					</button>
+				)}
 				{error && <button onClick={clear}>Clear</button>}
 			</div>
 			<div className="search-result">
