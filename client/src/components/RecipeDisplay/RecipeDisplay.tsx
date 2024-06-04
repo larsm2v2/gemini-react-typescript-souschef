@@ -21,11 +21,11 @@ const TemporaryRecipeDisplay: React.FC<TemporaryRecipeDisplayProps> = ({
 		console.log("Received generatedRecipe:", generatedRecipe)
 	}
 
-	// Function to save the recipe (now calls the backend)
+	// Function to save the recipe
 	const handleSaveRecipe = async () => {
 		try {
 			const response = await fetch(
-				"http://localhost:8000/api/clean-recipe",
+				"http://localhost:8000/api/clean-and-add-recipes",
 				{
 					method: "POST",
 					headers: {

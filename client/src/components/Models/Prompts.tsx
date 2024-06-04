@@ -49,7 +49,15 @@ export function preprompt(
                 Or 1/4 cup cilantro would be separated into
                 {"id": 1, "name": "cilantro", "quantity": 0.25, "unit": "cup" }
                 1 lbs chicken would be separated into
-                { "id": 2, "name": "chicken", "quantity": 1, "unit": "lbs" }`
+                { "id": 2, "name": "chicken", "quantity": 1, "unit": "lbs" }
+                0.5 teaspoon Salt into
+                { "id": 3, "name": "salt", "quantity": 0.5, "unit": "teaspoon" }
+                2 tablespoons olive oil into
+                { "id": 4, "name": "olive oil", "quantity": 2, "unit": "tablespoons" }
+                1/4 cup chopped onions into
+                { "id": 5, "name": "onions", "quantity": 0.25, "unit": "cup" }
+                **Phrases like "For the sauce", "For the marinade", "For the dough" should signify that the subsequent ingredients be separated into their respective ingredient subcategories.**
+`
 			: `  
                 1.  **Cuisine:** Use the following cuisine: \`${cuisine}\`. If not specified, infer the cuisine based on the ingredients or recipe name.
                 2.  **Dietary Restrictions:** Adhere to the following restrictions: \`${dietaryRestrictions}\`. If not specified, list any that apply based on the ingredients.

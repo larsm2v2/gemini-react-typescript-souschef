@@ -1,10 +1,10 @@
 {
-	"references": [
-		{
-			"path": "./src/client"
-		},
-		{
-			"path": "./src/server"
-		}
-	]
+	"compilerOptions": {
+		"jsx": "react",
+		"esModuleInterop": true, // <-- Add this line if it's not already there
+		"moduleResolution": "node",
+		"resolveJsonModule": true
+	},
+	"references": [{ "path": "./client" }, { "path": "./server" }],
+	"files": []
 }

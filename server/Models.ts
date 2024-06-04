@@ -31,6 +31,7 @@ export interface RecipeModel {
 		fiber: string
 		sugar: string
 	}
+	groceryList?: string[]
 }
 
 export interface ListItem {

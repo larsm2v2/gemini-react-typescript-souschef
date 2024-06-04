@@ -1,8 +1,8 @@
-//import * as recipeData from "./Recipes.json"
-import { RecipeModel } from "./Models" // Import your RecipeModel interface
+const recipeData = require("./Recipes.json")
+//import { RecipeModel } from "./Models.js" // Import your RecipeModel interface
 
 // Function to fix a single recipe
-export function cleanRecipe(recipe: any): RecipeModel {
+export function cleanRecipe(recipe) {
 	const cleanedRecipe = {
 		...recipe,
 		"unique id": parseInt(recipe["unique id"], 10) || 0,
@@ -20,9 +20,7 @@ export function cleanRecipe(recipe: any): RecipeModel {
 		ingredients: Object.keys(recipe.ingredients).reduce((acc, category) => {
 			if (Array.isArray(recipe.ingredients[category])) {
 				acc[category] = recipe.ingredients[category].map(
-					(
-						ingredient: RecipeModel["ingredients"][typeof category][number]
-					) => ({
+					(ingredient) => ({
 						...ingredient,
 						id: ingredient.id || 0,
 						quantity: ingredient.quantity || 0,
@@ -31,16 +29,16 @@ export function cleanRecipe(recipe: any): RecipeModel {
 				)
 			}
 			return acc
-		}, {} as RecipeModel["ingredients"]),
+		}, RecipeModel["ingredients"]),
 		"dietary restrictions and designations":
 			recipe["dietary restrictions and designations"] || [], // Set to empty array if not present
 		notes: recipe.notes || [], // Set to empty array if not present
 	}
 
-	return cleanedRecipe as RecipeModel
+	return cleanedRecipe
 }
 
 // Fix all recipes in the data
-export function cleanedRecipeData(recipeData: any[]): RecipeModel[] {
-	return (recipeData as any[]).map(cleanRecipe)
+export function cleanedRecipeData(recipeData) {
+	return recipeData.map(cleanRecipe)
 }

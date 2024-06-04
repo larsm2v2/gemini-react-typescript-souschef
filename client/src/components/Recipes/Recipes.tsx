@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import recipeData from "./Recipes.json"
+import recipeData from "../../../../server/Recipes.json"
 import "./Recipes.css"
 import { RecipeModel } from "../Models/Models"
 import RecipeDetails from "./Recipe Details/RecipeDetails"

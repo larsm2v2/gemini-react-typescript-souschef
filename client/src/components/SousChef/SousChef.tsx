@@ -22,6 +22,7 @@ const SousChef = () => {
 	const [otherInfo, setOtherInfo] = useState("")
 	const [specificExpanded, setSpecificExpanded] = useState("")
 	const [ocrAddon, setOcrAddon] = useState("")
+	const [showRecipeDisplay, setShowRecipeDisplay] = useState(false)
 
 	const surprise = () => {
 		const randomValue =
@@ -29,6 +30,7 @@ const SousChef = () => {
 		setValue(randomValue)
 	}
 	console.log(specificExpanded)
+
 	const getResponse = async () => {
 		setIsLoading(true) // Set loading state to true
 		const specificExpanded = [
@@ -76,9 +78,10 @@ const SousChef = () => {
 			const data = await response.text()
 			console.log(data)
 			const recipeRegex = /{.*}/s // capture the recipe as a json object
-
+			console.log("Recipe regex:", recipeRegex)
 			// find the json object in the response. the regex looks for the characters between and including the curly braces. the s flag allows the dot to match newline characters
 			const cleanedJsonMatch = data.match(recipeRegex)
+			console.log("Cleaned JSON match:", cleanedJsonMatch)
 			const cleanedJsonString = cleanedJsonMatch
 				? cleanedJsonMatch[0]
 				: "" // Use the match or an empty string if no match is found
@@ -95,15 +98,12 @@ const SousChef = () => {
 			}
 
 			// Set the generated recipe in state to trigger the display
+			if (parsedRecipe) {
+				setShowRecipeDisplay(true)
+			} else {
+				setError("Invalid recipe format received.")
+			}
 			setGeneratedRecipe(parsedRecipe)
-			setCuisine("")
-			setKnownIngredients("")
-			setAvoidIngredients("")
-			setDietaryRestrictions("")
-			setOtherInfo("")
-			setSpecificExpanded("")
-			setValue("")
-			setOcrAddon("")
 		} catch (error) {
 			console.error(error)
 			setError("Something went wrong! Please try again later.")
@@ -114,6 +114,16 @@ const SousChef = () => {
 	const clear = () => {
 		setValue("")
 		setError("")
+		setCuisine("")
+		setKnownIngredients("")
+		setAvoidIngredients("")
+		setDietaryRestrictions("")
+		setOtherInfo("")
+		setSpecificExpanded("")
+		setValue("")
+		setOcrAddon("")
+		setShowRecipeDisplay(false)
+		setIsLoading(false)
 	}
 	return (
 		<div className="souschef-prompt">
