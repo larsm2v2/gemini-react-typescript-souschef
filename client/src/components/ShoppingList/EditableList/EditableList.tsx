@@ -121,15 +121,6 @@ const EditableList: React.FC<Props> = ({ listItems, setListItems }: Props) => {
 					onEdit={handleEdit}
 				/>
 			))}
-			<div>
-				{/* Consolidate button */}
-				<button
-					className="input__submit"
-					onClick={handleAddAndConsolidate}
-				>
-					Consolidate List
-				</button>
-			</div>
 		</div>
 	)
 }

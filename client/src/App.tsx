@@ -6,8 +6,6 @@ import Sidebar from "./components/Sidebar/Sidebar"
 import SousChef from "./components/SousChef/SousChef"
 import ShoppingList from "./components/ShoppingList/ShoppingList"
 import Recipes from "./components/Recipes/Recipes"
-import OCR from "./components/OCR/OCR"
-import RecipeDisplayTest from "./components/RecipeDisplay/RecipeDisplayTest"
 
 function App() {
 	const [sidebarToggled, setSidebarToggled] = useState(false)
@@ -81,9 +79,6 @@ function App() {
 							selectedRecipeIds={selectedRecipeIds}
 							setSelectedRecipeIds={setSelectedRecipeIds}
 						/>
-					</div>
-					<div className="App-ocr" id="ocr">
-						<OCR />
 					</div>
 				</div>
 			</div>
