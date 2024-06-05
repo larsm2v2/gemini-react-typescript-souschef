@@ -1,14 +1,12 @@
-* {
+/* * {
     box-sizing: border-box;
-}
+} */
 
 .nav a.site-title {
     font:larger;
 }
 .nav {
-    background-color: rgb(36, 39, 39);
     width: 100%;
-    color:beige;
     /* display: flex; */
     flex-direction: row;
     justify-content: space-between; 
@@ -54,44 +52,3 @@ nav li:hover {
     display:flex;
     justify-content: space-between;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-/* .navbar-header {
-    position: sticky;
-    top: 0;
-    font-family: sans-serif;
-    width: 80vw;
-    height: 20vh;
-    margin: 0vw 5vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.navbar-button {
-    position: sticky;
-    text-decoration: none;
-    display: inline;
-    align-items: stretch;
-    padding: 5px 0px;
-    font-weight: 700;
-    font-size: medium;
-    cursor: pointer;
-}
-
-
-
-.navbar.fixed bottom{
-    background-color: green;
-} */

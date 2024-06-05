@@ -1214,5 +1214,359 @@
       "fiber": 2,
       "sugar": 2
     }
+  },
+  {
+    "name": "Chicken Tikka Masala",
+    "unique id": 1701827715728,
+    "id": "chicken-tikka-masala",
+    "cuisine": "Indian",
+    "meal type": "dinner",
+    "dietary restrictions and designations": [],
+    "serving info": {
+      "prep time": "25 minutes",
+      "cook time": "30 minutes",
+      "total time": "55 minutes",
+      "number of people served": 4
+    },
+    "ingredients": {
+      "marinade": [
+        {
+          "id": 1,
+          "name": "plain yogurt",
+          "quantity": 1,
+          "unit": "cup"
+        },
+        {
+          "id": 2,
+          "name": "lemon juice",
+          "quantity": 2,
+          "unit": "tablespoons"
+        },
+        {
+          "id": 3,
+          "name": "garlic",
+          "quantity": 4,
+          "unit": "cloves, minced"
+        },
+        {
+          "id": 4,
+          "name": "ginger",
+          "quantity": 1,
+          "unit": "tablespoon, minced"
+        },
+        {
+          "id": 5,
+          "name": "garam masala",
+          "quantity": 2,
+          "unit": "teaspoons"
+        },
+        {
+          "id": 6,
+          "name": "turmeric powder",
+          "quantity": 1,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 7,
+          "name": "paprika",
+          "quantity": 1,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 8,
+          "name": "salt",
+          "quantity": 1,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 9,
+          "name": "black pepper",
+          "quantity": 0.5,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 10,
+          "name": "cayenne pepper",
+          "quantity": 0.25,
+          "unit": "teaspoon"
+        }
+      ],
+      "chicken": [
+        {
+          "id": 11,
+          "name": "boneless, skinless chicken breasts",
+          "quantity": 1.5,
+          "unit": "pounds, cut into 1-inch cubes"
+        }
+      ],
+      "sauce": [
+        {
+          "id": 12,
+          "name": "butter",
+          "quantity": 2,
+          "unit": "tablespoons"
+        },
+        {
+          "id": 13,
+          "name": "onion",
+          "quantity": 1,
+          "unit": "medium, finely chopped"
+        },
+        {
+          "id": 14,
+          "name": "garlic",
+          "quantity": 2,
+          "unit": "cloves, minced"
+        },
+        {
+          "id": 15,
+          "name": "ginger",
+          "quantity": 1,
+          "unit": "teaspoon, minced"
+        },
+        {
+          "id": 16,
+          "name": "tomato paste",
+          "quantity": 2,
+          "unit": "tablespoons"
+        },
+        {
+          "id": 17,
+          "name": "crushed tomatoes",
+          "quantity": 1,
+          "unit": "can (28 ounces)"
+        },
+        {
+          "id": 18,
+          "name": "heavy cream",
+          "quantity": 0.5,
+          "unit": "cup"
+        },
+        {
+          "id": 19,
+          "name": "garam masala",
+          "quantity": 1,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 20,
+          "name": "salt",
+          "quantity": 0.5,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 21,
+          "name": "black pepper",
+          "quantity": 0.25,
+          "unit": "teaspoon"
+        }
+      ]
+    },
+    "instructions": [
+      {
+        "number": 1,
+        "text": "In a large bowl, whisk together the yogurt, lemon juice, garlic, ginger, garam masala, turmeric powder, paprika, salt, black pepper, and cayenne pepper."
+      },
+      {
+        "number": 2,
+        "text": "Add the chicken cubes to the marinade and coat well. Cover and refrigerate for at least 4 hours, or preferably overnight."
+      },
+      {
+        "number": 3,
+        "text": "Preheat oven to 400 degrees F (200 degrees C)."
+      },
+      {
+        "number": 4,
+        "text": "Thread the marinated chicken onto skewers and place them on a baking sheet lined with parchment paper."
+      },
+      {
+        "number": 5,
+        "text": "Bake for 20-25 minutes, or until the chicken is cooked through."
+      },
+      {
+        "number": 6,
+        "text": "While the chicken is baking, prepare the sauce. In a large saucepan or Dutch oven, melt the butter over medium heat."
+      },
+      {
+        "number": 7,
+        "text": "Add the onion and cook until softened, about 5 minutes."
+      },
+      {
+        "number": 8,
+        "text": "Stir in the garlic and ginger and cook for 1 minute more."
+      },
+      {
+        "number": 9,
+        "text": "Add the tomato paste and cook for 2 minutes, stirring constantly."
+      },
+      {
+        "number": 10,
+        "text": "Pour in the crushed tomatoes, heavy cream, garam masala, salt, and black pepper. Bring to a simmer and cook for 15 minutes, or until the sauce has thickened."
+      },
+      {
+        "number": 11,
+        "text": "Remove the chicken from the oven and add it to the sauce. Stir to coat."
+      },
+      {
+        "number": 12,
+        "text": "Serve hot with rice or naan bread."
+      }
+    ],
+    "notes": [
+      "For a spicier dish, add more cayenne pepper to the marinade.",
+      "If you don't have skewers, you can grill or pan-fry the chicken instead.",
+      "Garnish with fresh cilantro before serving."
+    ],
+    "nutrition": {
+      "serving": "1 serving",
+      "calories": 550,
+      "carbohydrates": 30,
+      "protein": 45,
+      "fat": 30,
+      "saturated fat": 15,
+      "fiber": 5,
+      "sugar": 10
+    }
+  },
+  {
+    "name": "Tteokbokki Rice Cake Balls",
+    "unique id": 1701830578547,
+    "id": "tteokbokki-rice-cake-balls",
+    "cuisine": "Korean",
+    "meal type": "dessert",
+    "dietary restrictions and designations": [
+      "vegetarian"
+    ],
+    "serving info": {
+      "prep time": "15 minutes",
+      "cook time": "10 minutes",
+      "total time": "25 minutes",
+      "number of people served": 4
+    },
+    "ingredients": {
+      "dough": [
+        {
+          "id": 1,
+          "name": "Glutinous rice flour",
+          "quantity": 2,
+          "unit": "cups"
+        },
+        {
+          "id": 2,
+          "name": "Sugar",
+          "quantity": 0.25,
+          "unit": "cup"
+        },
+        {
+          "id": 3,
+          "name": "Salt",
+          "quantity": 0.25,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 4,
+          "name": "Hot water",
+          "quantity": 0.75,
+          "unit": "cup"
+        }
+      ],
+      "coating": [
+        {
+          "id": 5,
+          "name": "Sesame seeds",
+          "quantity": 0.25,
+          "unit": "cup"
+        }
+      ],
+      "syrup": [
+        {
+          "id": 6,
+          "name": "Water",
+          "quantity": 0.5,
+          "unit": "cup"
+        },
+        {
+          "id": 7,
+          "name": "Brown sugar",
+          "quantity": 0.25,
+          "unit": "cup"
+        },
+        {
+          "id": 8,
+          "name": "Honey",
+          "quantity": 1,
+          "unit": "tablespoon"
+        }
+      ]
+    },
+    "instructions": [
+      {
+        "number": 1,
+        "text": "In a large bowl, combine glutinous rice flour, sugar, and salt."
+      },
+      {
+        "number": 2,
+        "text": "Gradually add hot water to the flour mixture, mixing with a wooden spoon until a dough forms."
+      },
+      {
+        "number": 3,
+        "text": "Transfer the dough onto a lightly floured surface and knead for 5-7 minutes, or until smooth and elastic."
+      },
+      {
+        "number": 4,
+        "text": "Divide the dough into 12 equal portions. Roll each portion into a ball."
+      },
+      {
+        "number": 5,
+        "text": "Fill a large pot with water and bring to a boil. Gently drop the rice cake balls into the boiling water."
+      },
+      {
+        "number": 6,
+        "text": "Cook for 8-10 minutes, or until the rice cake balls float to the surface."
+      },
+      {
+        "number": 7,
+        "text": "While the rice cake balls are cooking, prepare the syrup. In a small saucepan, combine water, brown sugar, and honey."
+      },
+      {
+        "number": 8,
+        "text": "Bring the syrup mixture to a boil over medium heat, stirring constantly until the sugar dissolves."
+      },
+      {
+        "number": 9,
+        "text": "Reduce the heat to low and simmer for 5 minutes, or until the syrup thickens slightly."
+      },
+      {
+        "number": 10,
+        "text": "Remove the cooked rice cake balls from the boiling water with a slotted spoon and transfer them to the syrup."
+      },
+      {
+        "number": 11,
+        "text": "Gently toss the rice cake balls in the syrup until they are evenly coated."
+      },
+      {
+        "number": 12,
+        "text": "Spread the sesame seeds on a plate. Roll each syrup-coated rice cake ball in the sesame seeds until fully covered."
+      },
+      {
+        "number": 13,
+        "text": "Serve the tteokbokki rice cake balls immediately."
+      }
+    ],
+    "notes": [
+      "For a chewier texture, you can soak the glutinous rice flour in water for 30 minutes before making the dough.",
+      "Feel free to adjust the amount of sugar in the dough and syrup to your liking.",
+      "These rice cake balls are best served warm, but you can also enjoy them at room temperature."
+    ],
+    "nutrition": {
+      "serving": "1 serving (2 rice cake balls)",
+      "calories": 250,
+      "carbohydrates": 50,
+      "protein": 4,
+      "fat": 3,
+      "saturated fat": 1,
+      "fiber": 2,
+      "sugar": 20
+    }
   }
 ]

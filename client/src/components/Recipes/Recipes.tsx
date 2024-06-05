@@ -267,7 +267,7 @@ const Recipes: React.FC<RecipesProps> = ({
 							{/* Render each meal type as a separate section */}
 							{Object.entries(filteredRecipesByMealType).map(
 								([mealType, recipes]) => (
-									<div key={mealType}>
+									<div className="mealType" key={mealType}>
 										<h3>{mealType}</h3>
 										<ul>
 											{recipes.map((recipe) => (
