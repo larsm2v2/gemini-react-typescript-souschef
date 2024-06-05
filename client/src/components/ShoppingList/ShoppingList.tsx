@@ -32,6 +32,10 @@ const fetchRecipeById = (recipeId: string): RecipeModel | undefined => {
 const ShoppingList: React.FC<{ selectedRecipeIds: string[] }> = ({
 	selectedRecipeIds,
 }) => {
+	const [recipeIngredients, setRecipeIngredients] = useState<{
+		[recipeId: string]: ListItem[]
+	}>({})
+	const [recipes, setRecipes] = useState<RecipeModel[]>([])
 	const [listItems, setListItems] = useState<ListItem[]>(
 		shoppingListData.map((item) => ({
 			...item,
@@ -48,6 +52,33 @@ const ShoppingList: React.FC<{ selectedRecipeIds: string[] }> = ({
 		isDone: false,
 		toTransfer: false,
 	})
+
+	useEffect(() => {
+		const fetchRecipes = async () => {
+			try {
+				const response = await fetch(
+					"http://localhost:8000/api/clean-recipes",
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				)
+
+				if (response.ok) {
+					const data = await response.json()
+					setRecipes(data.data) // Update recipes state
+				} else {
+					throw new Error("Failed to fetch recipes.")
+				}
+			} catch (error) {
+				console.error("Error fetching recipes:", error)
+			}
+		}
+
+		fetchRecipes() // Fetch recipes on component mount
+	}, [])
 
 	// Helper function to consolidate ingredients
 	const consolidateIngredients = (
@@ -87,43 +118,6 @@ const ShoppingList: React.FC<{ selectedRecipeIds: string[] }> = ({
 			}, [] as ListItem[])
 			.filter((item) => item.quantity > 0) // Remove items with zero quantity
 	}
-
-	useEffect(() => {
-		const fetchAndConsolidateIngredients = async () => {
-			// Fetch ingredient promises for all selected recipes
-			const ingredientPromises: Promise<ListItem[]>[] =
-				selectedRecipeIds.map(async (recipeId) => {
-					const recipe = await fetchRecipeById(recipeId)
-					if (!recipe) return []
-
-					return Object.values(recipe.ingredients).flatMap(
-						(ingredientsArray) =>
-							ingredientsArray.map((ingredient) => ({
-								id: Date.now() + Math.random(), // Generate a unique ID
-								quantity: ingredient.quantity || 0,
-								unit: ingredient.unit || "",
-								listItem: ingredient.name,
-								isDone: false,
-								toTransfer: false,
-							}))
-					)
-				})
-
-			// Wait for all ingredient promises to resolve
-			const allNewIngredients = await Promise.all(ingredientPromises)
-
-			// Flatten the array of arrays of ingredients into a single array
-			const flattenedIngredients: ListItem[] = allNewIngredients.flat()
-
-			// Consolidate the ingredients
-			setListItems((prevListItems) =>
-				consolidateIngredients(prevListItems, flattenedIngredients)
-			)
-		}
-
-		// Call the async function within useEffect
-		fetchAndConsolidateIngredients()
-	}, [selectedRecipeIds])
 	const handleAdd = (e: React.FormEvent) => {
 		e.preventDefault()
 		if (newItem.listItem.trim() !== "") {
@@ -140,6 +134,54 @@ const ShoppingList: React.FC<{ selectedRecipeIds: string[] }> = ({
 			})
 		}
 	}
+	useEffect(() => {
+		const updateShoppingList = () => {
+			const newRecipeIngredients: { [recipeId: string]: ListItem[] } = {}
+
+			selectedRecipeIds.forEach((recipeId) => {
+				const recipe = recipes.find((r) => r.id === recipeId)
+				if (recipe) {
+					newRecipeIngredients[recipeId] = Object.values(
+						recipe.ingredients
+					)
+						.flat() // Flatten nested ingredients
+						.map((ingredient) => ({
+							id: Date.now() + Math.random(), // Generate a unique ID
+							quantity: ingredient.quantity || 0,
+							unit: ingredient.unit || "",
+							listItem: ingredient.name,
+							isDone: false,
+							toTransfer: false,
+						}))
+				}
+			})
+
+			setRecipeIngredients(newRecipeIngredients)
+
+			const uniqueIngredients = new Set<string>()
+			const consolidatedList: ListItem[] = []
+
+			for (const recipeId in newRecipeIngredients) {
+				newRecipeIngredients[recipeId].forEach((ingredient) => {
+					if (!uniqueIngredients.has(ingredient.listItem)) {
+						uniqueIngredients.add(ingredient.listItem)
+						consolidatedList.push(ingredient)
+					} else {
+						const existingItem = consolidatedList.find(
+							(item) => item.listItem === ingredient.listItem
+						)
+						if (existingItem) {
+							existingItem.quantity += ingredient.quantity
+						}
+					}
+				})
+			}
+
+			setListItems(consolidatedList)
+		}
+
+		updateShoppingList()
+	}, [selectedRecipeIds, recipes])
 
 	return (
 		<div className="shoppinglist-container">

@@ -73,7 +73,9 @@ export function preprompt(
 	return `
     
     You are a sous-chef specializing in crafting precise, detailed recipes in JSON format.
-  
+  **DO NOT TRUNCATE THE RECIPE:** ENSURE THAT THE RECIPE IS COMPLETE AND NOT CUT OFF. 
+  No ellipses should be present in the recipe.**
+
   **Recipe Format Requirements (JSON):**
   
   *   **name:** string (The name of the recipe)
@@ -91,7 +93,7 @@ export function preprompt(
       *   **dish:** (An array of objects with the following properties:)
           *   **id:** number (A unique ID for the ingredient)
           *   **name:** string (The name of the ingredient)
-          *   **quantity:** number (The amount of the ingredient)
+          *   **quantity:** **FLOAT ONLY** number (The amount of the ingredient)
           *   **unit:** string (Optional: The unit of measurement)
       *   **(up to 3 additional ingredient categories):**  (Optional arrays, similar to "dish", with names like "sauce", "marinade", etc.)
   *   **instructions:** 

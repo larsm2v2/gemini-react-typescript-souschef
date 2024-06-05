@@ -1,6 +1,20 @@
 //import * as recipeData from "./Recipes.json"
 import { RecipeModel } from "./Models" // Import your RecipeModel interface
 
+function parseQuantity(quantityStr: string | number): number {
+	if (typeof quantityStr === "number") return quantityStr
+
+	const parts = quantityStr.split("/")
+	if (parts.length === 2) {
+		const numerator = parseInt(parts[0], 10)
+		const denominator = parseInt(parts[1], 10)
+		if (!isNaN(numerator) && !isNaN(denominator) && denominator !== 0) {
+			return numerator / denominator
+		}
+	}
+	return parseFloat(quantityStr) || 0 // Fallback to parseFloat or 0 if invalid
+}
+
 // Function to fix a single recipe
 export function cleanRecipe(recipe: any): RecipeModel {
 	const cleanedRecipe = {
@@ -25,7 +39,7 @@ export function cleanRecipe(recipe: any): RecipeModel {
 					) => ({
 						...ingredient,
 						id: ingredient.id || 0,
-						quantity: ingredient.quantity || 0,
+						quantity: parseQuantity(ingredient.quantity),
 						unit: ingredient.unit || undefined,
 					})
 				)
@@ -42,5 +56,18 @@ export function cleanRecipe(recipe: any): RecipeModel {
 
 // Fix all recipes in the data
 export function cleanedRecipeData(recipeData: any[]): RecipeModel[] {
-	return (recipeData as any[]).map(cleanRecipe)
+	const seenRecipes = new Set<string>() // Keep track of seen recipe combinations
+	const cleanedRecipes = (recipeData as any[]).map(cleanRecipe) // Clean the recipes first
+
+	const uniqueRecipes: RecipeModel[] = []
+
+	for (const recipe of cleanedRecipes) {
+		const recipeKey = `${recipe.name}-${recipe.cuisine}` // Create a unique key
+		if (!seenRecipes.has(recipeKey)) {
+			uniqueRecipes.push(recipe)
+			seenRecipes.add(recipeKey)
+		}
+	}
+
+	return uniqueRecipes
 }

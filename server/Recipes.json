@@ -44,7 +44,7 @@
         {
           "id": 6,
           "name": "Garlic",
-          "quantity": "2",
+          "quantity": 2,
           "unit": "cloves"
         },
         {
@@ -56,18 +56,18 @@
         {
           "id": 8,
           "name": "Chicken broth",
-          "quantity": "2 cups",
+          "quantity": 2,
           "unit": "cups"
         },
         {
           "id": 9,
           "name": "Salt",
-          "quantity": "to taste"
+          "quantity": 0
         },
         {
           "id": 10,
           "name": "Black pepper",
-          "quantity": "to taste"
+          "quantity": 0
         }
       ]
     },
@@ -127,7 +127,7 @@
         {
           "id": 1,
           "name": "Rice",
-          "quantity": "2",
+          "quantity": 2,
           "unit": "cups"
         },
         {
@@ -194,12 +194,12 @@
         {
           "id": 13,
           "name": "Salt",
-          "quantity": "to taste"
+          "quantity": 0
         },
         {
           "id": 14,
           "name": "Black Pepper",
-          "quantity": "to taste"
+          "quantity": 0
         }
       ]
     },
@@ -268,7 +268,7 @@
         {
           "id": 2,
           "name": "tomatoes",
-          "quantity": "2"
+          "quantity": 2
         },
         {
           "id": 3,
@@ -668,6 +668,437 @@
       "saturated fat": 5,
       "fiber": 5,
       "sugar": 5
+    }
+  },
+  {
+    "name": "Cucumber, Tomato, and Onion Salad",
+    "unique id": 1696042498415,
+    "id": "cucumber-tomato-and-onion-salad",
+    "cuisine": "American",
+    "meal type": "lunch",
+    "dietary restrictions and designations": [
+      "vegan",
+      "gluten-free"
+    ],
+    "serving info": {
+      "prep time": "15 minutes",
+      "cook time": "0 minutes",
+      "total time": "15 minutes",
+      "number of people served": 4
+    },
+    "ingredients": {
+      "dish": [
+        {
+          "id": 1,
+          "name": "Cucumber",
+          "quantity": 1,
+          "unit": "large"
+        },
+        {
+          "id": 2,
+          "name": "Tomato",
+          "quantity": 1,
+          "unit": "large"
+        },
+        {
+          "id": 3,
+          "name": "Onion",
+          "quantity": 1,
+          "unit": "medium"
+        }
+      ],
+      "dressing": [
+        {
+          "id": 4,
+          "name": "Olive oil",
+          "quantity": 2,
+          "unit": "tablespoons"
+        },
+        {
+          "id": 5,
+          "name": "Vinegar",
+          "quantity": 1,
+          "unit": "tablespoon"
+        },
+        {
+          "id": 6,
+          "name": "Salt",
+          "quantity": 0.5,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 7,
+          "name": "Black pepper",
+          "quantity": 0.25,
+          "unit": "teaspoon"
+        }
+      ]
+    },
+    "instructions": [
+      {
+        "number": 1,
+        "text": "Dice the cucumber, tomato, and onion."
+      },
+      {
+        "number": 2,
+        "text": "Combine the olive oil, vinegar, salt, and black pepper in a bowl."
+      },
+      {
+        "number": 3,
+        "text": "Add the diced vegetables to the bowl and toss to coat."
+      },
+      {
+        "number": 4,
+        "text": "Serve immediately or refrigerate for later."
+      }
+    ],
+    "notes": [],
+    "nutrition": {}
+  },
+  {
+    "name": "Tteokbokki Tteok (Spicy Rice Cakes)",
+    "unique id": 1696050187667,
+    "id": "tteokbokki-tteok-spicy-rice-cakes",
+    "cuisine": "Korean",
+    "meal type": "dessert",
+    "dietary restrictions and designations": [
+      "vegetarian"
+    ],
+    "serving info": {
+      "prep time": "15 minutes",
+      "cook time": "10 minutes",
+      "total time": "25 minutes",
+      "number of people served": 2
+    },
+    "ingredients": {
+      "dish": [
+        {
+          "id": 1,
+          "name": "Rice cakes (garaetteok)",
+          "quantity": 250,
+          "unit": "g"
+        },
+        {
+          "id": 2,
+          "name": "Gochujang (Korean chili paste)",
+          "quantity": 2,
+          "unit": "tablespoons"
+        },
+        {
+          "id": 3,
+          "name": "Gochugaru (Korean chili flakes)",
+          "quantity": 1,
+          "unit": "tablespoon"
+        },
+        {
+          "id": 4,
+          "name": "Sugar",
+          "quantity": 2,
+          "unit": "tablespoons"
+        },
+        {
+          "id": 5,
+          "name": "Soy sauce",
+          "quantity": 1,
+          "unit": "tablespoon"
+        },
+        {
+          "id": 6,
+          "name": "Water",
+          "quantity": 1,
+          "unit": "cup"
+        },
+        {
+          "id": 7,
+          "name": "Green onions",
+          "quantity": 2,
+          "unit": "stalks"
+        },
+        {
+          "id": 8,
+          "name": "Sesame seeds",
+          "quantity": 0.5,
+          "unit": "teaspoon"
+        }
+      ]
+    },
+    "instructions": [
+      {
+        "number": 1,
+        "text": "In a large bowl, soak the rice cakes in cold water for 10-15 minutes to soften them."
+      },
+      {
+        "number": 2,
+        "text": "While the rice cakes are soaking, prepare the sauce. In a separate bowl, combine the gochujang, gochugaru, sugar, and soy sauce. Mix well until all the ingredients are combined."
+      },
+      {
+        "number": 3,
+        "text": "Heat a large pan or skillet over medium heat. Add the sauce mixture and water to the pan and bring to a simmer."
+      },
+      {
+        "number": 4,
+        "text": "Add the soaked rice cakes to the simmering sauce. Stir well to coat the rice cakes evenly."
+      },
+      {
+        "number": 5,
+        "text": "Cook the rice cakes for 8-10 minutes, or until they are soft and chewy. Stir occasionally to prevent sticking."
+      },
+      {
+        "number": 6,
+        "text": "While the rice cakes are cooking, thinly slice the green onions."
+      },
+      {
+        "number": 7,
+        "text": "Once the rice cakes are cooked, remove from heat and garnish with the sliced green onions and sesame seeds."
+      },
+      {
+        "number": 8,
+        "text": "Serve the tteokbokki immediately while hot."
+      }
+    ],
+    "notes": [
+      "Adjust the amount of gochujang and gochugaru to your preferred level of spiciness.",
+      "You can add other ingredients to your tteokbokki, such as fish cakes, boiled eggs, or vegetables.",
+      "Tteokbokki is best served immediately after cooking."
+    ],
+    "nutrition": {
+      "serving": "1 serving",
+      "calories": 350,
+      "carbohydrates": 70,
+      "protein": 10,
+      "fat": 5,
+      "saturated fat": 1,
+      "fiber": 5,
+      "sugar": 10
+    }
+  },
+  {
+    "name": "Crème Brûlée",
+    "unique id": 1701887255627,
+    "id": "crème-brûlée",
+    "cuisine": "French",
+    "meal type": "dessert",
+    "dietary restrictions and designations": [],
+    "serving info": {
+      "prep time": "15 minutes",
+      "cook time": "50 minutes",
+      "total time": "1 hour 5 minutes",
+      "number of people served": 4
+    },
+    "ingredients": {
+      "dish": [
+        {
+          "id": 1,
+          "name": "heavy cream",
+          "quantity": 2,
+          "unit": "cups"
+        },
+        {
+          "id": 2,
+          "name": "granulated sugar",
+          "quantity": 0.5,
+          "unit": "cup"
+        },
+        {
+          "id": 3,
+          "name": "vanilla bean",
+          "quantity": 1
+        },
+        {
+          "id": 4,
+          "name": "egg yolks",
+          "quantity": 4,
+          "unit": "large"
+        },
+        {
+          "id": 5,
+          "name": "salt",
+          "quantity": 0.25,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 6,
+          "name": "granulated sugar (for topping)",
+          "quantity": 0.25,
+          "unit": "cup"
+        }
+      ]
+    },
+    "instructions": [
+      {
+        "number": 1,
+        "text": "Preheat oven to 325 degrees F (165 degrees C)."
+      },
+      {
+        "number": 2,
+        "text": "In a saucepan, combine heavy cream and 1/2 cup sugar. Split the vanilla bean lengthwise and scrape the seeds into the cream mixture. Add the bean pod to the saucepan."
+      },
+      {
+        "number": 3,
+        "text": "Heat the cream mixture over medium heat, stirring occasionally, until it just comes to a simmer. Remove from heat and let stand for 15 minutes to allow the vanilla to infuse."
+      },
+      {
+        "number": 4,
+        "text": "In a medium bowl, whisk together the egg yolks and salt until light and frothy."
+      },
+      {
+        "number": 5,
+        "text": "Gradually whisk about 1 cup of the hot cream mixture into the egg yolks to temper them. Pour the tempered egg yolk mixture back into the saucepan with the remaining cream."
+      },
+      {
+        "number": 6,
+        "text": "Strain the custard through a fine-mesh sieve into a large measuring cup or bowl. Discard the vanilla bean pod."
+      },
+      {
+        "number": 7,
+        "text": "Divide the custard evenly among four ramekins (6-8 ounce capacity). Place the ramekins in a large baking dish and pour enough hot water into the baking dish to come halfway up the sides of the ramekins."
+      },
+      {
+        "number": 8,
+        "text": "Bake in the preheated oven for 40-50 minutes, or until the custards are just set around the edges but still slightly jiggly in the center."
+      },
+      {
+        "number": 9,
+        "text": "Carefully remove the ramekins from the water bath and let cool completely at room temperature. Once cool, cover and refrigerate for at least 4 hours, or preferably overnight."
+      },
+      {
+        "number": 10,
+        "text": "Just before serving, sprinkle each crème brûlée evenly with about 1 tablespoon of granulated sugar. Using a kitchen torch, carefully caramelize the sugar until it forms a crisp, golden brown crust. Let the sugar crust cool slightly before serving."
+      }
+    ],
+    "notes": [
+      "For a smoother custard, strain the mixture through a fine-mesh sieve after blending.",
+      "If you don't have a kitchen torch, you can caramelize the sugar topping under the broiler. However, watch carefully to prevent burning."
+    ],
+    "nutrition": {
+      "serving": "1 serving",
+      "calories": 320,
+      "carbohydrates": 22,
+      "protein": 6,
+      "fat": 24,
+      "saturated fat": 14,
+      "fiber": 0,
+      "sugar": 20
+    }
+  },
+  {
+    "name": "Korean Rice Cake Skewers (Garaetteok Ggochi)",
+    "unique id": 1701818285756,
+    "id": "korean-rice-cake-skewers-garaetteok-ggochi",
+    "cuisine": "Korean",
+    "meal type": "dessert",
+    "dietary restrictions and designations": [
+      "vegetarian"
+    ],
+    "serving info": {
+      "prep time": "15 minutes",
+      "cook time": "10 minutes",
+      "total time": "25 minutes",
+      "number of people served": 2
+    },
+    "ingredients": {
+      "dish": [
+        {
+          "id": 1,
+          "name": "cylindrical garaetteok (Korean rice cakes)",
+          "quantity": 200,
+          "unit": "g"
+        },
+        {
+          "id": 2,
+          "name": "wooden skewers",
+          "quantity": 6
+        }
+      ],
+      "sauce": [
+        {
+          "id": 1,
+          "name": "gochujang (Korean chili paste)",
+          "quantity": 2,
+          "unit": "tbsp"
+        },
+        {
+          "id": 2,
+          "name": "gochugaru (Korean chili flakes)",
+          "quantity": 1,
+          "unit": "tbsp"
+        },
+        {
+          "id": 3,
+          "name": "soy sauce",
+          "quantity": 1,
+          "unit": "tbsp"
+        },
+        {
+          "id": 4,
+          "name": "rice syrup",
+          "quantity": 2,
+          "unit": "tbsp"
+        },
+        {
+          "id": 5,
+          "name": "sesame oil",
+          "quantity": 1,
+          "unit": "tbsp"
+        },
+        {
+          "id": 6,
+          "name": "minced garlic",
+          "quantity": 0.5,
+          "unit": "tbsp"
+        },
+        {
+          "id": 7,
+          "name": "sesame seeds",
+          "quantity": 1,
+          "unit": "tsp"
+        }
+      ]
+    },
+    "instructions": [
+      {
+        "number": 1,
+        "text": "Soak the wooden skewers in water for at least 30 minutes to prevent them from burning during grilling."
+      },
+      {
+        "number": 2,
+        "text": "While the skewers are soaking, prepare the sauce. In a small bowl, combine gochujang, gochugaru, soy sauce, rice syrup, sesame oil, minced garlic, and sesame seeds. Mix well and set aside."
+      },
+      {
+        "number": 3,
+        "text": "Cut the garaetteok into bite-sized pieces, about 2-3 cm long."
+      },
+      {
+        "number": 4,
+        "text": "Thread the garaetteok pieces onto the soaked skewers, leaving some space between each piece."
+      },
+      {
+        "number": 5,
+        "text": "Heat a non-stick pan over medium heat. Place the skewers in the pan and cook, turning occasionally, until they are golden brown and slightly puffed up, about 5-7 minutes."
+      },
+      {
+        "number": 6,
+        "text": "Brush the sauce generously over the grilled garaetteok skewers."
+      },
+      {
+        "number": 7,
+        "text": "Serve the garaetteok ggochi immediately, hot and crispy."
+      }
+    ],
+    "notes": [
+      "You can adjust the spiciness of the sauce by adding more or less gochujang or gochugaru.",
+      "If you don't have rice syrup, you can substitute it with honey or corn syrup.",
+      "For a more savory flavor, you can add a pinch of salt to the sauce."
+    ],
+    "nutrition": {
+      "serving": "1 serving",
+      "calories": 350,
+      "carbohydrates": 70,
+      "protein": 5,
+      "fat": 8,
+      "saturated fat": 1,
+      "fiber": 2,
+      "sugar": 15
     }
   }
 ]

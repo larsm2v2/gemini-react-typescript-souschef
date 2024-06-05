@@ -46,9 +46,10 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
-//import * as cors from "cors"
+//import cors from "cors"
 var cors = require("cors");
-var fs = require("fs/promises");
+var fs = require("fs");
+var fsPromises = require("fs/promises");
 var path = require("path");
 var dotenv = require("dotenv");
 var cleanRecipeData_1 = require("./cleanRecipeData");
@@ -59,21 +60,73 @@ var app = express();
 app.use(cors());
 app.use(express.json());
 express.response;
+//API key for Google Generative AI
 var apiKey = process.env.API_KEY;
 if (!apiKey) {
     throw new Error("API_KEY environment variable not found!");
 }
 var genAI = new generative_ai_1.GoogleGenerativeAI(apiKey);
+var recipeFilePath = path.resolve(__dirname, "Recipes.json");
+var activeSSEConnections = [];
+// Serve Recipes.json
+app.get("/api/recipes-stream", function (req, res) {
+    //SSE Headers
+    res.writeHead(200, {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+    });
+    // Send initial "ping" message to keep the connection alive
+    res.write("event: ping\ndata: \n\n");
+    activeSSEConnections.push(res); // Add new connection to the list
+    req.on("close", function () {
+        activeSSEConnections = activeSSEConnections.filter(function (conn) { return conn !== res; }); // Remove closed connection
+    });
+});
+fs.watchFile(recipeFilePath, function (curr, prev) { return __awaiter(void 0, void 0, void 0, function () {
+    var rawData, recipeData, cleanedRecipes, eventData_1, error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!(curr.mtime !== prev.mtime)) return [3 /*break*/, 4];
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, fsPromises.readFile(recipeFilePath, "utf-8")];
+            case 2:
+                rawData = _a.sent();
+                recipeData = JSON.parse(rawData);
+                cleanedRecipes = (0, cleanRecipeData_1.cleanedRecipeData)(recipeData);
+                eventData_1 = {
+                    type: "recipe-update",
+                    data: cleanedRecipes,
+                };
+                // Send the updated recipe data as an SSE event
+                activeSSEConnections.forEach(function (res) {
+                    res.write("event: recipe-update\n"); // Event type
+                    res.write("data: ".concat(JSON.stringify(eventData_1), "\n\n")); // Data payload
+                });
+                return [3 /*break*/, 4];
+            case 3:
+                error_1 = _a.sent();
+                console.error("Error sending SSE update:", error_1);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
 app.post("/gemini", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var model, chat, msg, result, response, text;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                model = genAI.getGenerativeModel({ model: "gemini-pro" });
+                model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-001" });
                 chat = model.startChat({
                     history: req.body.history,
                     generationConfig: {
-                    /* maxOutputTokens: 100, */
+                        /* maxOutputTokens: 100, */
+                        temperature: 0.7,
+                        topP: 0.4,
                     },
                 });
                 msg = req.body.message;
@@ -89,7 +142,6 @@ app.post("/gemini", function (req, res) { return __awaiter(void 0, void 0, void 
         }
     });
 }); });
-var recipeFilePath = path.resolve(__dirname, "Recipes.json");
 app.post("/api/clean-recipe", function (req, res) {
     try {
         var recipe = req.body; // Type assertion to RecipeModel
@@ -102,7 +154,7 @@ app.post("/api/clean-recipe", function (req, res) {
     }
 });
 app.post("/api/clean-recipes", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var rawData, readError_1, recipeData, cleanedRecipes, error_1;
+    var rawData, readError_1, recipeData, cleanedRecipes, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -111,7 +163,7 @@ app.post("/api/clean-recipes", function (req, res) { return __awaiter(void 0, vo
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 7]);
-                return [4 /*yield*/, fs.readFile(recipeFilePath, "utf-8")];
+                return [4 /*yield*/, fsPromises.readFile(recipeFilePath, "utf-8")];
             case 2:
                 rawData = _a.sent();
                 return [3 /*break*/, 7];
@@ -119,7 +171,7 @@ app.post("/api/clean-recipes", function (req, res) { return __awaiter(void 0, vo
                 readError_1 = _a.sent();
                 if (!(readError_1.code === "ENOENT")) return [3 /*break*/, 5];
                 console.warn("Recipes.json not found, creating an empty file.");
-                return [4 /*yield*/, fs.writeFile(recipeFilePath, "[]")];
+                return [4 /*yield*/, fsPromises.writeFile(recipeFilePath, "[]")];
             case 4:
                 _a.sent();
                 rawData = "[]";
@@ -131,7 +183,7 @@ app.post("/api/clean-recipes", function (req, res) { return __awaiter(void 0, vo
                 cleanedRecipes = (0, cleanRecipeData_1.cleanedRecipeData)(recipeData);
                 console.log("Recipes.json path:", recipeFilePath);
                 // 3. Write cleaned data back to file
-                return [4 /*yield*/, fs.writeFile(recipeFilePath, JSON.stringify(cleanedRecipes, null, 2))
+                return [4 /*yield*/, fsPromises.writeFile(recipeFilePath, JSON.stringify(cleanedRecipes, null, 2))
                     // 4. Send success response
                 ];
             case 8:
@@ -144,8 +196,8 @@ app.post("/api/clean-recipes", function (req, res) { return __awaiter(void 0, vo
                 });
                 return [3 /*break*/, 10];
             case 9:
-                error_1 = _a.sent();
-                console.error("Error fixing recipe data:", error_1);
+                error_2 = _a.sent();
+                console.error("Error fixing recipe data:", error_2);
                 res.status(500).json({ error: "Error fixing recipe data." });
                 return [3 /*break*/, 10];
             case 10: return [2 /*return*/];
@@ -153,7 +205,7 @@ app.post("/api/clean-recipes", function (req, res) { return __awaiter(void 0, vo
     });
 }); });
 app.post("/api/clean-and-add-recipes", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var rawData, readError_2, recipeData, recipe, cleanedRecipe, withAddedRecipe, error_2;
+    var rawData, readError_2, recipeData, recipe, cleanedRecipe, withAddedRecipe, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -162,7 +214,7 @@ app.post("/api/clean-and-add-recipes", function (req, res) { return __awaiter(vo
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 7]);
-                return [4 /*yield*/, fs.readFile(recipeFilePath, "utf-8")];
+                return [4 /*yield*/, fsPromises.readFile(recipeFilePath, "utf-8")];
             case 2:
                 rawData = _a.sent();
                 return [3 /*break*/, 7];
@@ -170,7 +222,7 @@ app.post("/api/clean-and-add-recipes", function (req, res) { return __awaiter(vo
                 readError_2 = _a.sent();
                 if (!(readError_2.code === "ENOENT")) return [3 /*break*/, 5];
                 console.warn("Recipes.json not found, creating an empty file.");
-                return [4 /*yield*/, fs.writeFile(recipeFilePath, "[]")];
+                return [4 /*yield*/, fsPromises.writeFile(recipeFilePath, "[]")];
             case 4:
                 _a.sent();
                 rawData = "[]";
@@ -186,7 +238,7 @@ app.post("/api/clean-and-add-recipes", function (req, res) { return __awaiter(vo
                 console.log("All Recipes with Addition: ", withAddedRecipe);
                 console.log("Recipes.json path: ", recipeFilePath);
                 // 3. Write cleaned data back to file
-                return [4 /*yield*/, fs.writeFile(recipeFilePath, JSON.stringify(withAddedRecipe, null, 2))
+                return [4 /*yield*/, fsPromises.writeFile(recipeFilePath, JSON.stringify(withAddedRecipe, null, 2))
                     // 4. Send success response
                 ];
             case 8:
@@ -199,8 +251,8 @@ app.post("/api/clean-and-add-recipes", function (req, res) { return __awaiter(vo
                 });
                 return [3 /*break*/, 10];
             case 9:
-                error_2 = _a.sent();
-                console.error("Error fixing recipe data:", error_2);
+                error_3 = _a.sent();
+                console.error("Error fixing recipe data:", error_3);
                 res.status(500).json({ error: "Error fixing recipe data." });
                 return [3 /*break*/, 10];
             case 10: return [2 /*return*/];

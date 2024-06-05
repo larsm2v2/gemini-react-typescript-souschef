@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react"
-import recipeData from "../../../../server/Recipes.json"
 import "./Recipes.css"
 import { RecipeModel } from "../Models/Models"
 import RecipeDetails from "./Recipe Details/RecipeDetails"
@@ -13,39 +12,90 @@ const Recipes: React.FC<RecipesProps> = ({
 	selectedRecipeIds,
 	setSelectedRecipeIds,
 }) => {
-	const [recipes, setRecipes] = useState<RecipeModel[]>(
-		recipeData as unknown as RecipeModel[]
-	)
+	const [recipes, setRecipes] = useState<RecipeModel[]>([])
 	const [selectedRecipe, setSelectedRecipe] = useState<RecipeModel | null>(
 		null
 	)
 	const [searchQuery, setSearchQuery] = useState("")
 	const [showSelected, setShowSelected] = useState(false)
+	const [isLoading, setIsLoading] = useState(true)
 	const prevSelectedRecipeIds = useRef<string[]>(selectedRecipeIds)
-	// Filtering based on search and showSelected
-	const filteredRecipes = recipes.filter((recipe) => {
-		const searchTerm = searchQuery.toLowerCase()
-		const recipeValues = Object.values(recipe)
 
-		if (showSelected) {
-			return selectedRecipeIds.includes(recipe.id)
+	useEffect(() => {
+		const fetchRecipes = async () => {
+			try {
+				const response = await fetch(
+					"http://localhost:8000/api/clean-recipes",
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				)
+				if (response.ok) {
+					const data = await response.json()
+					setRecipes(data.data) // Assuming the server sends the cleaned recipes in `data.data`
+				} else {
+					throw new Error("Failed to fetch recipes.")
+				}
+			} catch (error) {
+				console.error("Error fetching recipes:", error)
+			} finally {
+				setIsLoading(false)
+			}
 		}
 
-		return recipeValues.some((value) => {
-			if (typeof value === "string") {
-				return value.toLowerCase().includes(searchTerm)
-			} else if (Array.isArray(value)) {
-				return value.some((item) =>
-					Object.values(item).some(
-						(propValue) =>
-							typeof propValue === "string" &&
-							propValue.toLowerCase().includes(searchTerm)
-					)
-				)
-			}
-			return false
-		})
-	})
+		fetchRecipes() // Fetch recipes on component mount
+	}, [])
+	// Filtering based on search and showSelected
+	// Group recipes by meal type
+	const recipesByMealType = recipes.reduce((acc, recipe) => {
+		const mealType =
+			recipe["meal type"].charAt(0).toUpperCase() +
+			recipe["meal type"].slice(1) // Capitalize
+		if (!acc[mealType]) {
+			acc[mealType] = []
+		}
+		acc[mealType].push(recipe)
+		return acc
+	}, {} as { [mealType: string]: RecipeModel[] })
+
+	// Sort recipes within each meal type alphabetically
+	for (const mealType in recipesByMealType) {
+		recipesByMealType[mealType].sort((a, b) => a.name.localeCompare(b.name))
+	}
+
+	// Filtering based on search and showSelected (apply to each meal type separately)
+	const filteredRecipesByMealType = Object.entries(recipesByMealType).reduce(
+		(acc, [mealType, recipes]) => {
+			acc[mealType] = recipes.filter((recipe) => {
+				const searchTerm = searchQuery.toLowerCase()
+				const recipeValues = Object.values(recipe)
+
+				if (showSelected) {
+					return selectedRecipeIds.includes(recipe.id)
+				}
+
+				return recipeValues.some((value) => {
+					if (typeof value === "string") {
+						return value.toLowerCase().includes(searchTerm)
+					} else if (Array.isArray(value)) {
+						return value.some((item) =>
+							Object.values(item).some(
+								(propValue) =>
+									typeof propValue === "string" &&
+									propValue.toLowerCase().includes(searchTerm)
+							)
+						)
+					}
+					return false
+				})
+			})
+			return acc
+		},
+		{} as { [mealType: string]: RecipeModel[] }
+	)
 
 	// Handling recipe selection
 	const handleRecipeClick = (recipeId: string) => {
@@ -141,6 +191,31 @@ const Recipes: React.FC<RecipesProps> = ({
 		}
 	}
 
+	useEffect(() => {
+		const eventSource = new EventSource(
+			"http://localhost:8000/api/recipes-stream"
+		)
+
+		eventSource.onmessage = (event) => {
+			const data = JSON.parse(event.data)
+			if (data.type === "recipe-update") {
+				setRecipes(data.data)
+			} else if (data.type === "ping") {
+				// Handle ping event (optional, but recommended for long-lived connections)
+				console.log("Received ping from server")
+			}
+		}
+
+		eventSource.onerror = (error) => {
+			console.error("EventSource failed:", error)
+			eventSource.close()
+		}
+
+		return () => {
+			eventSource.close() // Clean up on unmount
+		}
+	}, [])
+
 	const handleAdd = async (newRecipe: RecipeModel) => {
 		try {
 			const response = await fetch("/api/clean-recipe", {
@@ -179,30 +254,48 @@ const Recipes: React.FC<RecipesProps> = ({
 				</label>
 			</div>
 			<div className="recipes-box">
-				<div className="recipes-index">
-					<h2>Index</h2>
-					<div>
-						<ul>
-							{filteredRecipes.map((recipe) => (
-								<li
-									key={recipe.id}
-									onClick={() => handleRecipeClick(recipe.id)}
-								>
-									{recipe.name}
-								</li>
-							))}
-						</ul>
-					</div>
-				</div>
+				{isLoading ? ( // Loading indicator
+					<div>Loading...</div>
+				) : (
+					<>
+						<div className="recipes-index">
+							<h2>Index</h2>
+							{/* Render each meal type as a separate section */}
+							{Object.entries(filteredRecipesByMealType).map(
+								([mealType, recipes]) => (
+									<div key={mealType}>
+										<h3>{mealType}</h3>
+										<ul>
+											{recipes.map((recipe) => (
+												<li
+													key={recipe.id}
+													onClick={() =>
+														handleRecipeClick(
+															recipe.id
+														)
+													}
+												>
+													{recipe.name}
+												</li>
+											))}
+										</ul>
+									</div>
+								)
+							)}
+						</div>
 
-				{selectedRecipe && (
-					<RecipeDetails
-						recipe={selectedRecipe}
-						onSelectedRecipesChange={handleSelectedRecipesChange}
-						isSelected={selectedRecipeIds.includes(
-							selectedRecipe.id
+						{selectedRecipe && (
+							<RecipeDetails
+								recipe={selectedRecipe}
+								onSelectedRecipesChange={
+									handleSelectedRecipesChange
+								}
+								isSelected={selectedRecipeIds.includes(
+									selectedRecipe.id
+								)}
+							/>
 						)}
-					/>
+					</>
 				)}
 			</div>
 		</div>
