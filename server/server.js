@@ -67,8 +67,9 @@ if (!apiKey) {
 }
 var genAI = new generative_ai_1.GoogleGenerativeAI(apiKey);
 var recipeFilePath = path.resolve(__dirname, "Recipes.json");
+var synonymFilePath = path.resolve(__dirname, "IngredientSynonyms.json");
 var activeSSEConnections = [];
-// Serve Recipes.json
+//API for pushing recipes
 app.get("/api/recipes-stream", function (req, res) {
     //SSE Headers
     res.writeHead(200, {
@@ -115,12 +116,53 @@ fs.watchFile(recipeFilePath, function (curr, prev) { return __awaiter(void 0, vo
         }
     });
 }); });
+//API for getting ingredient synonyms
+app.get("/api/ingredient-synonyms", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var synonyms, readError_1, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 8, , 9]);
+                synonyms = void 0;
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 7]);
+                return [4 /*yield*/, fsPromises.readFile(synonymFilePath, "utf-8")];
+            case 2:
+                synonyms = _a.sent();
+                res.status(200).json({
+                    message: "Recipe data fixed successfully.",
+                    data: synonyms,
+                });
+                return [3 /*break*/, 7];
+            case 3:
+                readError_1 = _a.sent();
+                if (!(readError_1.code === "ENOENT")) return [3 /*break*/, 5];
+                console.warn("IngredientSynonyms.json not found, creating an empty file.");
+                return [4 /*yield*/, fsPromises.writeFile(synonymFilePath, "[]")];
+            case 4:
+                _a.sent();
+                synonyms = "[]";
+                return [3 /*break*/, 6];
+            case 5: throw readError_1; // Re-throw other errors
+            case 6: return [3 /*break*/, 7];
+            case 7: return [3 /*break*/, 9];
+            case 8:
+                error_2 = _a.sent();
+                console.error("Error fixing recipe data:", error_2);
+                res.status(500).json({ error: "Error fixing recipe data." });
+                return [3 /*break*/, 9];
+            case 9: return [2 /*return*/];
+        }
+    });
+}); });
+//Gemini API
 app.post("/gemini", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var model, chat, msg, result, response, text;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-001" });
+                model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
                 chat = model.startChat({
                     history: req.body.history,
                     generationConfig: {
@@ -142,6 +184,7 @@ app.post("/gemini", function (req, res) { return __awaiter(void 0, void 0, void 
         }
     });
 }); });
+//API for cleaning recipe data
 app.post("/api/clean-recipe", function (req, res) {
     try {
         var recipe = req.body; // Type assertion to RecipeModel
@@ -153,59 +196,9 @@ app.post("/api/clean-recipe", function (req, res) {
         res.status(500).json({ error: "Error cleaning recipe data." });
     }
 });
+//API for cleaning recipe data
 app.post("/api/clean-recipes", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var rawData, readError_1, recipeData, cleanedRecipes, error_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 9, , 10]);
-                rawData = void 0;
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 7]);
-                return [4 /*yield*/, fsPromises.readFile(recipeFilePath, "utf-8")];
-            case 2:
-                rawData = _a.sent();
-                return [3 /*break*/, 7];
-            case 3:
-                readError_1 = _a.sent();
-                if (!(readError_1.code === "ENOENT")) return [3 /*break*/, 5];
-                console.warn("Recipes.json not found, creating an empty file.");
-                return [4 /*yield*/, fsPromises.writeFile(recipeFilePath, "[]")];
-            case 4:
-                _a.sent();
-                rawData = "[]";
-                return [3 /*break*/, 6];
-            case 5: throw readError_1; // Re-throw other errors
-            case 6: return [3 /*break*/, 7];
-            case 7:
-                recipeData = JSON.parse(rawData);
-                cleanedRecipes = (0, cleanRecipeData_1.cleanedRecipeData)(recipeData);
-                console.log("Recipes.json path:", recipeFilePath);
-                // 3. Write cleaned data back to file
-                return [4 /*yield*/, fsPromises.writeFile(recipeFilePath, JSON.stringify(cleanedRecipes, null, 2))
-                    // 4. Send success response
-                ];
-            case 8:
-                // 3. Write cleaned data back to file
-                _a.sent();
-                // 4. Send success response
-                res.status(200).json({
-                    message: "Recipe data fixed successfully.",
-                    data: cleanedRecipes,
-                });
-                return [3 /*break*/, 10];
-            case 9:
-                error_2 = _a.sent();
-                console.error("Error fixing recipe data:", error_2);
-                res.status(500).json({ error: "Error fixing recipe data." });
-                return [3 /*break*/, 10];
-            case 10: return [2 /*return*/];
-        }
-    });
-}); });
-app.post("/api/clean-and-add-recipes", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var rawData, readError_2, recipeData, recipe, cleanedRecipe, withAddedRecipe, error_3;
+    var rawData, readError_2, recipeData, cleanedRecipes, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -231,6 +224,58 @@ app.post("/api/clean-and-add-recipes", function (req, res) { return __awaiter(vo
             case 6: return [3 /*break*/, 7];
             case 7:
                 recipeData = JSON.parse(rawData);
+                cleanedRecipes = (0, cleanRecipeData_1.cleanedRecipeData)(recipeData);
+                console.log("Recipes.json path:", recipeFilePath);
+                // 3. Write cleaned data back to file
+                return [4 /*yield*/, fsPromises.writeFile(recipeFilePath, JSON.stringify(cleanedRecipes, null, 2))
+                    // 4. Send success response
+                ];
+            case 8:
+                // 3. Write cleaned data back to file
+                _a.sent();
+                // 4. Send success response
+                res.status(200).json({
+                    message: "Recipe data fixed successfully.",
+                    data: cleanedRecipes,
+                });
+                return [3 /*break*/, 10];
+            case 9:
+                error_3 = _a.sent();
+                console.error("Error fixing recipe data:", error_3);
+                res.status(500).json({ error: "Error fixing recipe data." });
+                return [3 /*break*/, 10];
+            case 10: return [2 /*return*/];
+        }
+    });
+}); });
+//API for cleaning and appending recipe data to JSON
+app.post("/api/clean-and-add-recipes", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var rawData, readError_3, recipeData, recipe, cleanedRecipe, withAddedRecipe, error_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 9, , 10]);
+                rawData = void 0;
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 7]);
+                return [4 /*yield*/, fsPromises.readFile(recipeFilePath, "utf-8")];
+            case 2:
+                rawData = _a.sent();
+                return [3 /*break*/, 7];
+            case 3:
+                readError_3 = _a.sent();
+                if (!(readError_3.code === "ENOENT")) return [3 /*break*/, 5];
+                console.warn("Recipes.json not found, creating an empty file.");
+                return [4 /*yield*/, fsPromises.writeFile(recipeFilePath, "[]")];
+            case 4:
+                _a.sent();
+                rawData = "[]";
+                return [3 /*break*/, 6];
+            case 5: throw readError_3; // Re-throw other errors
+            case 6: return [3 /*break*/, 7];
+            case 7:
+                recipeData = JSON.parse(rawData);
                 recipe = req.body;
                 cleanedRecipe = (0, cleanRecipeData_1.cleanRecipe)(recipe);
                 withAddedRecipe = Array.isArray(cleanedRecipe)
@@ -251,8 +296,8 @@ app.post("/api/clean-and-add-recipes", function (req, res) { return __awaiter(vo
                 });
                 return [3 /*break*/, 10];
             case 9:
-                error_3 = _a.sent();
-                console.error("Error fixing recipe data:", error_3);
+                error_4 = _a.sent();
+                console.error("Error fixing recipe data:", error_4);
                 res.status(500).json({ error: "Error fixing recipe data." });
                 return [3 /*break*/, 10];
             case 10: return [2 /*return*/];

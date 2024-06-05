@@ -26,10 +26,11 @@ if (!apiKey) {
 const genAI = new GoogleGenerativeAI(apiKey)
 
 const recipeFilePath = path.resolve(__dirname, "Recipes.json")
+const synonymFilePath = path.resolve(__dirname, "IngredientSynonyms.json")
 let activeSSEConnections: Response[] = []
 
-// Serve Recipes.json
-app.get("/api/recipes-stream", (req, res) => {
+//API for pushing recipes
+app.get("/api/recipes-stream", (req: Request, res: Response) => {
 	//SSE Headers
 	res.writeHead(200, {
 		"Content-Type": "text/event-stream",
@@ -70,9 +71,38 @@ fs.watchFile(recipeFilePath, async (curr, prev) => {
 		}
 	}
 })
+//API for getting ingredient synonyms
+app.get("/api/ingredient-synonyms", async (req: Request, res: Response) => {
+	try {
+		// 1. Read recipe data
+		let synonyms
+		try {
+			synonyms = await fsPromises.readFile(synonymFilePath, "utf-8")
+			res.status(200).json({
+				message: "Recipe data fixed successfully.",
+				data: synonyms,
+			})
+		} catch (readError) {
+			// If Recipes.json doesn't exist, create an empty array
+			if (readError.code === "ENOENT") {
+				console.warn(
+					"IngredientSynonyms.json not found, creating an empty file."
+				)
+				await fsPromises.writeFile(synonymFilePath, "[]")
+				synonyms = "[]"
+			} else {
+				throw readError // Re-throw other errors
+			}
+		}
+	} catch (error) {
+		console.error("Error fixing recipe data:", error)
+		res.status(500).json({ error: "Error fixing recipe data." })
+	}
+})
 
+//Gemini API
 app.post("/gemini", async (req: Request, res: Response) => {
-	const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-001" })
+	const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" })
 
 	const chat = model.startChat({
 		history: req.body.history,
@@ -88,7 +118,7 @@ app.post("/gemini", async (req: Request, res: Response) => {
 	const text = response.text()
 	res.send(text)
 })
-
+//API for cleaning recipe data
 app.post("/api/clean-recipe", (req: Request, res: Response) => {
 	try {
 		const recipe: RecipeModel = req.body // Type assertion to RecipeModel
@@ -99,7 +129,7 @@ app.post("/api/clean-recipe", (req: Request, res: Response) => {
 		res.status(500).json({ error: "Error cleaning recipe data." })
 	}
 })
-
+//API for cleaning recipe data
 app.post("/api/clean-recipes", async (req: Request, res: Response) => {
 	try {
 		// 1. Read recipe data
@@ -138,7 +168,7 @@ app.post("/api/clean-recipes", async (req: Request, res: Response) => {
 		res.status(500).json({ error: "Error fixing recipe data." })
 	}
 })
-
+//API for cleaning and appending recipe data to JSON
 app.post("/api/clean-and-add-recipes", async (req: Request, res: Response) => {
 	try {
 		// 1. Read recipe data

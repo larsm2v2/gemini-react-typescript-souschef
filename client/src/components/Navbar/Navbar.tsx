@@ -72,13 +72,6 @@ const Navbar: React.FC<Props> = ({
 				>
 					myShoppingList
 				</li>
-				<li
-					onClick={(event: React.MouseEvent<HTMLLIElement>) => {
-						document.getElementById("ocr")?.scrollIntoView()
-					}}
-				>
-					myImport
-				</li>
 			</ul>
 		</nav>
 	)

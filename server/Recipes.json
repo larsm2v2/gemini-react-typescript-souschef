@@ -1100,5 +1100,119 @@
       "fiber": 2,
       "sugar": 15
     }
+  },
+  {
+    "name": "Classic Chicken Noodle Soup",
+    "unique id": 1696043268877,
+    "id": "classic-chicken-noodle-soup",
+    "cuisine": "American",
+    "meal type": "dinner",
+    "dietary restrictions and designations": [],
+    "serving info": {
+      "prep time": "15 minutes",
+      "cook time": "1 hour",
+      "total time": "1 hour 15 minutes",
+      "number of people served": 6
+    },
+    "ingredients": {
+      "dish": [
+        {
+          "id": 1,
+          "name": "boneless, skinless chicken breasts",
+          "quantity": 2,
+          "unit": "pounds"
+        },
+        {
+          "id": 2,
+          "name": "water",
+          "quantity": 8,
+          "unit": "cups"
+        },
+        {
+          "id": 3,
+          "name": "salt",
+          "quantity": 2,
+          "unit": "teaspoons"
+        },
+        {
+          "id": 4,
+          "name": "black pepper",
+          "quantity": 0.5,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 5,
+          "name": "onion",
+          "quantity": 1
+        },
+        {
+          "id": 6,
+          "name": "carrots",
+          "quantity": 2
+        },
+        {
+          "id": 7,
+          "name": "celery stalks",
+          "quantity": 2
+        },
+        {
+          "id": 8,
+          "name": "dried egg noodles",
+          "quantity": 2,
+          "unit": "cups"
+        },
+        {
+          "id": 9,
+          "name": "fresh parsley",
+          "quantity": 2,
+          "unit": "tablespoons"
+        }
+      ]
+    },
+    "instructions": [
+      {
+        "number": 1,
+        "text": "In a large stockpot or Dutch oven, combine the chicken breasts, water, salt, and pepper. Bring to a boil over medium-high heat, then reduce heat to low, cover, and simmer for 30 minutes."
+      },
+      {
+        "number": 2,
+        "text": "Remove the chicken breasts from the pot and set aside to cool slightly. Once cool enough to handle, shred the chicken using two forks and set aside."
+      },
+      {
+        "number": 3,
+        "text": "While the chicken is simmering, prepare the vegetables. Dice the onion, chop the carrots into 1/4-inch thick slices, and dice the celery."
+      },
+      {
+        "number": 4,
+        "text": "Add the onion, carrots, and celery to the pot with the chicken broth. Bring to a boil, then reduce heat to low, cover, and simmer for 15 minutes, or until the vegetables are tender."
+      },
+      {
+        "number": 5,
+        "text": "Stir in the egg noodles and cook for 8-10 minutes, or until the noodles are tender."
+      },
+      {
+        "number": 6,
+        "text": "Return the shredded chicken to the pot and stir to combine. Heat through for an additional 2-3 minutes."
+      },
+      {
+        "number": 7,
+        "text": "Stir in the fresh parsley before serving."
+      }
+    ],
+    "notes": [
+      "For a richer flavor, use chicken broth instead of water.",
+      "Add other vegetables to your liking, such as peas, corn, or green beans.",
+      "Serve with crackers or crusty bread for a complete meal."
+    ],
+    "nutrition": {
+      "serving": "1 serving",
+      "calories": 250,
+      "carbohydrates": 25,
+      "protein": 25,
+      "fat": 7,
+      "saturated fat": 2,
+      "fiber": 2,
+      "sugar": 2
+    }
   }
 ]

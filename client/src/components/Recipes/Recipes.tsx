@@ -69,7 +69,7 @@ const Recipes: React.FC<RecipesProps> = ({
 	// Filtering based on search and showSelected (apply to each meal type separately)
 	const filteredRecipesByMealType = Object.entries(recipesByMealType).reduce(
 		(acc, [mealType, recipes]) => {
-			acc[mealType] = recipes.filter((recipe) => {
+			const filteredRecipes = recipes.filter((recipe) => {
 				const searchTerm = searchQuery.toLowerCase()
 				const recipeValues = Object.values(recipe)
 
@@ -92,6 +92,10 @@ const Recipes: React.FC<RecipesProps> = ({
 					return false
 				})
 			})
+			// Only add meal types with filtered recipes to the result
+			if (filteredRecipes.length > 0) {
+				acc[mealType] = filteredRecipes
+			}
 			return acc
 		},
 		{} as { [mealType: string]: RecipeModel[] }

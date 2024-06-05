@@ -52,7 +52,10 @@ const ShoppingList: React.FC<{ selectedRecipeIds: string[] }> = ({
 		isDone: false,
 		toTransfer: false,
 	})
-
+	const [ingredientSynonyms, setIngredientSynonyms] = useState<{
+		[key: string]: string[]
+	}>({})
+	//Clean and Fetch Backend Recipes
 	useEffect(() => {
 		const fetchRecipes = async () => {
 			try {
@@ -79,7 +82,32 @@ const ShoppingList: React.FC<{ selectedRecipeIds: string[] }> = ({
 
 		fetchRecipes() // Fetch recipes on component mount
 	}, [])
+	// Fetch Ingredient Synonyms
+	useEffect(() => {
+		const fetchIngredientSynonyms = async () => {
+			try {
+				const response = await fetch(
+					"http://localhost:8000/api/ingredient-synonyms",
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				)
+				if (response.ok) {
+					const data = await response.json()
+					setIngredientSynonyms(data)
+				} else {
+					throw new Error("Failed to fetch ingredient synonyms.")
+				}
+			} catch (error) {
+				console.error("Error fetching ingredient synonyms:", error)
+			}
+		}
 
+		fetchIngredientSynonyms()
+	}, [])
 	// Helper function to consolidate ingredients
 	const consolidateIngredients = (
 		listItems: ListItem[],
@@ -144,15 +172,26 @@ const ShoppingList: React.FC<{ selectedRecipeIds: string[] }> = ({
 					newRecipeIngredients[recipeId] = Object.values(
 						recipe.ingredients
 					)
-						.flat() // Flatten nested ingredients
-						.map((ingredient) => ({
-							id: Date.now() + Math.random(), // Generate a unique ID
-							quantity: ingredient.quantity || 0,
-							unit: ingredient.unit || "",
-							listItem: ingredient.name,
-							isDone: false,
-							toTransfer: false,
-						}))
+						.flat()
+						.map((ingredient) => {
+							// Check for synonyms
+							const standardizedName = Object.keys(
+								ingredientSynonyms
+							).find((key) =>
+								ingredientSynonyms[key].includes(
+									ingredient.name.toLowerCase()
+								)
+							)
+
+							return {
+								id: Date.now() + Math.random(), // Generate a unique ID
+								quantity: ingredient.quantity || 0,
+								unit: ingredient.unit || "",
+								listItem: ingredient.name,
+								isDone: false,
+								toTransfer: false,
+							}
+						})
 				}
 			})
 
@@ -181,7 +220,7 @@ const ShoppingList: React.FC<{ selectedRecipeIds: string[] }> = ({
 		}
 
 		updateShoppingList()
-	}, [selectedRecipeIds, recipes])
+	}, [selectedRecipeIds, recipes, ingredientSynonyms])
 
 	return (
 		<div className="shoppinglist-container">
