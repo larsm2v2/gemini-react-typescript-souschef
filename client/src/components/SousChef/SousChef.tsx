@@ -1,15 +1,32 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import "./SousChef.css"
-import TemporaryRecipeDisplay from "../RecipeDisplay/RecipeDisplay" // Import your RecipeDisplay component
+import RecipeDisplay from "../RecipeDisplay/RecipeDisplay" // Import your RecipeDisplay component
 import { RecipeModel } from "../Models/Models"
 import { surpriseOptions, preprompt } from "../Models/Prompts"
-import ChefHat from "../../assets/ChefHat-original"
+import Chef from "../../assets/Chef"
+
+const useTypewriter = (text: string, speed = 20) => {
+	const [index, setIndex] = useState(0)
+	const displayText = useMemo(() => text.slice(0, index), [index])
+
+	useEffect(() => {
+		if (index >= text.length) return // Stop when done
+
+		const timeoutId = setTimeout(() => {
+			setIndex((i) => i + 1)
+		}, speed)
+
+		return () => clearTimeout(timeoutId) // Cleanup on unmount
+	}, [index, text, speed])
+
+	return displayText
+}
 
 const SousChef = () => {
 	const [value, setValue] = useState("")
 	const [passedValue, setPassedValue] = useState("")
 	const [error, setError] = useState("")
-	const [isLoading, setIsLoading] = useState(false)
+	const [isLoading, setIsLoading] = useState(true)
 	const [generatedRecipe, setGeneratedRecipe] = useState<RecipeModel | null>(
 		null
 	)
@@ -27,13 +44,15 @@ const SousChef = () => {
 	const [inputMode, setInputMode] = useState<"askAway" | "specific">(
 		"askAway"
 	) // New state for input mode
+	const textToType =
+		"Hi, I'm here to sous-chef you...Ask Away and tell me about a recipe...or try a more Specific approach."
+	const typedText = useTypewriter(textToType, 45)
 
 	const surprise = () => {
 		const randomValue =
 			surpriseOptions[Math.floor(Math.random() * surpriseOptions.length)]
 		setValue(randomValue)
 	}
-	console.log(specificExpanded)
 
 	const getResponse = async () => {
 		setIsLoading(true) // Set loading state to true
@@ -129,31 +148,39 @@ const SousChef = () => {
 		setShowRecipeDisplay(false)
 		setIsLoading(false)
 	}
+
 	return (
 		<div className="souschef-prompt">
-			<ChefHat />
 			<h1>mySousChef</h1>
 
 			<div className="souschef-prompt-initial">
-				<p className="initialMessage">
-					Hi, I'm here to sous-chef you...<strong>Ask Away</strong>{" "}
-					and tell me about a recipe or a grocery list...
-				</p>
-				<p className="initialMessage">
-					...or try a more <strong>Specific</strong> approach.
-				</p>
+				<p>{typedText}</p>
 			</div>
 			<div className="input-mode-toggle">
-				<button onClick={() => setInputMode("askAway")}>
+				<button
+					className={
+						inputMode === "askAway"
+							? "highlighted"
+							: "unhighlighted"
+					}
+					onClick={() => setInputMode("askAway")}
+				>
 					<strong>Ask Away</strong>
 				</button>
 				<p> | </p>
-				<button onClick={() => setInputMode("specific")}>
+				<button
+					className={
+						inputMode === "specific"
+							? "highlighted"
+							: "unhighlighted"
+					}
+					onClick={() => setInputMode("specific")}
+				>
 					<strong>Specific</strong>
 				</button>
 			</div>
 			{inputMode === "askAway" && (
-				<div className="askAwayContainer">
+				<div className="askAwayPrompt">
 					<button
 						className="surprise"
 						onClick={surprise}
@@ -161,35 +188,47 @@ const SousChef = () => {
 					>
 						Random Examples...
 					</button>
-					<input
-						value={value}
-						placeholder="Show me a recipe for arroz con pollo...?"
-						//Add "Continue your prompt"
-						onChange={(e) => {
-							setValue(e.target.value)
-						}}
-					/>
+					<div className="askAwayContainer">
+						<input
+							value={value}
+							placeholder="Show me a recipe for arroz con pollo...?"
+							//Add "Continue your prompt"
+							onChange={(e) => {
+								setValue(e.target.value)
+							}}
+						/>
+					</div>
 					{!error && (
-						<button onClick={getResponse} disabled={isLoading}>
+						<button
+							className="surprise"
+							onClick={getResponse}
+							disabled={isLoading}
+						>
 							{isLoading ? "Processing..." : "Yes, Chef!"}
 						</button>
 					)}
-					{error && <button onClick={clear}>Clear</button>}
+					{error && (
+						<button className="surprise" onClick={clear}>
+							Clear
+						</button>
+					)}
 				</div>
 			)}
 
 			{inputMode === "specific" && (
-				<div className="specific-prompt">
-					<div className="input-container">
+				<div className="specificPrompt">
+					<div className="specificSequence">
 						<input
+							className="specificContainer"
 							value={cuisine}
 							placeholder="Enter a cuisine..."
 							onChange={(e) => {
 								setCuisine(e.target.value)
 							}}
 						/>
-						<div className="input-container">
+						<div className="specificSequence">
 							<input
+								className="specificContainer"
 								value={knownIngredients}
 								placeholder="What ingredients do you have?"
 								onChange={(e) => {
@@ -197,9 +236,9 @@ const SousChef = () => {
 								}}
 							/>
 						</div>
-						<div className="input-container">
+						<div className="specificSequence">
 							<input
-								className="input-container"
+								className="specificContainer"
 								value={avoidIngredients}
 								placeholder="Which ingredients should we avoid?"
 								onChange={(e) => {
@@ -207,8 +246,9 @@ const SousChef = () => {
 								}}
 							/>
 						</div>
-						<div className="input-container">
+						<div className="specificSequence">
 							<input
+								className="specificContainer"
 								value={dietaryRestrictions}
 								placeholder="Do you have any dietary restrictions?"
 								onChange={(e) => {
@@ -216,8 +256,9 @@ const SousChef = () => {
 								}}
 							/>
 						</div>
-						<div className="input-container">
+						<div className="specificSequence">
 							<input
+								className="specificContainer"
 								value={otherInfo}
 								placeholder="Do you have any other info to share?"
 								onChange={(e) => {
@@ -226,27 +267,32 @@ const SousChef = () => {
 							/>
 						</div>
 					</div>
-					<div>
-						{!error && (
-							<button
-								className="surprise"
-								onClick={getResponse}
-								disabled={isLoading}
-							>
-								{isLoading ? "Processing..." : "Yes, Chef!"}
-							</button>
-						)}
-						{error && <button onClick={clear}>Clear</button>}
-					</div>
+
+					{!error && (
+						<button
+							className="surprise"
+							onClick={getResponse}
+							disabled={isLoading}
+						>
+							{isLoading ? "Processing..." : "Yes, Chef!"}
+						</button>
+					)}
+					{error && (
+						<button className="surprise" onClick={clear}>
+							Clear
+						</button>
+					)}
 				</div>
 			)}
 
 			<div className="search-result">
-				{/* TemporaryRecipeDisplay for showing generated recipe */}
+				{/* RecipeDisplay for showing generated recipe */}
 				{generatedRecipe && (
-					<TemporaryRecipeDisplay
+					<RecipeDisplay
+						isLoading={isLoading}
 						generatedRecipe={generatedRecipe}
 						onTryAgain={getResponse} // Pass the getResponse function to retry
+						children={null} // Add the required 'children' property
 					/>
 				)}
 			</div>

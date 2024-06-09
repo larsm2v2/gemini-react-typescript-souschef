@@ -6,11 +6,17 @@ import "./Navbar.css"
 interface Props {
 	sidebarToggled: boolean
 	setSidebarToggled: React.Dispatch<React.SetStateAction<boolean>>
+	activeContent: "recipes" | "sousChef"
+	setActiveContent: React.Dispatch<
+		React.SetStateAction<"recipes" | "sousChef">
+	>
 }
 
 const Navbar: React.FC<Props> = ({
 	sidebarToggled,
 	setSidebarToggled,
+	activeContent,
+	setActiveContent,
 }: Props) => {
 	const togglesidebar = () => {
 		setSidebarToggled((prevState) => !prevState)
@@ -51,17 +57,17 @@ const Navbar: React.FC<Props> = ({
 				/>
 				<li
 					onClick={(event: React.MouseEvent<HTMLLIElement>) => {
-						document.getElementById("souschef")?.scrollIntoView()
-					}}
-				>
-					mySousChef
-				</li>
-				<li
-					onClick={(event: React.MouseEvent<HTMLLIElement>) => {
-						document.getElementById("recipes")?.scrollIntoView()
+						setActiveContent("recipes")
 					}}
 				>
 					myRecipes
+				</li>
+				<li
+					onClick={(event: React.MouseEvent<HTMLLIElement>) => {
+						setActiveContent("sousChef")
+					}}
+				>
+					mySousChef
 				</li>
 				<li
 					onClick={(event: React.MouseEvent<HTMLLIElement>) => {

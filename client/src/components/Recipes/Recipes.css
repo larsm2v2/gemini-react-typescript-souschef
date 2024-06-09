@@ -28,6 +28,14 @@ justify-content: left;
 text-decoration: none;
 }
 
+.chefContainer {
+    display: flex;
+    padding: 10%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
 .mealType{
     justify-items: left;
 }

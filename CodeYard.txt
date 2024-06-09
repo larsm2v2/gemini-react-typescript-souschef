@@ -1,0 +1,12 @@
+<div className="App-souchef" id="souschef">
+<SousChef />
+</div>
+<div className="App-shoppinglist" id="shoppinglist">
+<ShoppingList selectedRecipeIds={selectedRecipeIds} />
+</div>
+<div className="App-recipes" id="recipes">
+<Recipes
+    selectedRecipeIds={selectedRecipeIds}
+    setSelectedRecipeIds={setSelectedRecipeIds}
+/>
+</div>

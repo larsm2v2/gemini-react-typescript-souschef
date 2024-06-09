@@ -1,54 +1,78 @@
+/* General Styles */
 .souschef-prompt {
-  width: 100%;
-  padding: 60px 1rem 0 1rem;
-  height: auto;
-  margin: 0vw 1vw;
+  width: 100%; /* Take full width on all screens */
+  padding: 3rem 1rem;  /* More spacing for smaller screens */
+  margin: 0;          /* Remove margin */
   display: flex;
   flex-direction: column;
-  align-items: left;
-  justify-content: center;
-  
+  align-items: center;
 }
 
 .souschef-prompt-initial {
-display:flex;
-flex-direction: row;
-
+  display: flex;
+  flex-direction: row; /* Horizontal on larger screens */
+  align-items: center;
+  gap: 1rem;
 }
+
+.initialMessage {
+  overflow: hidden;
+  border-right: .15em solid var(--secondary-text-color);
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .04em; /* Adjust as needed */
+  animation : blink-caret .75s step-end infinite;
+  max-width: 90%;
+}
+
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--secondary-text-color)}
+}
+
 .input-mode-toggle{
   display: flex;
-  flex-direction: row;
+  gap: 10px;
   justify-content: center;
   align-items: center;
-  margin: 0 0 0 0;
-  padding: 0 0 0 0;
 }
   .input-mode-toggle button{
     border: none;
-    background-color: var(--tertiary-background-color);
+    padding: 8px 16px;
+    border-radius: 15px;
 }
+
+.input-mode-toggle button:hover{
+  text-decoration: underline;
+  cursor: pointer;
+  
+}
+
+.input-mode-toggle button:active{
+  background-color: var(--primary-hover-color);
+  color: var(--primary-background-color);
+}
+
+/* Highlight Toggled Button */
+  .highlighted{
+    background-color: var(--primary-color);
+    color: var(--tertiary-background-color)
+  }
+
+  .unhighlighted{
+    background-color: var(--tertiary-background-color);
+    color: var(--primary-color);
+  }
+
 .surprise {
   background-color: var(--secondary-color);
   border-radius: 15px;
-  font-weight: 600;
-  font-weight: bold;
+  font-weight: 700;
   padding: 4px 12px;
   margin: 0 0 2px 5px;
   border: none;
-}
-.askAwayContainer {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 0 0 0;
-  padding: 0 0 0 0;
-}
-
-.spacer {
-  padding: 1rem 0 1rem;
-  font-size: 14px;
+  height: 100%;
 }
   
   p {
@@ -63,14 +87,24 @@ flex-direction: row;
     margin-top: 10px;
     
   }
-
-
   
-  .input-container-last button:active{
-    background-color: #cacaca;
+  .askAwayPrompt,
+  .specificPrompt {
+    width: 90%;         /* Maximum width for larger screens */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 1rem;        /* Add spacing between elements */
   }
-  
-  
+
+
+  .askAwayContainer, 
+  .inputSequence,
+  .specificContainer {
+    width: 100%;      /* Full width on smaller screens */
+  }
   .askAwayContainer input{
     border: none;
     padding: 13px 14px;
@@ -83,57 +117,76 @@ flex-direction: row;
   }
 
   .askAwayContainer button{
-    font-style: bold;
+    font-weight:bold;
     background-color: var(--secondary-color);
     border-radius: 15px;
     height: 100%;
     border: none;
 
   }
-  
-  .input-container {
-    width: 65%;
+.spacer{
+  height:3vh;
+
+}
+  .inputSequence {
+    width: 40vw;
     display: flex;
     flex-direction: column;
-    border: solid 0.5px #cacaca;
     box-sizing: border-box;
     border-radius: 15px;
-    box-shadow: rgba(0,0,82,0.15) 0 2px 4px;
+    box-shadow: #072733 0 2px 4px;
     overflow: hidden;
     height: auto;
     font-size: auto;
   }
-  .input-container input::placeholder{
+/*   .specificContainer {
+    width: 30vw;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border-radius: 15px;
+    box-shadow: #072733 0 2px 4px;
+    overflow: hidden;
+    font-size: 15px;
+    padding: 13px 14px;
+  }*/
+/*   .specificContainer input::placeholder{
+    width:100%;
     border: none;
     color: #cacaca;
     font-weight: 200;
-    text-align: left !important;
-  }
-  
-  .input-container button{
-    min-width: 0%;
-    border: none;
-    border-left: 1px solid #cacaca;
-    background-color: #fff;
-    color: #777;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .input-container button:active{
-    background-color: #cacaca;
+    text-align: left !important; 
+  }*/
+  .specificContainer input {
+    width: 100%;       /* Take full width of parent */
+    font-size: 1rem;   /* Adjust font size as needed */
   }
 
-  .answer {
-    padding: 13px 14px;
-    border: solid 0.5px #cacaca;
-    min-width: 50%;
-    min-height: 15%;
-    background-color: #fff;
-    margin: 5px;
-    font-size: 15px;
-    font-weight: 200;
-    border-radius: 6px;
-    color:#000;
+
+/* Media Queries for Different Screen Sizes */
+@media (min-width: 768px) { /* Adjust breakpoint as needed */
+  .souschef-prompt {
+    padding: 5rem 2rem; /* More padding on larger screens */
   }
 
+  .askAwayPrompt,
+  .specificPrompt {
+    width: 70%;   
+    flex-wrap: nowrap; /* Prevent wrapping on larger screens */
+  }
+
+  .askAwayContainer,
+  .inputSequence {
+    width: 45%;    /* Adjust width for side-by-side on larger screens */
+  }
+
+  .specificContainer {
+    width: auto;  
+    font-size: 1.1rem;
+  }
+
+  .specificContainer input {
+    width: 100%;  
+  }
+}

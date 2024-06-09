@@ -2,18 +2,24 @@ import React, { useState, useEffect } from "react"
 import { RecipeModel } from "../Models/Models"
 import RecipeDetails from "../Recipes/Recipe Details/RecipeDetails" // Import your RecipeDetails component
 import "../Recipes/Recipes.css" // Import your CSS for styling
+import Chef from "../../assets/Chef" // Import your Chef SVG component
 
-interface TemporaryRecipeDisplayProps {
+interface RecipeDisplayProps {
 	generatedRecipe: RecipeModel
 	onTryAgain: () => void
+	children: React.ReactNode
+	isLoading: boolean
 }
 
-const TemporaryRecipeDisplay: React.FC<TemporaryRecipeDisplayProps> = ({
+const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 	generatedRecipe,
 	onTryAgain,
+	children,
+	isLoading,
 }) => {
 	const [selectedRecipe, setSelectedRecipe] =
 		useState<RecipeModel>(generatedRecipe)
+	const [showShoppingList, setShowShoppingList] = useState(false)
 
 	const handleRecipeClick = () => {
 		setSelectedRecipe(generatedRecipe)
@@ -51,7 +57,13 @@ const TemporaryRecipeDisplay: React.FC<TemporaryRecipeDisplayProps> = ({
 	}, [generatedRecipe])
 	return (
 		<div className="recipes-container">
+			<div className="chefContainer">
+				<Chef isLoading={isLoading} size={300} />
+			</div>
 			<div className="recipes-box">
+				{children}
+				<span className=""></span>
+				{!selectedRecipe && <div></div>}
 				{selectedRecipe && (
 					<div>
 						<h2>Souschef Recipe</h2>
@@ -62,15 +74,17 @@ const TemporaryRecipeDisplay: React.FC<TemporaryRecipeDisplayProps> = ({
 							}
 							isSelected={false}
 						/>
+						<button className="surprise" onClick={onTryAgain}>
+							Try Again
+						</button>
+						<button className="surprise" onClick={handleSaveRecipe}>
+							Save Recipe
+						</button>
 					</div>
 				)}
-			</div>
-			<div className="recipe-actions">
-				<button onClick={onTryAgain}>Try Again</button>
-				<button onClick={handleSaveRecipe}>Save Recipe</button>
 			</div>
 		</div>
 	)
 }
 
-export default TemporaryRecipeDisplay
+export default RecipeDisplay

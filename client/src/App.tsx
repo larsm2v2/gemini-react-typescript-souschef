@@ -6,10 +6,18 @@ import Sidebar from "./components/Sidebar/Sidebar"
 import SousChef from "./components/SousChef/SousChef"
 import ShoppingList from "./components/ShoppingList/ShoppingList"
 import Recipes from "./components/Recipes/Recipes"
+import RecipesIndex from "./components/Recipes/RecipesIndex"
+import RecipeDisplay from "./components/RecipeDisplay/RecipeDisplay"
 
 function App() {
 	const [sidebarToggled, setSidebarToggled] = useState(false)
-
+	const [activeContent, setActiveContent] = useState<"recipes" | "sousChef">(
+		"recipes"
+	)
+	const [isLoading, setIsLoading] = useState(true)
+	const [generatedRecipe, setGeneratedRecipe] = useState<RecipeModel | null>(
+		null
+	)
 	// State for selected recipe IDs
 	const [selectedRecipeIds, setSelectedRecipeIds] = useState<string[]>([])
 
@@ -57,6 +65,8 @@ function App() {
 					<Navbar
 						sidebarToggled={sidebarToggled}
 						setSidebarToggled={setSidebarToggled}
+						activeContent={activeContent}
+						setActiveContent={setActiveContent}
 					/>
 				</nav>
 			</div>
@@ -68,18 +78,20 @@ function App() {
 					<Sidebar />
 				</div>
 				<div className="App" id="App-main">
-					<div className="App-souchef" id="souschef">
-						<SousChef />
-					</div>
-					<div className="App-shoppinglist" id="shoppinglist">
-						<ShoppingList selectedRecipeIds={selectedRecipeIds} />
-					</div>
-					<div className="App-recipes" id="recipes">
-						<Recipes
-							selectedRecipeIds={selectedRecipeIds}
-							setSelectedRecipeIds={setSelectedRecipeIds}
-						/>
-					</div>
+					<RecipeDisplay
+						generatedRecipe={generatedRecipe}
+						onTryAgain={onTryAgain}
+						isLoading={isLoading}
+					>
+						{activeContent === "recipes" && (
+							<RecipesIndex
+								selectedRecipeIds={selectedRecipeIds}
+								setSelectedRecipeIds={setSelectedRecipeIds}
+							/>
+						)}
+						{activeContent === "sousChef" && <SousChef />}
+						{/* Toggle ShoppingListPanel visibility within RecipeDisplay */}
+					</RecipeDisplay>
 				</div>
 			</div>
 		</Fragment>
