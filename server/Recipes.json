@@ -1568,5 +1568,348 @@
       "fiber": 2,
       "sugar": 20
     }
+  },
+  {
+    "name": "Classic Greek Salad (Horiatiki)",
+    "unique id": 1696043028266,
+    "id": "classic-greek-salad-horiatiki",
+    "cuisine": "Greek",
+    "meal type": "lunch",
+    "dietary restrictions and designations": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "serving info": {
+      "prep time": "15 minutes",
+      "cook time": "0 minutes",
+      "total time": "15 minutes",
+      "number of people served": 4
+    },
+    "ingredients": {
+      "dish": [
+        {
+          "id": 1,
+          "name": "Ripe tomatoes",
+          "quantity": 4,
+          "unit": "medium, chopped"
+        },
+        {
+          "id": 2,
+          "name": "Cucumber",
+          "quantity": 1,
+          "unit": "medium, sliced"
+        },
+        {
+          "id": 3,
+          "name": "Red onion",
+          "quantity": 0.5,
+          "unit": "medium, thinly sliced"
+        },
+        {
+          "id": 4,
+          "name": "Green bell pepper",
+          "quantity": 0.5,
+          "unit": "medium, sliced"
+        },
+        {
+          "id": 5,
+          "name": "Kalamata olives",
+          "quantity": 0.5,
+          "unit": "cup"
+        },
+        {
+          "id": 6,
+          "name": "Feta cheese",
+          "quantity": 200,
+          "unit": "grams, cut into cubes"
+        },
+        {
+          "id": 7,
+          "name": "Extra virgin olive oil",
+          "quantity": 0.25,
+          "unit": "cup"
+        },
+        {
+          "id": 8,
+          "name": "Dried oregano",
+          "quantity": 1,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 9,
+          "name": "Salt",
+          "quantity": 1,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 10,
+          "name": "Freshly ground black pepper",
+          "quantity": 0.5,
+          "unit": "teaspoon"
+        }
+      ]
+    },
+    "instructions": [
+      {
+        "number": 1,
+        "text": "In a large bowl, combine the chopped tomatoes, sliced cucumber, red onion, green bell pepper, and Kalamata olives."
+      },
+      {
+        "number": 2,
+        "text": "Gently toss the vegetables with the extra virgin olive oil, dried oregano, salt, and black pepper."
+      },
+      {
+        "number": 3,
+        "text": "Add the feta cheese cubes to the salad and gently toss to combine."
+      },
+      {
+        "number": 4,
+        "text": "Serve immediately or chill for later. Enjoy!"
+      }
+    ],
+    "notes": [
+      "For a more authentic Greek salad, use high-quality Greek feta cheese.",
+      "You can add other ingredients to your liking, such as capers, fresh parsley, or a squeeze of lemon juice."
+    ],
+    "nutrition": {
+      "serving": "1 serving",
+      "calories": 350,
+      "carbohydrates": 12,
+      "protein": 15,
+      "fat": 28,
+      "saturated fat": 6,
+      "fiber": 4,
+      "sugar": 6
+    }
+  },
+  {
+    "name": "Rabanadas (Portuguese French Toast)",
+    "unique id": 1701827257587,
+    "id": "rabanadas-portuguese-french-toast",
+    "cuisine": "Portuguese",
+    "meal type": "breakfast",
+    "dietary restrictions and designations": [],
+    "serving info": {
+      "prep time": "20 minutes",
+      "cook time": "10 minutes",
+      "total time": "30 minutes",
+      "number of people served": 4
+    },
+    "ingredients": {
+      "dish": [
+        {
+          "id": 1,
+          "name": "day-old Portuguese bread (or challah)",
+          "quantity": 1,
+          "unit": "loaf, sliced 1-inch thick"
+        },
+        {
+          "id": 2,
+          "name": "whole milk",
+          "quantity": 1.5,
+          "unit": "cups"
+        },
+        {
+          "id": 3,
+          "name": "eggs",
+          "quantity": 3
+        },
+        {
+          "id": 4,
+          "name": "granulated sugar",
+          "quantity": 2,
+          "unit": "tablespoons"
+        },
+        {
+          "id": 5,
+          "name": "ground cinnamon",
+          "quantity": 1,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 6,
+          "name": "salt",
+          "quantity": 0.25,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 7,
+          "name": "vegetable oil",
+          "quantity": 0.5,
+          "unit": "cup"
+        },
+        {
+          "id": 8,
+          "name": "honey or maple syrup",
+          "quantity": 0.25,
+          "unit": "cup"
+        },
+        {
+          "id": 9,
+          "name": "ground cinnamon",
+          "quantity": 0.5,
+          "unit": "teaspoon"
+        }
+      ]
+    },
+    "instructions": [
+      {
+        "number": 1,
+        "text": "In a shallow dish, whisk together the milk, eggs, 2 tablespoons sugar, 1 teaspoon cinnamon, and salt."
+      },
+      {
+        "number": 2,
+        "text": "Heat the vegetable oil in a large skillet over medium heat."
+      },
+      {
+        "number": 3,
+        "text": "Dip each slice of bread into the milk mixture, allowing it to soak for about 30 seconds per side."
+      },
+      {
+        "number": 4,
+        "text": "Carefully place the soaked bread slices in the hot oil and cook for 2-3 minutes per side, or until golden brown."
+      },
+      {
+        "number": 5,
+        "text": "Remove the rabanadas from the skillet and place them on a wire rack to drain any excess oil."
+      },
+      {
+        "number": 6,
+        "text": "In a small bowl, combine the honey (or maple syrup) and remaining 1/2 teaspoon cinnamon."
+      },
+      {
+        "number": 7,
+        "text": "Drizzle the honey-cinnamon mixture over the warm rabanadas and serve immediately."
+      }
+    ],
+    "notes": [
+      "Rabanadas are best served warm and fresh.",
+      "For a richer flavor, use half-and-half instead of milk.",
+      "You can adjust the amount of sugar and cinnamon to your liking."
+    ],
+    "nutrition": {
+      "serving": "1 serving",
+      "calories": 350,
+      "carbohydrates": 45,
+      "protein": 10,
+      "fat": 15,
+      "saturated fat": 5,
+      "fiber": 3,
+      "sugar": 20
+    }
+  },
+  {
+    "name": "Indonesian Breakfast Porridge",
+    "unique id": 1696044134764,
+    "id": "indonesian-breakfast-porridge",
+    "cuisine": "Indonesian",
+    "meal type": "breakfast",
+    "dietary restrictions and designations": [],
+    "serving info": {
+      "prep time": "5 minutes",
+      "cook time": "15 minutes",
+      "total time": "20 minutes",
+      "number of people served": 2
+    },
+    "ingredients": {
+      "porridge": [
+        {
+          "id": 1,
+          "name": "Jasmine rice",
+          "quantity": 0.5,
+          "unit": "cup"
+        },
+        {
+          "id": 2,
+          "name": "Water",
+          "quantity": 2.5,
+          "unit": "cups"
+        },
+        {
+          "id": 3,
+          "name": "Salt",
+          "quantity": 0.25,
+          "unit": "teaspoon"
+        },
+        {
+          "id": 4,
+          "name": "Pandan leaf",
+          "quantity": 1
+        }
+      ],
+      "sauce": [
+        {
+          "id": 5,
+          "name": "Palm sugar",
+          "quantity": 50,
+          "unit": "g"
+        },
+        {
+          "id": 6,
+          "name": "Water",
+          "quantity": 0.25,
+          "unit": "cup"
+        },
+        {
+          "id": 7,
+          "name": "Ginger",
+          "quantity": 1,
+          "unit": "inch"
+        }
+      ],
+      "garnish": [
+        {
+          "id": 8,
+          "name": "Coconut milk",
+          "quantity": 0.25,
+          "unit": "cup"
+        }
+      ]
+    },
+    "instructions": [
+      {
+        "number": 1,
+        "text": "Rinse the rice under cold water until the water runs clear."
+      },
+      {
+        "number": 2,
+        "text": "In a saucepan, combine the rinsed rice, water, salt, and pandan leaf. Tie the pandan leaf into a knot for easier removal later."
+      },
+      {
+        "number": 3,
+        "text": "Bring the mixture to a boil over medium heat. Once boiling, reduce the heat to low, cover the saucepan, and simmer for 15 minutes, or until the rice is very soft and the porridge has thickened."
+      },
+      {
+        "number": 4,
+        "text": "While the porridge is simmering, prepare the palm sugar sauce. In a small saucepan, combine the palm sugar, water, and grated ginger."
+      },
+      {
+        "number": 5,
+        "text": "Cook the sauce over medium heat, stirring constantly, until the palm sugar has dissolved and the sauce has slightly thickened. This should take about 5 minutes."
+      },
+      {
+        "number": 6,
+        "text": "Once the porridge is cooked, remove and discard the pandan leaf."
+      },
+      {
+        "number": 7,
+        "text": "To serve, divide the porridge into bowls. Drizzle generously with the palm sugar sauce and top with a splash of coconut milk."
+      }
+    ],
+    "notes": [
+      "Adjust the amount of palm sugar to your liking.",
+      "For a richer flavor, use coconut milk instead of water for cooking the porridge.",
+      "You can add other toppings such as chopped nuts, toasted sesame seeds, or fresh fruit."
+    ],
+    "nutrition": {
+      "serving": "1 serving",
+      "calories": 350,
+      "carbohydrates": 70,
+      "protein": 5,
+      "fat": 10,
+      "saturated fat": 5,
+      "fiber": 2,
+      "sugar": 20
+    }
   }
 ]

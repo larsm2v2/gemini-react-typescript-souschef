@@ -20,6 +20,10 @@
 .App_with_sidebar {
 flex-direction: row;
 }
+
+.AppNavBar {
+  z-index: 100;
+}
 .nav-items{
   justify-content: center;
   display: flex;

@@ -3,19 +3,22 @@ import "./Recipes.css"
 import { RecipeModel } from "../Models/Models"
 import RecipeDetails from "./Recipe Details/RecipeDetails"
 
-interface RecipesProps {
+interface RecipesIndexProps {
+	isLoading: boolean
+	setIsLoading: (loading: boolean) => void
 	selectedRecipeIds: string[]
 	setSelectedRecipeIds: React.Dispatch<React.SetStateAction<string[]>>
+	selectedRecipe: RecipeModel | null
+	setSelectedRecipe: React.Dispatch<React.SetStateAction<RecipeModel | null>>
 }
 
-const RecipesIndex: React.FC<RecipesProps> = ({
+const RecipesIndex: React.FC<RecipesIndexProps> = ({
 	selectedRecipeIds,
 	setSelectedRecipeIds,
+	selectedRecipe,
+	setSelectedRecipe,
 }) => {
 	const [recipes, setRecipes] = useState<RecipeModel[]>([])
-	const [selectedRecipe, setSelectedRecipe] = useState<RecipeModel | null>(
-		null
-	)
 	const [searchQuery, setSearchQuery] = useState("")
 	const [showSelected, setShowSelected] = useState(false)
 	const [isLoading, setIsLoading] = useState(true)
@@ -287,18 +290,6 @@ const RecipesIndex: React.FC<RecipesProps> = ({
 								)
 							)}
 						</div>
-
-						{selectedRecipe && (
-							<RecipeDetails
-								recipe={selectedRecipe}
-								onSelectedRecipesChange={
-									handleSelectedRecipesChange
-								}
-								isSelected={selectedRecipeIds.includes(
-									selectedRecipe.id
-								)}
-							/>
-						)}
 					</>
 				)}
 			</div>

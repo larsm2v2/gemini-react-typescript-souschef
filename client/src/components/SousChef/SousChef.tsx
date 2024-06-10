@@ -5,6 +5,16 @@ import { RecipeModel } from "../Models/Models"
 import { surpriseOptions, preprompt } from "../Models/Prompts"
 import Chef from "../../assets/Chef"
 
+interface SousChefProps {
+	willTryAgain: boolean
+	setWillTryAgain: (willTryAgain: boolean) => void
+	generatedRecipe: RecipeModel | null
+	setGeneratedRecipe: (recipe: RecipeModel | null) => void
+	onRecipeGenerated: (recipe: RecipeModel | null) => void // New prop to pass recipe
+	isLoading: boolean
+	setIsLoading: (loading: boolean) => void
+}
+
 const useTypewriter = (text: string, speed = 20) => {
 	const [index, setIndex] = useState(0)
 	const displayText = useMemo(() => text.slice(0, index), [index])
@@ -22,14 +32,18 @@ const useTypewriter = (text: string, speed = 20) => {
 	return displayText
 }
 
-const SousChef = () => {
+const SousChef: React.FC<SousChefProps> = ({
+	willTryAgain,
+	setWillTryAgain,
+	onRecipeGenerated,
+	isLoading,
+	setIsLoading,
+	generatedRecipe,
+	setGeneratedRecipe,
+}) => {
 	const [value, setValue] = useState("")
 	const [passedValue, setPassedValue] = useState("")
 	const [error, setError] = useState("")
-	const [isLoading, setIsLoading] = useState(true)
-	const [generatedRecipe, setGeneratedRecipe] = useState<RecipeModel | null>(
-		null
-	)
 	const [chatHistory, setChatHistory] = useState<
 		Array<{ role: string; parts: string[] }>
 	>([])
@@ -40,7 +54,6 @@ const SousChef = () => {
 	const [otherInfo, setOtherInfo] = useState("")
 	const [specificExpanded, setSpecificExpanded] = useState("")
 	const [ocrAddon, setOcrAddon] = useState("")
-	const [showRecipeDisplay, setShowRecipeDisplay] = useState(false)
 	const [inputMode, setInputMode] = useState<"askAway" | "specific">(
 		"askAway"
 	) // New state for input mode
@@ -113,20 +126,14 @@ const SousChef = () => {
 			let parsedRecipe: RecipeModel | null = null
 			try {
 				parsedRecipe = JSON.parse(cleanedJsonString)
-				console.log("Parsed recipe:", parsedRecipe)
 			} catch (e) {
 				console.error("Error parsing JSON:", e)
 				setError("Invalid recipe format received.")
+				setIsLoading(false)
 				return // Exit the function if parsing fails
 			}
 
-			// Set the generated recipe in state to trigger the display
-			if (parsedRecipe) {
-				setShowRecipeDisplay(true)
-			} else {
-				setError("Invalid recipe format received.")
-			}
-			setGeneratedRecipe(parsedRecipe)
+			onRecipeGenerated(parsedRecipe)
 		} catch (error) {
 			console.error(error)
 			setError("Something went wrong! Please try again later.")
@@ -145,9 +152,18 @@ const SousChef = () => {
 		setSpecificExpanded("")
 		setValue("")
 		setOcrAddon("")
-		setShowRecipeDisplay(false)
 		setIsLoading(false)
 	}
+	const handleTryAgain = () => {
+		getResponse()
+	}
+	useEffect(() => {
+		if (willTryAgain) {
+			handleTryAgain()
+			setWillTryAgain(false)
+			setIsLoading(false)
+		}
+	})
 
 	return (
 		<div className="souschef-prompt">
@@ -226,46 +242,38 @@ const SousChef = () => {
 								setCuisine(e.target.value)
 							}}
 						/>
-						<div className="specificSequence">
-							<input
-								className="specificContainer"
-								value={knownIngredients}
-								placeholder="What ingredients do you have?"
-								onChange={(e) => {
-									setKnownIngredients(e.target.value)
-								}}
-							/>
-						</div>
-						<div className="specificSequence">
-							<input
-								className="specificContainer"
-								value={avoidIngredients}
-								placeholder="Which ingredients should we avoid?"
-								onChange={(e) => {
-									setAvoidIngredients(e.target.value)
-								}}
-							/>
-						</div>
-						<div className="specificSequence">
-							<input
-								className="specificContainer"
-								value={dietaryRestrictions}
-								placeholder="Do you have any dietary restrictions?"
-								onChange={(e) => {
-									setDietaryRestrictions(e.target.value)
-								}}
-							/>
-						</div>
-						<div className="specificSequence">
-							<input
-								className="specificContainer"
-								value={otherInfo}
-								placeholder="Do you have any other info to share?"
-								onChange={(e) => {
-									setOtherInfo(e.target.value)
-								}}
-							/>
-						</div>
+						<input
+							className="specificContainer"
+							value={knownIngredients}
+							placeholder="What ingredients do you have?"
+							onChange={(e) => {
+								setKnownIngredients(e.target.value)
+							}}
+						/>
+						<input
+							className="specificContainer"
+							value={avoidIngredients}
+							placeholder="Which ingredients should we avoid?"
+							onChange={(e) => {
+								setAvoidIngredients(e.target.value)
+							}}
+						/>
+						<input
+							className="specificContainer"
+							value={dietaryRestrictions}
+							placeholder="Do you have any dietary restrictions?"
+							onChange={(e) => {
+								setDietaryRestrictions(e.target.value)
+							}}
+						/>
+						<input
+							className="specificContainer"
+							value={otherInfo}
+							placeholder="Do you have any other info to share?"
+							onChange={(e) => {
+								setOtherInfo(e.target.value)
+							}}
+						/>
 					</div>
 
 					{!error && (
@@ -284,18 +292,6 @@ const SousChef = () => {
 					)}
 				</div>
 			)}
-
-			<div className="search-result">
-				{/* RecipeDisplay for showing generated recipe */}
-				{generatedRecipe && (
-					<RecipeDisplay
-						isLoading={isLoading}
-						generatedRecipe={generatedRecipe}
-						onTryAgain={getResponse} // Pass the getResponse function to retry
-						children={null} // Add the required 'children' property
-					/>
-				)}
-			</div>
 		</div>
 	)
 }

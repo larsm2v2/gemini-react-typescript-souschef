@@ -5,30 +5,58 @@ import "../Recipes/Recipes.css" // Import your CSS for styling
 import Chef from "../../assets/Chef" // Import your Chef SVG component
 
 interface RecipeDisplayProps {
-	generatedRecipe: RecipeModel
-	onTryAgain: () => void
-	children: React.ReactNode
+	willTryAgain: boolean
+	setWillTryAgain: (willTryAgain: boolean) => void
+	savedRecipe: boolean
+	setSavedRecipe: (savedRecipe: boolean) => void
 	isLoading: boolean
+	setIsLoading: (isLoading: boolean) => void
+	activeContent: "recipes" | "sousChef"
+	setActiveContent: (content: "recipes" | "sousChef") => void
+	selectedRecipeId?: string
+	selectedRecipeIds: string[]
+	setSelectedRecipeIds: (ids: string[]) => void
+	generatedRecipe?: RecipeModel | null
+	setGeneratedRecipe: (recipe: RecipeModel | null) => void
+	selectedRecipe: RecipeModel | null
+	setSelectedRecipe: (recipe: RecipeModel | null) => void
+	recipeToDisplay?: RecipeModel | null
+	setRecipeToDisplay: (recipe: RecipeModel | null) => void
 }
 
 const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
-	generatedRecipe,
-	onTryAgain,
-	children,
+	willTryAgain,
+	setWillTryAgain,
+	savedRecipe,
+	setSavedRecipe,
 	isLoading,
+	setIsLoading,
+	activeContent,
+	setActiveContent,
+	selectedRecipeId,
+	selectedRecipeIds,
+	setSelectedRecipeIds,
+	generatedRecipe,
+	setGeneratedRecipe,
+	selectedRecipe,
+	setSelectedRecipe,
+	recipeToDisplay,
+	setRecipeToDisplay,
 }) => {
-	const [selectedRecipe, setSelectedRecipe] =
-		useState<RecipeModel>(generatedRecipe)
-	const [showShoppingList, setShowShoppingList] = useState(false)
+	const [recipe, setRecipe] = useState<RecipeModel | null>(null)
+	const [showRecipe, setShowRecipe] = useState<RecipeModel | null>(null)
+	const [showShoppingList, setShowShoppingList] = useState<boolean>(false)
+	const [recipes, setRecipes] = useState<RecipeModel[]>([])
 
 	const handleRecipeClick = () => {
-		setSelectedRecipe(generatedRecipe)
+		setSelectedRecipe(recipe)
 		console.log(selectedRecipe)
 		console.log("Received generatedRecipe:", generatedRecipe)
 	}
 
 	// Function to save the recipe
 	const handleSaveRecipe = async () => {
+		setSavedRecipe(false)
 		try {
 			const response = await fetch(
 				"http://localhost:8000/api/clean-and-add-recipes",
@@ -43,6 +71,7 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 			if (response.ok) {
 				// ... (add logic to update your state or show a success message)
 				console.log("Recipe saved successfully!")
+				setSavedRecipe(true)
 			} else {
 				console.error("Error saving recipe:", response.statusText)
 			}
@@ -53,36 +82,68 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 	const handleSelectedRecipesChange = () => {}
 
 	useEffect(() => {
-		setSelectedRecipe(generatedRecipe) // Update selected recipe whenever generatedRecipe changes
-	}, [generatedRecipe])
+		if (activeContent === "sousChef" && generatedRecipe) {
+			setSelectedRecipe(generatedRecipe) // Update selected recipe whenever generatedRecipe changes
+		} else {
+			if (activeContent === "recipes" && selectedRecipe) {
+				setSelectedRecipe(recipe)
+			}
+		}
+	}, [
+		activeContent,
+		recipe,
+		setSelectedRecipe,
+		selectedRecipe,
+		generatedRecipe,
+	])
+
+	useEffect(() => {
+		if (selectedRecipeId) {
+			const recipe = recipes.find(
+				(r: RecipeModel) => r.id === selectedRecipeId
+			)
+			if (recipe) {
+				setSelectedRecipe(recipe) // Use the recipeToDisplay state to store and display the selected recipe
+			} else {
+				// Handle the case where the recipe isn't found locally (e.g., fetch from server)
+			}
+		} else {
+			setSelectedRecipe(null) // Clear the displayed recipe when no recipe is selected
+		}
+	}, [setSelectedRecipe, selectedRecipeId, recipes]) // Add recipes as a dependency
+
+	const tryAgainToTrue = () => {
+		setWillTryAgain(true)
+		setIsLoading(true)
+		setSavedRecipe(false)
+	}
+
 	return (
 		<div className="recipes-container">
-			<div className="chefContainer">
-				<Chef isLoading={isLoading} size={300} />
-			</div>
-			<div className="recipes-box">
-				{children}
-				<span className=""></span>
-				{!selectedRecipe && <div></div>}
-				{selectedRecipe && (
+			{selectedRecipe ? (
+				<div className="recipes-container">
+					<RecipeDetails
+						showRecipe={selectedRecipe}
+						onSelectedRecipesChange={handleSelectedRecipesChange}
+						isSelected={selectedRecipeIds.includes(
+							selectedRecipeId || ""
+						)}
+					/>
+
 					<div>
-						<h2>Souschef Recipe</h2>
-						<RecipeDetails
-							recipe={selectedRecipe}
-							onSelectedRecipesChange={
-								handleSelectedRecipesChange
-							}
-							isSelected={false}
-						/>
-						<button className="surprise" onClick={onTryAgain}>
-							Try Again
+						<button className="surprise" onClick={tryAgainToTrue}>
+							{isLoading ? `Processing...` : `Try Again`}
 						</button>
 						<button className="surprise" onClick={handleSaveRecipe}>
-							Save Recipe
+							{savedRecipe ? `Saved` : `Save Recipe`}
 						</button>
 					</div>
-				)}
-			</div>
+				</div>
+			) : (
+				<div className="chefContainer">
+					<Chef isLoading={isLoading} size={300} />
+				</div>
+			)}
 		</div>
 	)
 }

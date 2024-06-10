@@ -72,7 +72,6 @@
   padding: 4px 12px;
   margin: 0 0 2px 5px;
   border: none;
-  height: 100%;
 }
   
   p {
@@ -99,11 +98,29 @@
     gap: 1rem;        /* Add spacing between elements */
   }
 
+.specificSequence{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+.specificSequence input{
+  width:100%;
+}
+
+  .askAwayPrompt surprise {
+    height: 10%; /* Adjust height as needed */
+}
 
   .askAwayContainer, 
   .inputSequence,
   .specificContainer {
     width: 100%;      /* Full width on smaller screens */
+    border-radius: 15px;
+    border: none;
   }
   .askAwayContainer input{
     border: none;
@@ -139,25 +156,7 @@
     height: auto;
     font-size: auto;
   }
-/*   .specificContainer {
-    width: 30vw;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    border-radius: 15px;
-    box-shadow: #072733 0 2px 4px;
-    overflow: hidden;
-    font-size: 15px;
-    padding: 13px 14px;
-  }*/
-/*   .specificContainer input::placeholder{
-    width:100%;
-    border: none;
-    color: #cacaca;
-    font-weight: 200;
-    text-align: left !important; 
-  }*/
+
   .specificContainer input {
     width: 100%;       /* Take full width of parent */
     font-size: 1rem;   /* Adjust font size as needed */
@@ -188,5 +187,8 @@
 
   .specificContainer input {
     width: 100%;  
+  }
+  .askAwayPrompt surprise {
+    height: 20%;
   }
 }

@@ -287,18 +287,6 @@ const Recipes: React.FC<RecipesProps> = ({
 								)
 							)}
 						</div>
-
-						{selectedRecipe && (
-							<RecipeDetails
-								recipe={selectedRecipe}
-								onSelectedRecipesChange={
-									handleSelectedRecipesChange
-								}
-								isSelected={selectedRecipeIds.includes(
-									selectedRecipe.id
-								)}
-							/>
-						)}
 					</>
 				)}
 			</div>

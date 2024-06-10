@@ -8,17 +8,40 @@ import ShoppingList from "./components/ShoppingList/ShoppingList"
 import Recipes from "./components/Recipes/Recipes"
 import RecipesIndex from "./components/Recipes/RecipesIndex"
 import RecipeDisplay from "./components/RecipeDisplay/RecipeDisplay"
+import { RecipeModel } from "./components/Models/Models"
 
 function App() {
+	// State for toggling the sidebar
 	const [sidebarToggled, setSidebarToggled] = useState(false)
 	const [activeContent, setActiveContent] = useState<"recipes" | "sousChef">(
-		"recipes"
+		"sousChef"
 	)
-	const [isLoading, setIsLoading] = useState(true)
+	// State for Recipe Display
+	const [willTryAgain, setWillTryAgain] = useState(false)
+	const [isLoading, setIsLoading] = useState(false)
+	const [savedRecipe, setSavedRecipe] = useState<boolean>(false)
+	//State for recipes
 	const [generatedRecipe, setGeneratedRecipe] = useState<RecipeModel | null>(
 		null
 	)
+	const [selectedRecipe, setSelectedRecipe] = useState<RecipeModel | null>(
+		null
+	)
+
+	//State for display
+	const [recipeToDisplay, setRecipeToDisplay] = useState<RecipeModel | null>(
+		null
+	)
 	// State for selected recipe IDs
+	const handleRecipeGenerated = (recipe: RecipeModel | null) => {
+		setGeneratedRecipe(recipe)
+		setIsLoading(false)
+	}
+	// State for selected Recipe to Display
+	const handleRecipeToDisplay = (recipe: RecipeModel | null) => {
+		setRecipeToDisplay(recipe)
+		setIsLoading(false)
+	}
 	const [selectedRecipeIds, setSelectedRecipeIds] = useState<string[]>([])
 
 	// Load selected recipes from local storage on component mount
@@ -60,7 +83,7 @@ function App() {
 
 	return (
 		<Fragment>
-			<div>
+			<div className="AppNavBar">
 				<nav className="nav-items" id="App-navbar">
 					<Navbar
 						sidebarToggled={sidebarToggled}
@@ -74,24 +97,49 @@ function App() {
 			<div className="App_with_sidebar">
 				<div className="sidebar-items" id="App-sidebar">
 					{" "}
-					{/* Corrected class name */}
 					<Sidebar />
 				</div>
 				<div className="App" id="App-main">
 					<RecipeDisplay
-						generatedRecipe={generatedRecipe}
-						onTryAgain={onTryAgain}
+						savedRecipe={savedRecipe}
+						setSavedRecipe={setSavedRecipe}
+						willTryAgain={willTryAgain}
+						setWillTryAgain={setWillTryAgain}
 						isLoading={isLoading}
-					>
-						{activeContent === "recipes" && (
-							<RecipesIndex
-								selectedRecipeIds={selectedRecipeIds}
-								setSelectedRecipeIds={setSelectedRecipeIds}
-							/>
-						)}
-						{activeContent === "sousChef" && <SousChef />}
-						{/* Toggle ShoppingListPanel visibility within RecipeDisplay */}
-					</RecipeDisplay>
+						setIsLoading={setIsLoading}
+						activeContent={activeContent}
+						setActiveContent={setActiveContent}
+						selectedRecipeIds={selectedRecipeIds}
+						setSelectedRecipeIds={setSelectedRecipeIds}
+						generatedRecipe={generatedRecipe}
+						setGeneratedRecipe={setGeneratedRecipe}
+						selectedRecipe={selectedRecipe}
+						setSelectedRecipe={setSelectedRecipe}
+						recipeToDisplay={recipeToDisplay}
+						setRecipeToDisplay={setRecipeToDisplay}
+					/>
+					{activeContent === "recipes" && (
+						<RecipesIndex
+							selectedRecipe={selectedRecipe}
+							setSelectedRecipe={setSelectedRecipe}
+							selectedRecipeIds={selectedRecipeIds}
+							setSelectedRecipeIds={setSelectedRecipeIds}
+							isLoading={isLoading}
+							setIsLoading={setIsLoading}
+						/>
+					)}
+					{activeContent === "sousChef" && (
+						<SousChef
+							willTryAgain={willTryAgain}
+							setWillTryAgain={setWillTryAgain}
+							generatedRecipe={generatedRecipe}
+							setGeneratedRecipe={setGeneratedRecipe}
+							onRecipeGenerated={handleRecipeGenerated}
+							isLoading={isLoading}
+							setIsLoading={setIsLoading}
+						/>
+					)}
+					{/* Toggle ShoppingListPanel visibility within RecipeDisplay */}
 				</div>
 			</div>
 		</Fragment>

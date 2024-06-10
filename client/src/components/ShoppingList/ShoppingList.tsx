@@ -7,11 +7,11 @@ import { ListItem } from "../Models/Models"
 import recipeData from "../Recipes/Recipes.json"
 
 // Fetch recipe by ID (from the imported Recipes.json)
-const fetchRecipeById = (recipeId: string): RecipeModel | undefined => {
+const fetchRecipeById = (recipeId: string): RecipeModel | null => {
 	const recipe = (recipeData as RecipeModel[]).find(
 		(recipe) => recipe.id === recipeId
 	)
-	if (!recipe) return undefined
+	if (!recipe) return null
 
 	const fixedRecipe = {
 		...recipe,
