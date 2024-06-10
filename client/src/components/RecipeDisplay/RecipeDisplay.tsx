@@ -13,14 +13,15 @@ interface RecipeDisplayProps {
 	setIsLoading: (isLoading: boolean) => void
 	activeContent: "recipes" | "sousChef"
 	setActiveContent: (content: "recipes" | "sousChef") => void
-	selectedRecipeId?: string
+	selectedRecipeId?: string | null
+	setSelectedRecipeId: (id: string | null) => void
 	selectedRecipeIds: string[]
 	setSelectedRecipeIds: (ids: string[]) => void
 	generatedRecipe?: RecipeModel | null
 	setGeneratedRecipe: (recipe: RecipeModel | null) => void
 	selectedRecipe: RecipeModel | null
 	setSelectedRecipe: (recipe: RecipeModel | null) => void
-	recipeToDisplay?: RecipeModel | null
+	recipeToDisplay: RecipeModel | null
 	setRecipeToDisplay: (recipe: RecipeModel | null) => void
 }
 
@@ -47,11 +48,35 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 	const [showRecipe, setShowRecipe] = useState<RecipeModel | null>(null)
 	const [showShoppingList, setShowShoppingList] = useState<boolean>(false)
 	const [recipes, setRecipes] = useState<RecipeModel[]>([])
+	const [fetchingRecipe, setFetchingRecipe] = useState<boolean>(false)
 
 	const handleRecipeClick = () => {
 		setSelectedRecipe(recipe)
 		console.log(selectedRecipe)
 		console.log("Received generatedRecipe:", generatedRecipe)
+	}
+	const fetchRecipes = async () => {
+		try {
+			const response = await fetch(
+				"http://localhost:8000/api/clean-recipes",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			)
+			if (response.ok) {
+				const data = await response.json()
+				setRecipes(data.data) // Assuming the server sends the cleaned recipes in `data.data`
+			} else {
+				throw new Error("Failed to fetch recipes.")
+			}
+		} catch (error) {
+			console.error("Error fetching recipes:", error)
+		} finally {
+			setIsLoading(false)
+		}
 	}
 
 	// Function to save the recipe
@@ -83,18 +108,26 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 
 	useEffect(() => {
 		if (activeContent === "sousChef" && generatedRecipe) {
-			setSelectedRecipe(generatedRecipe) // Update selected recipe whenever generatedRecipe changes
+			setRecipeToDisplay(generatedRecipe) // Update selected recipe whenever generatedRecipe changes
+		} else if (selectedRecipeId) {
+			setFetchingRecipe(true)
+			fetchRecipes().then(() => {
+				const recipe = recipes.find(
+					(r: RecipeModel) => r.id === selectedRecipeId
+				)
+				setRecipeToDisplay(recipe || null)
+				setFetchingRecipe(false)
+			})
 		} else {
-			if (activeContent === "recipes" && selectedRecipe) {
-				setSelectedRecipe(recipe)
-			}
+			setRecipeToDisplay(null)
 		}
 	}, [
 		activeContent,
-		recipe,
-		setSelectedRecipe,
-		selectedRecipe,
+		selectedRecipeId,
 		generatedRecipe,
+		recipes,
+		fetchRecipes,
+		setRecipeToDisplay,
 	])
 
 	useEffect(() => {
@@ -116,6 +149,8 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 		setWillTryAgain(true)
 		setIsLoading(true)
 		setSavedRecipe(false)
+		setGeneratedRecipe(null) // Clear generated recipe when trying again
+		setActiveContent("sousChef")
 	}
 
 	return (
@@ -123,21 +158,29 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 			{selectedRecipe ? (
 				<div className="recipes-container">
 					<RecipeDetails
-						showRecipe={selectedRecipe}
+						showRecipe={recipeToDisplay}
 						onSelectedRecipesChange={handleSelectedRecipesChange}
 						isSelected={selectedRecipeIds.includes(
 							selectedRecipeId || ""
 						)}
 					/>
 
-					<div>
-						<button className="surprise" onClick={tryAgainToTrue}>
-							{isLoading ? `Processing...` : `Try Again`}
-						</button>
-						<button className="surprise" onClick={handleSaveRecipe}>
-							{savedRecipe ? `Saved` : `Save Recipe`}
-						</button>
-					</div>
+					{activeContent === "sousChef" && (
+						<div>
+							<button
+								className="surprise"
+								onClick={tryAgainToTrue}
+							>
+								{isLoading ? `Processing...` : `Try Again`}
+							</button>
+							<button
+								className="surprise"
+								onClick={handleSaveRecipe}
+							>
+								{savedRecipe ? `Saved` : `Save Recipe`}
+							</button>
+						</div>
+					)}
 				</div>
 			) : (
 				<div className="chefContainer">

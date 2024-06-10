@@ -27,6 +27,9 @@ function App() {
 	const [selectedRecipe, setSelectedRecipe] = useState<RecipeModel | null>(
 		null
 	)
+	const [selectedRecipeId, setSelectedRecipeId] = useState<string | null>(
+		null
+	)
 
 	//State for display
 	const [recipeToDisplay, setRecipeToDisplay] = useState<RecipeModel | null>(
@@ -109,6 +112,8 @@ function App() {
 						setIsLoading={setIsLoading}
 						activeContent={activeContent}
 						setActiveContent={setActiveContent}
+						selectedRecipeId={selectedRecipeId}
+						setSelectedRecipeId={setSelectedRecipeId}
 						selectedRecipeIds={selectedRecipeIds}
 						setSelectedRecipeIds={setSelectedRecipeIds}
 						generatedRecipe={generatedRecipe}
@@ -120,8 +125,9 @@ function App() {
 					/>
 					{activeContent === "recipes" && (
 						<RecipesIndex
-							selectedRecipe={selectedRecipe}
-							setSelectedRecipe={setSelectedRecipe}
+							/* selectedRecipe={selectedRecipe} */
+							/* setSelectedRecipe={setSelectedRecipe} */
+							setSelectedRecipeId={setSelectedRecipeId}
 							selectedRecipeIds={selectedRecipeIds}
 							setSelectedRecipeIds={setSelectedRecipeIds}
 							isLoading={isLoading}
@@ -141,6 +147,9 @@ function App() {
 					)}
 					{/* Toggle ShoppingListPanel visibility within RecipeDisplay */}
 				</div>
+			</div>
+			<div>
+				<ShoppingList selectedRecipeIds={selectedRecipeIds} />
 			</div>
 		</Fragment>
 	)

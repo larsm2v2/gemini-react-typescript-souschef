@@ -8,15 +8,17 @@ interface RecipesIndexProps {
 	setIsLoading: (loading: boolean) => void
 	selectedRecipeIds: string[]
 	setSelectedRecipeIds: React.Dispatch<React.SetStateAction<string[]>>
-	selectedRecipe: RecipeModel | null
-	setSelectedRecipe: React.Dispatch<React.SetStateAction<RecipeModel | null>>
+	setSelectedRecipeId: (recipeId: string | null) => void
 }
+/* 	selectedRecipe: RecipeModel | null
+	setSelectedRecipe: React.Dispatch<React.SetStateAction<RecipeModel | null>> */
 
 const RecipesIndex: React.FC<RecipesIndexProps> = ({
 	selectedRecipeIds,
 	setSelectedRecipeIds,
-	selectedRecipe,
-	setSelectedRecipe,
+	setSelectedRecipeId,
+	/* 	selectedRecipe,
+	setSelectedRecipe, */
 }) => {
 	const [recipes, setRecipes] = useState<RecipeModel[]>([])
 	const [searchQuery, setSearchQuery] = useState("")
@@ -106,8 +108,7 @@ const RecipesIndex: React.FC<RecipesIndexProps> = ({
 
 	// Handling recipe selection
 	const handleRecipeClick = (recipeId: string) => {
-		const clickedRecipe = recipes.find((recipe) => recipe.id === recipeId)
-		setSelectedRecipe(clickedRecipe || null)
+		setSelectedRecipeId(recipeId || null)
 	}
 
 	// Handling checkbox changes for selected recipes
