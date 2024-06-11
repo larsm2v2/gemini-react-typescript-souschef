@@ -50,7 +50,6 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 }) => {
 	const [recipe, setRecipe] = useState<RecipeModel | null>(null)
 	const [showRecipe, setShowRecipe] = useState<RecipeModel | null>(null)
-	const [showShoppingList, setShowShoppingList] = useState<boolean>(false)
 	const [recipes, setRecipes] = useState<RecipeModel[]>([])
 	const [fetchingRecipe, setFetchingRecipe] = useState<boolean>(false)
 
@@ -143,7 +142,15 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 			console.error("Error saving recipe:", error)
 		}
 	}
-	const handleSelectedRecipesChange = () => {}
+	const handleSelectedRecipesChange = (recipe: RecipeModel) => {
+		setSelectedRecipeIds((prevSelectedIds: string[]) => {
+			if (prevSelectedIds.includes(recipe.id)) {
+				return prevSelectedIds.filter((id: string) => id !== recipe.id)
+			} else {
+				return [...prevSelectedIds, recipe.id]
+			}
+		})
+	}
 
 	useEffect(() => {
 		if (selectedRecipeId) {
