@@ -1,15 +1,14 @@
 .input {
     display: flex;
-    width: 90%;
+    width: 100%;
     position: relative;
     align-items: center;
 }
 
 .input__box {
-    width: 90%;
-    border-radius: 50px;
-    padding: 20px 30px;
-    font-size: 14px;
+    width: 100%;
+    border-radius: 15px;
+    padding: 10px 10px;
     border: none;
     transition: 0.2s;
     box-shadow: inset 0 0 5px black;
@@ -24,17 +23,17 @@
 .input__submit {
     flex: 0 1 auto;
     position:relative;
-    /* width: 50px; */
-    height: 50px;
-    margin: 12px;
-    border-radius: 50px;
+    padding: 10px 10px;
+    margin: 0 0 2px 5px;
+    border-radius: 15px;
     right: 0px;
     border: none;
     font-size: 15px;
-    background-color: #2f74c0;
-    color: white;
     transition: 0.2s all;
     box-shadow: 0 0 10px black;
+    background-color: var(--secondary-color);
+    font-weight: 700;
+
 }
 
 .input__submit:hover {
