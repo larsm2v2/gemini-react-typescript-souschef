@@ -20,12 +20,14 @@ interface RecipeDetailsProps {
 	isSelected: boolean
 	showRecipe: RecipeModel | null
 	onSelectedRecipesChange: (recipe: RecipeModel | null) => void
+	showAddToSelectedRecipes: boolean | null
 }
 
 const RecipeDetails: React.FC<RecipeDetailsProps> = ({
 	showRecipe,
 	onSelectedRecipesChange,
 	isSelected,
+	showAddToSelectedRecipes,
 }) => {
 	// Helper function to capitalize headings
 	const capitalizeHeading = (str: string) => {
@@ -75,14 +77,16 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
 					<h2>{capitalizeHeading(showRecipe.name)}</h2>
 
 					{/* Checkbox for selecting recipe */}
-					<div>
-						<input
-							type="checkbox"
-							checked={isSelected}
-							onChange={handleCheckboxChange}
-						/>
-						<label>Add to Selected Recipes</label>
-					</div>
+					{showAddToSelectedRecipes && (
+						<div>
+							<input
+								type="checkbox"
+								checked={isSelected}
+								onChange={handleCheckboxChange}
+							/>
+							<label>Add to Selected Recipes</label>
+						</div>
+					)}
 
 					{/* 2. Display Other Details (with capitalized headings) */}
 					<div className="recipe-info">
@@ -90,19 +94,21 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
 							<strong>{capitalizeHeading("Cuisine")}:</strong>{" "}
 							{showRecipe.cuisine}
 						</p>
-					</div>
-					<div>
+						{/* </div>
+					<div> */}
 						<p>
 							<strong>{capitalizeHeading("Meal Type")}:</strong>{" "}
-							{showRecipe["meal type"]}
+							{capitalizeHeading(showRecipe["meal type"])}
 						</p>
 					</div>
 
 					{/* 3. Display Ingredients by Subheading (with capitalized headings) */}
 					<h2>{capitalizeHeading("Ingredients")}</h2>
 					{ingredientGroups.map((group) => (
-						<div key={group.name}>
-							<h3>{capitalizeHeading(group.name)}</h3>
+						<div className="eachIngredientSet" key={group.name}>
+							<h3 className="eachIngredientSetTitle">
+								{capitalizeHeading(group.name)}
+							</h3>
 							<ul>
 								{/* Access the ingredients array for the specific group */}
 								{Object.values(group.ingredients).flatMap(
@@ -129,9 +135,14 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
 
 					{/* 4. Display Instructions (with capitalized heading) */}
 					<h2>{capitalizeHeading("Instructions")}</h2>
-					<ol>
+					<ol className="instructionSet">
 						{showRecipe.instructions.map((instruction) => (
-							<li key={instruction.number}>{instruction.text}</li>
+							<li
+								className="singleInstructions"
+								key={instruction.number}
+							>
+								{instruction.text}
+							</li>
 						))}
 					</ol>
 				</>

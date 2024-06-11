@@ -9,6 +9,18 @@
     justify-content: center;
 }
 
+.recipe-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+}
+.recipe-info p{
+margin: 0.5vh 0;
+
+}
 .recipes-box {
 width: 100%;
 height: auto;
@@ -17,7 +29,7 @@ border-radius: 0;
 border-color: rgb(0, 0, 0);
 }
 .recipes-index {
-width: 80%;
+width: 60%;
 margin-right: 20px;
 color: var(--primary-color);
 border-radius: 15px;
@@ -30,15 +42,24 @@ text-decoration: none;
 
 .chefContainer {
     display: flex;
-    padding: 10%;
+    padding: 4%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 1rem;
 }
 .mealType{
-    justify-items: left;
+    justify-content: space-between;
+    width: 60%
+
 }
+
+.mealtype ul :hover {
+        transform: scale(1.1);
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+        cursor: pointer;
+    }
 
 .recipes-index h3 {
     font-size: 1.5rem;
@@ -76,4 +97,37 @@ align-items: center;
     background-color: var(--primary-color);
     color: var(--secondary-color);
     cursor: pointer;
+}
+
+h2 {
+    margin:0;
+}
+h3 {
+    margin:0;
+    padding: 2%;
+}
+li {
+cursor:pointer;
+}
+
+
+.eachIngredientSet{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    }
+
+.eachIngredientSetTitle {
+    justify-items: left;
+}
+
+.instructionSet{
+    width:60%
+}
+.singleInstructions {
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+    text-align: left;
+    gap: 1rem;
 }

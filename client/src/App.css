@@ -13,24 +13,29 @@
   justify-content: center;
   justify-items: center;
   color: var(--primary-text-color);
-  background-color: var(--tertiary-background-color);
   text-decoration: none;
 }
 
 .App_with_sidebar {
+
 flex-direction: row;
+overflow:hidden;
 }
 
-.AppNavBar {
-  z-index: 100;
-}
+
 .nav-items{
   justify-content: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: var(--secondary-text-color);
+  color: var(--tertiary-background-color);
 }
-
+.nav-items.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
 .sidebar-items{
   display: none;

@@ -20,6 +20,8 @@ function App() {
 	const [willTryAgain, setWillTryAgain] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
 	const [savedRecipe, setSavedRecipe] = useState<boolean>(false)
+	const [showAddToSelectedRecipes, setShowAddToSelectedRecipes] =
+		useState<boolean>(false)
 	//State for recipes
 	const [generatedRecipe, setGeneratedRecipe] = useState<RecipeModel | null>(
 		null
@@ -86,17 +88,14 @@ function App() {
 
 	return (
 		<Fragment>
-			<div className="AppNavBar">
-				<nav className="nav-items" id="App-navbar">
-					<Navbar
-						sidebarToggled={sidebarToggled}
-						setSidebarToggled={setSidebarToggled}
-						activeContent={activeContent}
-						setActiveContent={setActiveContent}
-					/>
-				</nav>
-			</div>
-
+			<nav className="nav-items" id="App-navbar">
+				<Navbar
+					sidebarToggled={sidebarToggled}
+					setSidebarToggled={setSidebarToggled}
+					activeContent={activeContent}
+					setActiveContent={setActiveContent}
+				/>
+			</nav>
 			<div className="App_with_sidebar">
 				<div className="sidebar-items" id="App-sidebar">
 					{" "}
@@ -122,6 +121,10 @@ function App() {
 						setSelectedRecipe={setSelectedRecipe}
 						recipeToDisplay={recipeToDisplay}
 						setRecipeToDisplay={setRecipeToDisplay}
+						showAddToSelectedRecipes={showAddToSelectedRecipes}
+						setShowAddToSelectedRecipes={
+							setShowAddToSelectedRecipes
+						}
 					/>
 					{activeContent === "recipes" && (
 						<RecipesIndex

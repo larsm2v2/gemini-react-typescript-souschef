@@ -25,6 +25,13 @@ const RecipesIndex: React.FC<RecipesIndexProps> = ({
 	const [showSelected, setShowSelected] = useState(false)
 	const [isLoading, setIsLoading] = useState(true)
 	const prevSelectedRecipeIds = useRef<string[]>(selectedRecipeIds)
+	const mealTypeOrder = [
+		"Breakfast",
+		"Lunch",
+		"Appetizer",
+		"Dinner",
+		"Dessert",
+	]
 
 	useEffect(() => {
 		const fetchRecipes = async () => {
@@ -105,7 +112,9 @@ const RecipesIndex: React.FC<RecipesIndexProps> = ({
 		},
 		{} as { [mealType: string]: RecipeModel[] }
 	)
-
+	const orderedMealTypes = mealTypeOrder.filter((mealType) =>
+		filteredRecipesByMealType.hasOwnProperty(mealType)
+	)
 	// Handling recipe selection
 	const handleRecipeClick = (recipeId: string) => {
 		setSelectedRecipeId(recipeId || null)
@@ -269,27 +278,25 @@ const RecipesIndex: React.FC<RecipesIndexProps> = ({
 						<div className="recipes-index">
 							<h2>Index</h2>
 							{/* Render each meal type as a separate section */}
-							{Object.entries(filteredRecipesByMealType).map(
-								([mealType, recipes]) => (
-									<div className="mealType" key={mealType}>
-										<h3>{mealType}</h3>
-										<ul>
-											{recipes.map((recipe) => (
-												<li
-													key={recipe.id}
-													onClick={() =>
-														handleRecipeClick(
-															recipe.id
-														)
-													}
-												>
-													{recipe.name}
-												</li>
-											))}
-										</ul>
-									</div>
-								)
-							)}
+							{orderedMealTypes.map((mealType) => (
+								<div className="mealType" key={mealType}>
+									<h3>{mealType}</h3>
+									<ul>
+										{filteredRecipesByMealType[
+											mealType
+										].map((recipe) => (
+											<li
+												key={recipe.id}
+												onClick={() =>
+													handleRecipeClick(recipe.id)
+												}
+											>
+												{recipe.name}
+											</li>
+										))}
+									</ul>
+								</div>
+							))}
 						</div>
 					</>
 				)}

@@ -23,6 +23,8 @@ interface RecipeDisplayProps {
 	setSelectedRecipe: (recipe: RecipeModel | null) => void
 	recipeToDisplay: RecipeModel | null
 	setRecipeToDisplay: (recipe: RecipeModel | null) => void
+	showAddToSelectedRecipes: boolean | null
+	setShowAddToSelectedRecipes: (showAddToSelectedRecipes: boolean) => void
 }
 
 const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
@@ -43,6 +45,8 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 	setSelectedRecipe,
 	recipeToDisplay,
 	setRecipeToDisplay,
+	showAddToSelectedRecipes,
+	setShowAddToSelectedRecipes,
 }) => {
 	const [recipe, setRecipe] = useState<RecipeModel | null>(null)
 	const [showRecipe, setShowRecipe] = useState<RecipeModel | null>(null)
@@ -55,6 +59,7 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 		console.log(selectedRecipe)
 		console.log("Received generatedRecipe:", generatedRecipe)
 	}
+
 	const fetchRecipes = async () => {
 		try {
 			const response = await fetch(
@@ -66,19 +71,53 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 					},
 				}
 			)
+
 			if (response.ok) {
 				const data = await response.json()
-				setRecipes(data.data) // Assuming the server sends the cleaned recipes in `data.data`
+				setRecipes(data.data)
 			} else {
 				throw new Error("Failed to fetch recipes.")
 			}
 		} catch (error) {
 			console.error("Error fetching recipes:", error)
-		} finally {
-			setIsLoading(false)
 		}
 	}
 
+	useEffect(() => {
+		fetchRecipes() // Fetch recipes only once when component mounts
+	}, [])
+
+	useEffect(() => {
+		if (activeContent === "sousChef" && generatedRecipe) {
+			// If in SousChef mode and there's a generated recipe, show it
+			setRecipeToDisplay(generatedRecipe)
+			setShowAddToSelectedRecipes(false) // Hide "Add to Selected Recipes" button in SousChef mode
+		} else if (selectedRecipeId) {
+			// If a recipeId is selected, find it in the fetched recipes
+			const recipe = recipes.find(
+				(r: RecipeModel) => r.id === selectedRecipeId
+			)
+			if (recipe) {
+				setRecipeToDisplay(recipe)
+			} else {
+				// If the recipe isn't found locally, you might want to fetch it from the server here
+				// For now, we'll just handle it as undefined
+				setRecipeToDisplay(null)
+			}
+			setFetchingRecipe(false)
+		} else {
+			setRecipeToDisplay(null) // If no recipe is selected or being generated, don't show anything
+			setShowAddToSelectedRecipes(false)
+		}
+	}, [
+		selectedRecipeId,
+		recipes,
+		generatedRecipe,
+		activeContent,
+		setIsLoading,
+		setRecipeToDisplay,
+		setShowAddToSelectedRecipes,
+	]) // Add dependencies
 	// Function to save the recipe
 	const handleSaveRecipe = async () => {
 		setSavedRecipe(false)
@@ -105,30 +144,6 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 		}
 	}
 	const handleSelectedRecipesChange = () => {}
-
-	useEffect(() => {
-		if (activeContent === "sousChef" && generatedRecipe) {
-			setRecipeToDisplay(generatedRecipe) // Update selected recipe whenever generatedRecipe changes
-		} else if (selectedRecipeId) {
-			setFetchingRecipe(true)
-			fetchRecipes().then(() => {
-				const recipe = recipes.find(
-					(r: RecipeModel) => r.id === selectedRecipeId
-				)
-				setRecipeToDisplay(recipe || null)
-				setFetchingRecipe(false)
-			})
-		} else {
-			setRecipeToDisplay(null)
-		}
-	}, [
-		activeContent,
-		selectedRecipeId,
-		generatedRecipe,
-		recipes,
-		fetchRecipes,
-		setRecipeToDisplay,
-	])
 
 	useEffect(() => {
 		if (selectedRecipeId) {
@@ -163,6 +178,7 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 						isSelected={selectedRecipeIds.includes(
 							selectedRecipeId || ""
 						)}
+						showAddToSelectedRecipes={activeContent === "recipes"}
 					/>
 
 					{activeContent === "sousChef" && (
@@ -184,7 +200,7 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 				</div>
 			) : (
 				<div className="chefContainer">
-					<Chef isLoading={isLoading} size={300} />
+					<Chef isLoading={isLoading} size={500} />
 				</div>
 			)}
 		</div>
