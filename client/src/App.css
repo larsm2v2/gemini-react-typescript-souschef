@@ -17,12 +17,14 @@
 }
 
 .App_with_sidebar {
-
+  display: flex;
 flex-direction: row;
-overflow:hidden;
+
 }
 
-
+/* .AppNavBar {
+  background-color: var(--secondary-text-color);
+} */
 .nav-items{
   justify-content: center;
   display: flex;
@@ -38,15 +40,28 @@ overflow:hidden;
 }
 
 .sidebar-items{
-  display: none;
+  position: absolute;
+  top: 7%;
+  width: 0%;
+  height: 100vh;
+  z-index: 105;
+  transform:translateX(150%);
+  transition: transform 0.3s ease-in-out/* , width 0.3s ease-in-out */;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  align-items: start;
+  background-color: var(--secondary-text-color); 
+  overflow: hidden;
 
 }
 
-.sidebar-items > * {
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: 30ch;
+.sidebar-items.open {
+  width: 50%;
+  transform: translateX(100%);
 }
+
 
 .App-souschef{
   justify-content: center;

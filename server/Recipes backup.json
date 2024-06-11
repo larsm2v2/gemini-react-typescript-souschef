@@ -1896,168 +1896,199 @@
 		}
 	},
 	{
-		"name": "One Pan Tandoori Chicken and Spiced Coconut Rice",
-		"unique id": 1696044323688,
-		"id": "one-pan-tandoori-chicken-and-spiced-coconut-rice",
+		"name": "One Pan Tandoori Chicken with Spiced Coconut Rice",
+		"unique id": 1696044234578,
+		"id": "one-pan-tandoori-chicken-with-spiced-coconut-rice",
 		"cuisine": "Indian",
 		"meal type": "dinner",
-		"dietary restrictions and designations": ["gluten-free", "dairy-free"],
+		"dietary restrictions and designations": ["gluten-free"],
 		"serving info": {
-			"prep time": "15 minutes",
+			"prep time": "1 hour",
 			"cook time": "35 minutes",
-			"total time": "50 minutes",
+			"total time": "1 hour 35 minutes",
 			"number of people served": 4
 		},
 		"ingredients": {
 			"marinade": [
 				{
 					"id": 1,
-					"name": "plain Greek yogurt",
-					"quantity": 0.5,
-					"unit": "cup"
-				},
-				{
-					"id": 2,
-					"name": "lemon juice",
-					"quantity": 2,
-					"unit": "tablespoons"
-				},
-				{
-					"id": 3,
-					"name": "garlic",
-					"quantity": 2,
-					"unit": "cloves"
-				},
-				{
-					"id": 4,
-					"name": "ginger",
-					"quantity": 1,
-					"unit": "tablespoon"
-				},
-				{
-					"id": 5,
-					"name": "garam masala",
-					"quantity": 1.5,
-					"unit": "tablespoons"
-				},
-				{
-					"id": 6,
-					"name": "tandoori seasoning",
-					"quantity": 1,
-					"unit": "tablespoon"
-				},
-				{
-					"id": 7,
-					"name": "salt",
-					"quantity": 1,
-					"unit": "teaspoon"
-				},
-				{
-					"id": 8,
-					"name": "black pepper",
-					"quantity": 0.5,
-					"unit": "teaspoon"
-				}
-			],
-			"chicken and rice": [
-				{
-					"id": 9,
-					"name": "boneless, skinless chicken breasts",
+					"name": "boneless skinless chicken thighs",
 					"quantity": 1.5,
 					"unit": "pounds"
 				},
 				{
+					"id": 2,
+					"name": "coriander",
+					"quantity": 1,
+					"unit": "teaspoon"
+				},
+				{
+					"id": 3,
+					"name": "cumin",
+					"quantity": 1,
+					"unit": "teaspoon"
+				},
+				{
+					"id": 4,
+					"name": "paprika",
+					"quantity": 1,
+					"unit": "teaspoon"
+				},
+				{
+					"id": 5,
+					"name": "ground turmeric",
+					"quantity": 1,
+					"unit": "teaspoon"
+				},
+				{
+					"id": 6,
+					"name": "cayenne pepper",
+					"quantity": 1,
+					"unit": "teaspoon"
+				},
+				{
+					"id": 7,
+					"name": "garam masala",
+					"quantity": 0.5,
+					"unit": "tablespoon"
+				},
+				{
+					"id": 8,
+					"name": "nonfat plain greek yogurt",
+					"quantity": 0.75,
+					"unit": "cup"
+				},
+				{
+					"id": 9,
+					"name": "lemon juice",
+					"quantity": 1,
+					"unit": "small lemon, juiced"
+				},
+				{
 					"id": 10,
-					"name": "coconut oil",
+					"name": "garlic",
+					"quantity": 3,
+					"unit": "cloves, minced"
+				},
+				{
+					"id": 11,
+					"name": "freshly grated ginger",
 					"quantity": 1,
 					"unit": "tablespoon"
 				},
 				{
-					"id": 11,
-					"name": "yellow onion",
-					"quantity": 1
-				},
-				{
 					"id": 12,
-					"name": "basmati rice",
-					"quantity": 1,
-					"unit": "cup"
+					"name": "salt",
+					"quantity": 0.75,
+					"unit": "teaspoon"
 				},
 				{
 					"id": 13,
-					"name": "coconut milk",
-					"quantity": 1.5,
-					"unit": "cups"
-				},
-				{
-					"id": 14,
-					"name": "chicken broth",
-					"quantity": 1,
-					"unit": "cup"
+					"name": "freshly ground black pepper",
+					"quantity": 0.25,
+					"unit": "teaspoon"
 				}
 			],
-			"garnish": [
+			"dish": [
+				{
+					"id": 14,
+					"name": "olive oil or coconut oil",
+					"quantity": 1,
+					"unit": "tablespoon"
+				},
 				{
 					"id": 15,
-					"name": "fresh cilantro",
-					"quantity": 0.25,
-					"unit": "cup"
+					"name": "lite coconut milk",
+					"quantity": 1,
+					"unit": "15 ounce can"
 				},
 				{
 					"id": 16,
-					"name": "lime wedges",
-					"quantity": 2
+					"name": "red pepper flakes",
+					"quantity": 0.5,
+					"unit": "teaspoon"
+				},
+				{
+					"id": 17,
+					"name": "turmeric",
+					"quantity": 0.5,
+					"unit": "teaspoon"
+				},
+				{
+					"id": 18,
+					"name": "cumin",
+					"quantity": 0.5,
+					"unit": "teaspoon"
+				},
+				{
+					"id": 19,
+					"name": "coriander",
+					"quantity": 0.125,
+					"unit": "teaspoon"
+				},
+				{
+					"id": 20,
+					"name": "salt",
+					"quantity": 0.5,
+					"unit": "teaspoon"
+				},
+				{
+					"id": 21,
+					"name": "freshly ground black pepper",
+					"quantity": 0.25,
+					"unit": "teaspoon"
+				},
+				{
+					"id": 22,
+					"name": "uncooked basmati white rice",
+					"quantity": 1,
+					"unit": "cup"
+				},
+				{
+					"id": 23,
+					"name": "frozen green peas",
+					"quantity": 0.75,
+					"unit": "cup"
 				}
 			]
 		},
 		"instructions": [
 			{
 				"number": 1,
-				"text": "Make the marinade: In a large bowl, whisk together the yogurt, lemon juice, garlic, ginger, garam masala, tandoori seasoning, salt, and pepper."
+				"text": "Add chicken, coriander, cumin, paprika, turmeric, cayenne pepper, garam masala, greek yogurt, lemon juice, garlic, ginger, salt and pepper to a large bowl; mix with a spoon to combine and coat the chicken and then cover with plastic wrap and place in fridge for anywhere from 1-8 hours to marinate the chicken."
 			},
 			{
 				"number": 2,
-				"text": "Add the chicken to the marinade and coat well. Cover and refrigerate for at least 30 minutes or up to overnight."
+				"text": "Place a large deep 10 inch skillet over medium high heat. (If you do not have a skillet a large pot will also work very well!) Add in oil; once hot, add in chicken and season generously with freshly ground salt and pepper. Cook until browned 4-5 minutes, then flip and and cook an additional 2 minutes. Remove from pan and transfer to a plate."
 			},
 			{
 				"number": 3,
-				"text": "Preheat the oven to 400 degrees F (200 degrees C). Lightly grease a 9x13 inch baking dish or similar-sized oven-safe skillet."
+				"text": "In the same skillet, add in coconut milk, red pepper flakes, turmeric, cumin, coriander and salt and pepper. Bring to a simmer, then fold in the uncooked rice and peas, making sure it is evenly distributed."
 			},
 			{
 				"number": 4,
-				"text": "Heat the coconut oil in the prepared baking dish over medium heat. Add the onion and cook until softened, about 5 minutes."
+				"text": "Add browned chicken on top."
 			},
 			{
 				"number": 5,
-				"text": "Stir in the rice, coconut milk, and chicken broth. Bring to a boil, then reduce heat to low, cover, and simmer for 15 minutes."
-			},
-			{
-				"number": 6,
-				"text": "Remove the rice from the oven and stir. Nestle the marinated chicken into the rice mixture."
-			},
-			{
-				"number": 7,
-				"text": "Bake for 20-25 minutes, or until the chicken is cooked through and the rice is tender."
-			},
-			{
-				"number": 8,
-				"text": "Garnish with fresh cilantro and lime wedges before serving."
+				"text": "Reduce heat to low, cover the skillet immediately and cook for 20-25 minutes. After 20-25 minutes, most of the liquid should be absorbed and rice should be cooked. Serve immediately. Garnish with cilantro and serve with extra yogurt if you'd like."
 			}
 		],
 		"notes": [
-			"For a spicier dish, add 1/2 teaspoon of cayenne pepper to the marinade.",
-			"Leftovers can be stored in an airtight container in the refrigerator for up to 3 days.",
-			"To reheat, microwave on high for 1-2 minutes, or until heated through."
+			"Do not use brown rice. It takes a lot longer to cook and I would NOT recommend.",
+			"Cauliflower rice works well in this recipe!",
+			"If you are looking for an alternative, I would recommend subbing about 2/3 cup quinoa. The cooking time will stay the same.",
+			"To meal prep: This meal serves four. Place rice in a meal prep containers and top with 1 chicken thigh. Garnish with cilantro and green onions."
 		],
 		"nutrition": {
 			"serving": "1 serving",
-			"calories": 450,
-			"carbohydrates": 50,
-			"protein": 35,
-			"fat": 18,
-			"saturated fat": 5,
-			"fiber": 5,
-			"sugar": 4
+			"calories": 528,
+			"carbohydrates": 45.1,
+			"protein": 42.5,
+			"fat": 18.4,
+			"saturated fat": 7.7,
+			"fiber": 3.3,
+			"sugar": 5.4
 		}
 	}
 ]

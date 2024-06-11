@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar"
 import Sidebar from "./components/Sidebar/Sidebar"
 import SousChef from "./components/SousChef/SousChef"
 import ShoppingList from "./components/ShoppingList/ShoppingList"
+import ShoppingListSidebar from "./components/ShoppingList/ShoppingListSidebar"
 import Recipes from "./components/Recipes/Recipes"
 import RecipesIndex from "./components/Recipes/RecipesIndex"
 import RecipeDisplay from "./components/RecipeDisplay/RecipeDisplay"
@@ -32,7 +33,8 @@ function App() {
 	const [selectedRecipeId, setSelectedRecipeId] = useState<string | null>(
 		null
 	)
-
+	//State for Shopping List
+	const [isShoppingListOpen, setIsShoppingListOpen] = useState(false)
 	//State for display
 	const [recipeToDisplay, setRecipeToDisplay] = useState<RecipeModel | null>(
 		null
@@ -98,8 +100,10 @@ function App() {
 			</nav>
 			<div className="App_with_sidebar">
 				<div className="sidebar-items" id="App-sidebar">
-					{" "}
-					<Sidebar />
+					<Sidebar
+						selectedRecipeIds={selectedRecipeIds}
+						setSelectedRecipeIds={setSelectedRecipeIds}
+					/>
 				</div>
 				<div className="App" id="App-main">
 					<RecipeDisplay
@@ -150,9 +154,6 @@ function App() {
 					)}
 					{/* Toggle ShoppingListPanel visibility within RecipeDisplay */}
 				</div>
-			</div>
-			<div>
-				<ShoppingList selectedRecipeIds={selectedRecipeIds} />
 			</div>
 		</Fragment>
 	)

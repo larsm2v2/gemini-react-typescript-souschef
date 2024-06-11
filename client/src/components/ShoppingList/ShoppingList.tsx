@@ -6,6 +6,11 @@ import shoppingListData from "./ShoppingList.json"
 import { ListItem } from "../Models/Models"
 import recipeData from "../Recipes/Recipes.json"
 
+interface ShoppingListProps {
+	selectedRecipeIds: string[]
+	setSelectedRecipeIds: (ids: string[]) => void
+}
+
 // Fetch recipe by ID (from the imported Recipes.json)
 const fetchRecipeById = (recipeId: string): RecipeModel | null => {
 	const recipe = (recipeData as RecipeModel[]).find(
@@ -29,8 +34,9 @@ const fetchRecipeById = (recipeId: string): RecipeModel | null => {
 
 	return fixedRecipe as RecipeModel
 }
-const ShoppingList: React.FC<{ selectedRecipeIds: string[] }> = ({
-	selectedRecipeIds,
+const ShoppingList: React.FC<ShoppingListProps> = ({
+	selectedRecipeIds = [],
+	setSelectedRecipeIds,
 }) => {
 	const [recipeIngredients, setRecipeIngredients] = useState<{
 		[recipeId: string]: ListItem[]
@@ -163,58 +169,60 @@ const ShoppingList: React.FC<{ selectedRecipeIds: string[] }> = ({
 		}
 	}
 	useEffect(() => {
-		const updateShoppingList = () => {
+		const updateShoppingList = async () => {
 			const newRecipeIngredients: { [recipeId: string]: ListItem[] } = {}
-
-			selectedRecipeIds.forEach((recipeId) => {
-				const recipe = recipes.find((r) => r.id === recipeId)
-				if (recipe) {
-					newRecipeIngredients[recipeId] = Object.values(
-						recipe.ingredients
-					)
-						.flat()
-						.map((ingredient) => {
-							// Check for synonyms
-							const standardizedName = Object.keys(
-								ingredientSynonyms
-							).find((key) =>
-								ingredientSynonyms[key].includes(
-									ingredient.name.toLowerCase()
+			const validRecipeIds = selectedRecipeIds.filter(
+				(recipeId) => recipeId !== null && recipeId !== ""
+			)
+			await Promise.all(
+				validRecipeIds.map(async (recipeId) => {
+					const recipe = recipes.find((r) => r.id === recipeId)
+					if (recipe) {
+						newRecipeIngredients[recipeId] = Object.values(
+							recipe.ingredients
+						)
+							.flat()
+							.map((ingredient) => {
+								// Check for synonyms
+								const standardizedName = Object.keys(
+									ingredientSynonyms
+								).find((key) =>
+									ingredientSynonyms[key].includes(
+										ingredient.name.toLowerCase()
+									)
 								)
-							)
 
-							return {
-								id: Date.now() + Math.random(), // Generate a unique ID
-								quantity: ingredient.quantity || 0,
-								unit: ingredient.unit || "",
-								listItem: ingredient.name,
-								isDone: false,
-								toTransfer: false,
-							}
-						})
-				}
-			})
+								return {
+									id: Date.now() + Math.random(), // Generate a unique ID
+									quantity: ingredient.quantity || 0,
+									unit: ingredient.unit || "",
+									listItem: ingredient.name,
+									isDone: false,
+									toTransfer: false,
+								}
+							})
+					}
+				})
+			)
 
 			setRecipeIngredients(newRecipeIngredients)
-
+			const allIngredients = Object.values(newRecipeIngredients).flat()
 			const uniqueIngredients = new Set<string>()
 			const consolidatedList: ListItem[] = []
 
-			for (const recipeId in newRecipeIngredients) {
-				newRecipeIngredients[recipeId].forEach((ingredient) => {
-					if (!uniqueIngredients.has(ingredient.listItem)) {
-						uniqueIngredients.add(ingredient.listItem)
-						consolidatedList.push(ingredient)
-					} else {
-						const existingItem = consolidatedList.find(
-							(item) => item.listItem === ingredient.listItem
-						)
-						if (existingItem) {
-							existingItem.quantity += ingredient.quantity
-						}
+			allIngredients.forEach((ingredient) => {
+				if (!uniqueIngredients.has(ingredient.listItem)) {
+					uniqueIngredients.add(ingredient.listItem)
+					consolidatedList.push(ingredient)
+				} else {
+					const existingItem = consolidatedList.find(
+						(item) => item.listItem === ingredient.listItem
+					)
+					if (existingItem) {
+						existingItem.quantity += ingredient.quantity
 					}
-				})
-			}
+				}
+			})
 
 			setListItems(consolidatedList)
 		}
@@ -227,18 +235,10 @@ const ShoppingList: React.FC<{ selectedRecipeIds: string[] }> = ({
 			<h1>myShoppingList</h1>
 			<div className="flex-container">
 				<div className="edit-box">
-					<h2>Editable List</h2>
 					<EditableList
 						listItems={listItems}
 						setListItems={setListItems}
 					/>
-				</div>
-				<div className="transfer-box">
-					<h2>Transferable List</h2>
-					<div className="transfer-list">
-						{/* Implement your transferable list here */}
-					</div>
-					<button>Transfer to Transferable List</button>
 				</div>
 			</div>
 		</div>

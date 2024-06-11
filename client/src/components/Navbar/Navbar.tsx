@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { assets } from "../../assets/assets"
 import "./Navbar.css"
-/* import "../Sidebar/Sidebar.css" */
+import "../Sidebar/Sidebar.css"
 
 interface Props {
 	sidebarToggled: boolean
@@ -24,20 +24,19 @@ const Navbar: React.FC<Props> = ({
 		navOpenClose(openNav, closeNav)
 	}
 	function openNav() {
-		const sidebarWidth: string = "100%"
+		const sidebarWidth: string = "50vw"
 		const sidebar = document.getElementById("App-sidebar")
-		if (sidebar) sidebar.style.width = sidebarWidth
-		if (sidebar) sidebar.style.display = "flex"
-		//if (main) main.style.width = "85%";
+		if (sidebar) {
+			sidebar.style.width = sidebarWidth
+			sidebar.classList.add("open")
+		}
 	}
 
 	function closeNav() {
-		const closeWidth: string = "0"
 		const sidebar = document.getElementById("App-sidebar")
-		if (sidebar) sidebar.style.width = closeWidth
-		if (sidebar) sidebar.style.padding = "0 0 0 0"
-		if (sidebar) sidebar.style.display = "none"
-		//if (main) main.style.width = "100%";
+		if (sidebar) {
+			sidebar.classList.remove("open")
+		}
 	}
 	function navOpenClose(openNav: Function, closeNav: Function) {
 		if (sidebarToggled) {
@@ -53,7 +52,6 @@ const Navbar: React.FC<Props> = ({
 					className="sidebar-toggle"
 					src={assets.menu_icon}
 					alt="Menu"
-					onClick={togglesidebar}
 				/>
 				<li
 					onClick={(event: React.MouseEvent<HTMLLIElement>) => {
@@ -69,15 +67,7 @@ const Navbar: React.FC<Props> = ({
 				>
 					mySousChef
 				</li>
-				<li
-					onClick={(event: React.MouseEvent<HTMLLIElement>) => {
-						document
-							.getElementById("shoppinglist")
-							?.scrollIntoView()
-					}}
-				>
-					myShoppingList
-				</li>
+				<li onClick={togglesidebar}>myShoppingList</li>
 			</ul>
 		</nav>
 	)

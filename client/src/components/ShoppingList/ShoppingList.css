@@ -1,19 +1,20 @@
 .shoppinglist-container {
     width: 100%;
     padding: 0 1rem 0 1rem;
+    color: var(--tertiary-background-color);
     min-height: 50vh;
     margin: 0vw 1vw;
     display: flex;
     flex-direction: column;
     /* align-items: center; */
-    justify-content: center;
+    justify-content: left;
 }
 
 .flex-container {
-    display: flexbox;
+    display: flex;
     flex-direction: row;
     /* text-justify: center; */
-    justify-content: center;
+    justify-content: left;
     width: 100%;
     padding: 0 1rem 0 1rem;
 }
