@@ -8,6 +8,7 @@ body {
   flex-direction: column;
   display: flex;
   background-color: #ffe298;
+  margin: 0;
 }
 
 #root {

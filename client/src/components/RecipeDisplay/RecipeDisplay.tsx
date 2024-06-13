@@ -143,7 +143,7 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 		}
 	}
 	const handleSelectedRecipesChange = (recipe: RecipeModel | null) => {
-		setSelectedRecipeIds((prevSelectedIds) => {
+		setSelectedRecipeIds((prevSelectedIds: string[]): string[] => {
 			if (recipe) {
 				if (prevSelectedIds.includes(recipe.id)) {
 					return prevSelectedIds.filter(
