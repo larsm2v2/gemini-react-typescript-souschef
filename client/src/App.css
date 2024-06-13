@@ -5,7 +5,7 @@
 
 .App {
   width: 100%;
-  padding: 0 1rem 0 1rem;
+  padding: 0 0rem 0 0rem;
   text-align: center;
   background-color: var(--tertiary-background-color);
   display: flex;
@@ -26,16 +26,19 @@ flex-direction: row;
   background-color: var(--secondary-text-color);
 } */
 .nav-items{
+  left: 0;
+  right:0;
   justify-content: center;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   background-color: var(--secondary-text-color);
   color: var(--tertiary-background-color);
 }
 .nav-items.sticky {
   position: sticky;
   top: 0;
+  right: 0;
+  left: 0;
   z-index: 110;
 }
 
@@ -43,7 +46,7 @@ flex-direction: row;
   position: absolute;
   top: 7%;
   right:0;
-  width: 30%;
+  width: 40%;
   height: 100vh;
   z-index: 105;
   transition: transform 0.3s ease-in-out/* , width 0.3s ease-in-out */;
@@ -94,4 +97,13 @@ flex-direction: row;
 /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
 .sticky + .App {
   padding-top: 60px;
+}
+
+@media (max-width: 768px) {
+  .sidebar-items {
+    width: 75vw;
+  }
+  .App_with_sidebar {
+    flex-direction: column;
+  }
 }

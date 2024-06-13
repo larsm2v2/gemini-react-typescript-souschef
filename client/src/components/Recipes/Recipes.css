@@ -1,8 +1,8 @@
 .recipes-container {
     width: 100%;
-    padding: 0 1rem 0 1rem;
+    padding: 0.5rem 0rem 0 0rem;
     height: auto;
-    margin: 0vw 1vw;
+    margin: 0vw 0vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,8 +29,7 @@ border-radius: 0;
 border-color: rgb(0, 0, 0);
 }
 .recipes-index {
-width: 60%;
-margin-right: 20px;
+width: 90%;
 color: var(--primary-color);
 border-radius: 15px;
 background-color: var(--secondary-color);
@@ -49,29 +48,42 @@ text-decoration: none;
     gap: 1rem;
 }
 .mealType{
-    justify-content: space-between;
-    width: 60%
+    width:60%;
+    justify-content:center;
+    width: 90%
 
 }
 
-.mealtype ul :hover {
-        transform: scale(1.1);
-        background-color: var(--primary-color);
-        color: var(--secondary-color);
-        cursor: pointer;
-    }
+.mealType ul {
+    width: 60%;
+    list-style-type: none;
+    padding-left: 10%;
+    padding-right: 10%;
+    align-items: center;
+    gap: 0.5rem;
+}
 
-.recipes-index h3 {
+
+.mealType h3 {
+    width: 40%;
     font-size: 1.5rem;
     font-weight: 600;
     padding: 1rem;
     margin: 0;
+    padding-left: 0;
+    justify-content: left;
+    text-align: left;
 
 }
-.recipes-index ul {
-    list-style-type: none; 
-}
 
+
+.mealType li:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+    color: var(--secondary-color);
+    background-color: var(--secondary-text-color);
+    border-radius: 15px;
+}
 .recipes-show {
 width: 70%;
 display: flex;
@@ -102,21 +114,27 @@ align-items: center;
 h2 {
     margin:0;
 }
-h3 {
-    margin:0;
-    padding: 2%;
-}
-li {
-cursor:pointer;
-}
+
+
 
 
 .eachIngredientSet{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    }
-
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+width: 80%;
+}
+.eachIngredientSet h3 {
+    list-style-type: none;
+    justify-content: left;
+    margin:0;
+}  
+.eachIngredientSet ul {
+    margin: 0.2rem;
+    list-style-type: none;
+    justify-content: center;
+}     
 .eachIngredientSetTitle {
     justify-items: left;
 }
@@ -130,4 +148,18 @@ cursor:pointer;
     justify-content: left;
     text-align: left;
     gap: 1rem;
+}
+
+@media (max-width: 480px) {
+    .chefContainer {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+    .eachIngredientSet, .instructionSet{
+        width:90%;
+    }
 }

@@ -26,3 +26,9 @@
       stroke-dashoffset: 0;
     }
   }
+
+  @media (max-width: 480px) {
+    .chefhat {
+        width: 100%;
+    }
+}

@@ -24,10 +24,14 @@ const Navbar: React.FC<Props> = ({
 		navOpenClose(openNav, closeNav)
 	}
 	function openNav() {
-		const sidebarWidth: string = "25vw"
+		const sidebarWidth: string = "50vw"
+		const sidebarWidthSmall: string = "80vw"
 		const sidebar = document.getElementById("App-sidebar")
 		if (sidebar) {
 			sidebar.style.width = sidebarWidth
+			if (window.innerWidth <= 480) {
+				sidebar.style.width = sidebarWidthSmall
+			}
 			sidebar.classList.add("open")
 		}
 	}

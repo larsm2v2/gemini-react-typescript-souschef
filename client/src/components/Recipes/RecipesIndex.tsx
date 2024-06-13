@@ -208,7 +208,7 @@ const RecipesIndex: React.FC<RecipesIndexProps> = ({
 		}
 	}
 
-	useEffect(() => {
+	/* 	useEffect(() => {
 		const eventSource = new EventSource(
 			"http://localhost:8000/api/recipes-stream"
 		)
@@ -231,7 +231,7 @@ const RecipesIndex: React.FC<RecipesIndexProps> = ({
 		return () => {
 			eventSource.close() // Clean up on unmount
 		}
-	}, [])
+	}, []) */
 
 	const handleAdd = async (newRecipe: RecipeModel) => {
 		try {

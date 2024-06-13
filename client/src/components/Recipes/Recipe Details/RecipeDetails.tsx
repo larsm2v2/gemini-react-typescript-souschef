@@ -62,14 +62,14 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
 				}
 		  })
 		: null
-	if (isSelected && ingredientGroups) {
+	/* 	if (isSelected && ingredientGroups) {
 		ingredientGroups.unshift({
 			// Add "Selected Recipes" group to the beginning
 			name: "Selected",
 			ingredients: { dish: showRecipe!.ingredients.dish },
 		})
 	}
-
+ */
 	return (
 		<div className="recipes-container">
 			{showRecipe && ingredientGroups && (
@@ -104,7 +104,7 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
 
 					{/* 3. Display Ingredients by Subheading (with capitalized headings) */}
 					<h2>{capitalizeHeading("Ingredients")}</h2>
-					{ingredientGroups.map((group) => (
+					{ingredientGroups?.map((group) => (
 						<div className="eachIngredientSet" key={group.name}>
 							<h3 className="eachIngredientSetTitle">
 								{capitalizeHeading(group.name)}
@@ -113,21 +113,27 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
 								{/* Access the ingredients array for the specific group */}
 								{Object.values(group.ingredients).flatMap(
 									(ingredientsArray) =>
-										ingredientsArray
-											.filter(
-												(ingredient) =>
-													ingredient.name &&
-													ingredient.quantity
-											)
-											.map((ingredient) => (
-												<li key={ingredient.id}>
-													{`${ingredient.quantity} ${
-														ingredient.unit
-															? ingredient.unit
-															: ""
-													} ${ingredient.name}`}
-												</li>
-											))
+										Array.isArray(ingredientsArray) // Check if ingredientsArray is an array
+											? ingredientsArray
+													.filter(
+														(ingredient) =>
+															ingredient.name &&
+															ingredient.quantity
+													)
+													.map((ingredient) => (
+														<li key={ingredient.id}>
+															{`${
+																ingredient.quantity
+															} ${
+																ingredient.unit
+																	? ingredient.unit
+																	: ""
+															} ${
+																ingredient.name
+															}`}
+														</li>
+													))
+											: []
 								)}
 							</ul>
 						</div>

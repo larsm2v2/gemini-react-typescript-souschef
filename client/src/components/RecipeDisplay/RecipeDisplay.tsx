@@ -142,12 +142,16 @@ const RecipeDisplay: React.FC<RecipeDisplayProps> = ({
 			console.error("Error saving recipe:", error)
 		}
 	}
-	const handleSelectedRecipesChange = (recipe: RecipeModel) => {
-		setSelectedRecipeIds((prevSelectedIds: string[]) => {
-			if (prevSelectedIds.includes(recipe.id)) {
-				return prevSelectedIds.filter((id: string) => id !== recipe.id)
-			} else {
-				return [...prevSelectedIds, recipe.id]
+	const handleSelectedRecipesChange = (recipe: RecipeModel | null) => {
+		setSelectedRecipeIds((prevSelectedIds) => {
+			if (recipe) {
+				if (prevSelectedIds.includes(recipe.id)) {
+					return prevSelectedIds.filter(
+						(id: string) => id !== recipe.id
+					)
+				} else {
+					return [...prevSelectedIds, recipe.id]
+				}
 			}
 		})
 	}

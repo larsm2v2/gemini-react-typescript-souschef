@@ -7,7 +7,7 @@
 }
 .nav {
     width: 100%;
-    /* display: flex; */
+    display: flex;
     flex-direction: row;
     justify-content: space-between; 
     gap: 2rem;
@@ -24,7 +24,8 @@
     display: flex;
     gap: 1rem;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: space-between;
+    width:100%;
 }
 .nav Link {
     color: inherit;
@@ -52,4 +53,19 @@ nav li:hover {
     align-items: center;
     display:flex;
     justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        gap: 0rem;
+        padding: 0;
+    }
+    .nav ul {
+        flex-direction: row;
+        gap: 0.2rem;
+    }
+    .sidebar-toggle{
+        width: 10%;
+    }
 }
